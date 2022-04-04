@@ -1,0 +1,22 @@
+import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
+import type { Story } from "@ladle/react";
+import { ComponentProps } from "react";
+import { {{ basename path }} } from "./{{ basename path }}";
+
+export default {
+  title: "{{ path }}",
+  component: {{ basename path }}
+};
+
+type Props = ComponentProps<typeof {{ basename path }}>;
+
+const {{ basename path }}Story = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+  return (
+    <TestWrapper {...wrapperProps}>
+      <{{ basename path }} {...props} />
+    </TestWrapper>
+  );
+};
+
+export const Playground = {{ basename path }}Story.bind({});
+Playground.args = { wrapperProps: {} };
