@@ -4,6 +4,7 @@ import { Button, Layout, Menu } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Outlet, useLocation } from "react-location";
+import { Header } from "./Header/Header";
 
 export const Home = (): ReactElement => {
   const { t } = useTranslation("common");
@@ -14,12 +15,13 @@ export const Home = (): ReactElement => {
     <Layout
       style={{ height: "100vh", overflow: "clip", backgroundColor: "white" }}
     >
-      <Layout.Header>
-        <Menu theme="light" mode="horizontal" defaultSelectedKeys={["2"]}>
-          <Menu.Item key="1">nav 1</Menu.Item>
-          <Menu.Item key="2">nav 2</Menu.Item>
-          <Menu.Item key="3">nav 3</Menu.Item>
-        </Menu>
+      <Layout.Header
+        style={{
+          padding: 0,
+          borderBottom: "solid 1px #f0f1f2",
+        }}
+      >
+        <Header />
       </Layout.Header>
       <Layout>
         <Layout.Sider>

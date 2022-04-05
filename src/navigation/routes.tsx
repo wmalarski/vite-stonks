@@ -1,3 +1,4 @@
+import { Translation } from "@/components/Translation/Translation";
 import { Invoice } from "@/pages/Invoice/Invoice";
 import { Settings } from "@/pages/Settings/Settings";
 import { Sheet } from "@/pages/Sheet/Sheet";
@@ -16,10 +17,16 @@ export const routes = (): Route<LocationGenerics>[] => [
       {
         path: ":sheetId",
         element: <Sheet />,
+        meta: {
+          breadcrumb: () => <Translation label="sheet" />,
+        },
         children: [
           {
             path: "settings",
             element: <Settings />,
+            meta: {
+              breadcrumb: () => <Translation label="settings" />,
+            },
           },
           {
             path: "invoice",
@@ -27,6 +34,9 @@ export const routes = (): Route<LocationGenerics>[] => [
               {
                 path: ":invoiceId",
                 element: <Invoice />,
+                meta: {
+                  breadcrumb: () => <Translation label="invoice" />,
+                },
               },
             ],
           },
