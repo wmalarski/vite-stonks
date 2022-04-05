@@ -10,6 +10,8 @@
     "stories": "ladle serve"
   },
   "dependencies": {
+    "@vanilla-extract/css": "^1.6.8",
+    "@vanilla-extract/vite-plugin": "^3.1.4",
     "antd": "^4.19.5",
     "i18next": "^21.6.14",
     "react": "^17.0.2",

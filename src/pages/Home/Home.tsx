@@ -3,24 +3,16 @@ import { paths } from "@/navigation/paths";
 import { Button, Layout, Menu } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, Outlet, useLocation } from "react-location";
+import { Link, Outlet } from "react-location";
 import { Header } from "./Header/Header";
+import * as classes from "./Home.css";
 
 export const Home = (): ReactElement => {
   const { t } = useTranslation("common");
 
-  const location = useLocation();
-
   return (
-    <Layout
-      style={{ height: "100vh", overflow: "clip", backgroundColor: "white" }}
-    >
-      <Layout.Header
-        style={{
-          padding: 0,
-          borderBottom: "solid 1px #f0f1f2",
-        }}
-      >
+    <Layout className={classes.layout}>
+      <Layout.Header className={classes.header}>
         <Header />
       </Layout.Header>
       <Layout>

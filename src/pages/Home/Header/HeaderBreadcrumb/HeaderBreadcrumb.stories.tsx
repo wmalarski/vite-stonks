@@ -5,12 +5,15 @@ import { HeaderBreadcrumb } from "./HeaderBreadcrumb";
 
 export default {
   title: "pages/Home/Header/HeaderBreadcrumb",
-  component: HeaderBreadcrumb
+  component: HeaderBreadcrumb,
 };
 
 type Props = ComponentProps<typeof HeaderBreadcrumb>;
 
-const HeaderBreadcrumbStory = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const HeaderBreadcrumbStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <HeaderBreadcrumb {...props} />
