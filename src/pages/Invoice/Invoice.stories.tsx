@@ -5,12 +5,15 @@ import { Invoice } from "./Invoice";
 
 export default {
   title: "pages/Invoice",
-  component: Invoice
+  component: Invoice,
 };
 
 type Props = ComponentProps<typeof Invoice>;
 
-const InvoiceStory = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const InvoiceStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <Invoice {...props} />

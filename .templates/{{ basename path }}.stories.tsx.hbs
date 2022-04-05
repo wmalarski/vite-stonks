@@ -10,7 +10,7 @@ export default {
 
 type Props = ComponentProps<typeof {{ basename path }}>;
 
-const {{ basename path }}Story = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const {{ basename path }}Story: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <{{ basename path }} {...props} />

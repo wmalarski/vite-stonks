@@ -5,12 +5,15 @@ import { Settings } from "./Settings";
 
 export default {
   title: "pages/Settings",
-  component: Settings
+  component: Settings,
 };
 
 type Props = ComponentProps<typeof Settings>;
 
-const SettingsStory = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const SettingsStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <Settings {...props} />

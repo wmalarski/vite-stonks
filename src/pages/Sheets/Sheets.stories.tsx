@@ -5,12 +5,15 @@ import { Sheets } from "./Sheets";
 
 export default {
   title: "pages/Home/Sheets",
-  component: Sheets
+  component: Sheets,
 };
 
 type Props = ComponentProps<typeof Sheets>;
 
-const SheetsStory = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const SheetsStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <Sheets {...props} />
