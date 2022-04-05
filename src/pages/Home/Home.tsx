@@ -16,12 +16,18 @@ export const Home = (): ReactElement => {
         <Header />
       </Layout.Header>
       <Layout>
-        <Layout.Sider>
-          <Menu theme="light" mode="vertical" defaultSelectedKeys={["2"]}>
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
-          </Menu>
+        <Layout.Sider className={classes.side}>
+          <div className={classes.sideContent}>
+            <Menu theme="light" mode="vertical" defaultSelectedKeys={["2"]}>
+              <Menu.Item key="1">nav 1</Menu.Item>
+              <Menu.Item key="2">nav 2</Menu.Item>
+              <Menu.Item key="3">nav 3</Menu.Item>
+            </Menu>
+            <div style={{ flexGrow: 1 }} />
+            <Button type="text" block>
+              Text Button
+            </Button>
+          </div>
         </Layout.Sider>
         <Layout.Content>
           main content
@@ -33,7 +39,6 @@ export const Home = (): ReactElement => {
           </div>
         </Layout.Content>
       </Layout>
-      <Layout.Footer>footer</Layout.Footer>
     </Layout>
   );
 };

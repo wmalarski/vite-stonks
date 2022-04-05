@@ -39,6 +39,9 @@
       "@/services/*": [
         "./services/*"
       ],
+      "@/styles/*": [
+        "./styles/*"
+      ],
       "@/tests/*": [
         "./tests/*"
       ],
