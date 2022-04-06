@@ -5,5 +5,8 @@
   "sheet": "Sheet",
   "settings": "Settings",
   "invoice": "Invoice",
-  "pageTitle": "Vite Stonks"
+  "pageTitle": "Vite Stonks",
+  "sheetsTitle": "Sheets",
+  "sheetsSubtitle": "List of your spreadsheets",
+  "addSheet": "Add spreadsheet"
 }

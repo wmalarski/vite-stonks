@@ -15,3 +15,7 @@ export const header = style({
 export const side = style({
   backgroundColor: vars.color.background,
 });
+
+export const content = style({
+  padding: vars.space.md,
+});

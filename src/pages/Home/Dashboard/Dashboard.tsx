@@ -1,16 +1,11 @@
-import { LocationGenerics } from "@/navigation/location";
-import { paths } from "@/navigation/paths";
-import { Button, Layout } from "antd";
+import { Layout } from "antd";
 import { ReactElement } from "react";
-import { useTranslation } from "react-i18next";
-import { Link, Outlet } from "react-location";
+import { Outlet } from "react-location";
 import * as classes from "./Dashboard.css";
 import { Header } from "./Header/Header";
 import { Sidebar } from "./Sidebar/Sidebar";
 
 export const Dashboard = (): ReactElement => {
-  const { t } = useTranslation("common");
-
   return (
     <Layout className={classes.layout}>
       <Layout.Header className={classes.header}>
@@ -20,14 +15,8 @@ export const Dashboard = (): ReactElement => {
         <Layout.Sider className={classes.side}>
           <Sidebar />
         </Layout.Sider>
-        <Layout.Content>
-          main content
-          <Button>Hello</Button>
-          <div>
-            <p>{t("Home")}</p>
-            <Link<LocationGenerics> to={paths.home}>Home</Link>
-            <Outlet />
-          </div>
+        <Layout.Content className={classes.content}>
+          <Outlet />
         </Layout.Content>
       </Layout>
     </Layout>
