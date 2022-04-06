@@ -10,7 +10,7 @@ export default {
 
 type Props = ComponentProps<typeof Login>;
 
-const LoginStory: Story<Props> = ({
+const LoginStory: Story<PropsWithTestWrapper<Props>> = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Props>) => {

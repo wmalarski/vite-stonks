@@ -1,5 +1,6 @@
 {
-  "Login": "login11",
+  "loginGoogle": "Login with google",
+  "logout": "Logout",
   "home": "Home",
   "sheet": "Sheet",
   "settings": "Settings",

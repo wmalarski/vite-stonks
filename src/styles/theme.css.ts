@@ -3,6 +3,7 @@ import { createTheme } from "@vanilla-extract/css";
 export const [themeClass, vars] = createTheme({
   color: {
     background: "#ffffff",
+    gray: "#f0f1f2",
   },
   space: {
     xs: "4px",

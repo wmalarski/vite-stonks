@@ -15,10 +15,3 @@ export const header = style({
 export const side = style({
   backgroundColor: vars.color.background,
 });
-
-export const sideContent = style({
-  backgroundColor: vars.color.background,
-  display: "flex",
-  flexDirection: "column",
-  height: "100%",
-});
