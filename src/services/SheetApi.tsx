@@ -31,6 +31,11 @@ export type PageArgs = {
   offset: number;
 };
 
+type SheetsListResult = {
+  sheets: Sheet[];
+  count: number;
+};
+
 type SheetsKey = ["sheets"] | ["sheets", PageArgs];
 type SheetKey = ["sheet", number];
 
@@ -39,7 +44,7 @@ type SheetApiService = {
   delete: (id: number) => Promise<void>;
   get: QueryFunction<Sheet, SheetKey>;
   key: (id: number) => SheetKey;
-  list: QueryFunction<Sheet[], SheetsKey>;
+  list: QueryFunction<SheetsListResult, SheetsKey>;
   listKey: (pagination?: PageArgs) => SheetsKey;
   update: (args: UpdateSheetArgs) => Promise<Sheet>;
 };
@@ -132,11 +137,23 @@ export const SheetApiProvider = ({ children }: Props): ReactElement => {
                 name
                 sheetId 
               }
+              aggregate: sheets_aggregate {
+                aggregate {
+                  count
+                }
+              }
             }`,
             queryKey[1]
           );
           if (error) throw error;
-          return (data as { sheets: Sheet[] }).sheets;
+          const result = data as {
+            sheets: Sheet[];
+            aggregate: { aggregate: { count: number } };
+          };
+          return {
+            sheets: result.sheets,
+            count: result.aggregate.aggregate.count,
+          };
         },
         listKey: (pagination) => {
           return pagination ? ["sheets", pagination] : ["sheets"];
