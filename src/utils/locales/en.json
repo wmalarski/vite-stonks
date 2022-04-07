@@ -13,5 +13,7 @@
   "addButton": "Add",
   "nameLabel": "Name",
   "nameRequired": "Name is required",
-  "sheetIdLabel": "SheetId"
+  "sheetIdLabel": "SheetId",
+  "removeSheet": "Remove",
+  "editSheet": "Edit"
 }
