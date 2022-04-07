@@ -8,5 +8,10 @@
   "pageTitle": "Vite Stonks",
   "sheetsTitle": "Sheets",
   "sheetsSubtitle": "List of your spreadsheets",
-  "addSheet": "Add spreadsheet"
+  "addSheet": "Add spreadsheet",
+  "addSheetTitle": "Add spreadsheet",
+  "addButton": "Add",
+  "nameLabel": "Name",
+  "nameRequired": "Name is required",
+  "sheetIdLabel": "SheetId"
 }

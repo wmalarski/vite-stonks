@@ -1,11 +1,12 @@
-import { LocationGenerics } from "@/navigation/location";
 import { paths } from "@/navigation/paths";
 import { useSheetApi } from "@/services/SheetApi";
-import { Button, List, PageHeader, Pagination } from "antd";
+import { List, PageHeader, Pagination } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-location";
 import { useQuery } from "react-query";
+import { CreateSheet } from "./CreateSheet/CreateSheet";
+import * as classes from "./Sheets.css";
 
 const PageSize = 10;
 
@@ -20,7 +21,7 @@ export const Sheets = (): ReactElement => {
 
   return (
     <PageHeader
-      extra={[<Button type="primary">{t("addSheet")}</Button>]}
+      extra={[<CreateSheet />]}
       ghost={false}
       subTitle={t("sheetsSubtitle")}
       title={t("sheetsTitle")}
@@ -37,8 +38,14 @@ export const Sheets = (): ReactElement => {
           </List.Item>
         )}
       />
-      <Pagination current={page} onChange={setPage} total={data?.count} />
-      <Link<LocationGenerics> to={paths.sheet(1)}>Sheet 1</Link>
+      <div className={classes.pagination}>
+        <Pagination
+          current={page}
+          disabled={(data?.count ?? 0) < 1}
+          onChange={setPage}
+          total={data?.count}
+        />
+      </div>
     </PageHeader>
   );
 };
