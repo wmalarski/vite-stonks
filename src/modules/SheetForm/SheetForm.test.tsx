@@ -4,7 +4,7 @@ import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
 import { ComponentProps } from "react";
-import { CreateSheetForm } from "./CreateSheetForm";
+import { CreateSheetForm } from "./SheetForm";
 
 type Props = ComponentProps<typeof CreateSheetForm>;
 
@@ -12,7 +12,9 @@ const renderComponent = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Partial<Props>> = {}) => {
-  const defaultProps: Props = {};
+  const defaultProps: Props = {
+    form: {} as any,
+  };
 
   return render(
     <TestWrapper {...wrapperProps}>

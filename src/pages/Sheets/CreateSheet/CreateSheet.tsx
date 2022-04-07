@@ -1,9 +1,9 @@
+import { CreateSheetForm } from "@/modules/SheetForm/SheetForm";
 import { CreateSheetArgs, useSheetApi } from "@/services/SheetApi";
 import { Button, Form, Modal } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
-import { CreateSheetForm } from "./CreateSheetForm/CreateSheetForm";
 
 export const CreateSheet = (): ReactElement => {
   const { t } = useTranslation("common");

@@ -1,16 +1,19 @@
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import type { Story } from "@ladle/react";
 import { ComponentProps } from "react";
-import { CreateSheetForm } from "./CreateSheetForm";
+import { CreateSheetForm } from "./SheetForm";
 
 export default {
   title: "pages/Sheets/CreateSheet/CreateSheetForm",
-  component: CreateSheetForm
+  component: CreateSheetForm,
 };
 
 type Props = ComponentProps<typeof CreateSheetForm>;
 
-const CreateSheetFormStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const CreateSheetFormStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <CreateSheetForm {...props} />
