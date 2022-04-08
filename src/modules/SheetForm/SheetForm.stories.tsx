@@ -1,14 +1,14 @@
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import type { Story } from "@ladle/react";
 import { ComponentProps } from "react";
-import { CreateSheetForm } from "./SheetForm";
+import { SheetForm } from "./SheetForm";
 
 export default {
   title: "pages/Sheets/CreateSheet/CreateSheetForm",
-  component: CreateSheetForm,
+  component: SheetForm,
 };
 
-type Props = ComponentProps<typeof CreateSheetForm>;
+type Props = ComponentProps<typeof SheetForm>;
 
 const CreateSheetFormStory: Story<PropsWithTestWrapper<Props>> = ({
   wrapperProps,
@@ -16,7 +16,7 @@ const CreateSheetFormStory: Story<PropsWithTestWrapper<Props>> = ({
 }: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
-      <CreateSheetForm {...props} />
+      <SheetForm {...props} />
     </TestWrapper>
   );
 };

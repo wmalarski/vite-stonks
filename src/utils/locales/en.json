@@ -15,5 +15,7 @@
   "nameRequired": "Name is required",
   "sheetIdLabel": "SheetId",
   "removeSheet": "Remove",
-  "editSheet": "Edit"
+  "editSheet": "Edit",
+  "saveSheetButton": "Save",
+  "editSheetTitle": "Edit"
 }

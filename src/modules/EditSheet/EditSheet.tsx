@@ -1,22 +1,27 @@
-import { SheetForm } from "@/modules/SheetForm/SheetForm";
-import { CreateSheetArgs, useSheetApi } from "@/services/SheetApi";
+import { Sheet, UpdateSheetArgs, useSheetApi } from "@/services/SheetApi";
 import { Button, Form, Modal } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
+import { SheetForm } from "../SheetForm/SheetForm";
 
-export const CreateSheet = (): ReactElement => {
+type Props = {
+  sheet: Sheet;
+};
+
+export const EditSheet = ({ sheet }: Props): ReactElement => {
   const { t } = useTranslation("common");
 
   const [isOpen, setIsOpen] = useState(false);
-  const [form] = Form.useForm<CreateSheetArgs>();
+  const [form] = Form.useForm<UpdateSheetArgs>();
 
   const sheetApi = useSheetApi();
   const client = useQueryClient();
 
-  const { mutate, isLoading } = useMutation(sheetApi.create, {
+  const { mutate, isLoading } = useMutation(sheetApi.update, {
     onSuccess: () => {
       client.invalidateQueries(sheetApi.listKey());
+      client.invalidateQueries(sheetApi.key(sheet.id));
       setIsOpen(false);
     },
   });
@@ -28,7 +33,7 @@ export const CreateSheet = (): ReactElement => {
   const handleOkClick = async () => {
     try {
       const values = await form.validateFields();
-      mutate(values);
+      mutate({ ...values, id: sheet.id });
     } catch (info) {
       console.error("Validate Failed:", info);
     }
@@ -41,17 +46,17 @@ export const CreateSheet = (): ReactElement => {
   return (
     <>
       <Button onClick={handleOpenClick} type="primary">
-        {t("addSheet")}
+        {t("editSheet")}
       </Button>
       <Modal
         okButtonProps={{ loading: isLoading }}
-        okText={t("addButton")}
+        okText={t("saveSheetButton")}
         onCancel={handleCancelClick}
         onOk={handleOkClick}
-        title={t("addSheetTitle")}
+        title={t("editSheetTitle")}
         visible={isOpen}
       >
-        <SheetForm form={form} />
+        <SheetForm form={form} initialValues={sheet} />
       </Modal>
     </>
   );

@@ -1,17 +1,27 @@
-import { CreateSheetArgs } from "@/services/SheetApi";
 import { Form, FormInstance, Input } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 
-type Props = {
-  form: FormInstance<CreateSheetArgs>;
+type SheetFormArgs = {
+  name: string;
+  sheetId: string;
 };
 
-export const CreateSheetForm = ({ form }: Props): ReactElement => {
+type Props = {
+  form: FormInstance<SheetFormArgs>;
+  initialValues?: SheetFormArgs;
+};
+
+export const SheetForm = ({ form, initialValues }: Props): ReactElement => {
   const { t } = useTranslation("common");
 
   return (
-    <Form form={form} layout="vertical" name="create_sheet">
+    <Form
+      form={form}
+      layout="vertical"
+      name="sheet_form"
+      initialValues={initialValues}
+    >
       <Form.Item
         label={t("nameLabel")}
         name="name"

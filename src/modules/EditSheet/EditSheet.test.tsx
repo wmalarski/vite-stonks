@@ -4,32 +4,30 @@ import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
 import { ComponentProps } from "react";
-import { SheetForm } from "./SheetForm";
+import { EditSheet } from "./EditSheet";
 
-type Props = ComponentProps<typeof SheetForm>;
+type Props = ComponentProps<typeof EditSheet>;
 
 const renderComponent = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Partial<Props>> = {}) => {
-  const defaultProps: Props = {
-    form: {} as any,
-  };
+  const defaultProps: Props = {};
 
   return render(
     <TestWrapper {...wrapperProps}>
-      <SheetForm {...defaultProps} {...props} />
+      <EditSheet {...defaultProps} {...props} />
     </TestWrapper>
   );
 };
 
-describe("<CreateSheetForm />", () => {
+describe("<EditSheet />", () => {
   it("should render", async () => {
     expect.hasAssertions();
 
     renderComponent();
 
-    const header = i18n.t<string>("CreateSheetForm", { ns: "common" });
+    const header = i18n.t<string>("EditSheet", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

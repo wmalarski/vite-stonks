@@ -1,3 +1,4 @@
+import { EditSheet } from "@/modules/EditSheet/EditSheet";
 import { paths } from "@/navigation/paths";
 import { Sheet, useSheetApi } from "@/services/SheetApi";
 import { Button, List } from "antd";
@@ -29,7 +30,7 @@ export const SheetsListItem = ({ sheet }: Props): ReactElement => {
   return (
     <List.Item
       actions={[
-        <Button key="edit">{t("editSheet")}</Button>,
+        <EditSheet key="edit" sheet={sheet} />,
         <Button
           danger
           key="remove"
