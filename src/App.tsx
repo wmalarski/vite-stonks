@@ -7,19 +7,22 @@ import { QueryClientProvider } from "react-query";
 import { Home } from "./pages/Home/Home";
 import { queryClient } from "./services/client";
 import { nhost } from "./services/nhost";
+import { SheetApiProvider } from "./services/SheetApi";
 
 function App() {
   return (
     <NhostReactProvider nhost={nhost}>
-      <QueryClientProvider client={queryClient}>
-        <I18nextProvider i18n={i18next}>
-          <ThemeProvider>
-            <Router>
-              <Home />
-            </Router>
-          </ThemeProvider>
-        </I18nextProvider>
-      </QueryClientProvider>
+      <SheetApiProvider>
+        <QueryClientProvider client={queryClient}>
+          <I18nextProvider i18n={i18next}>
+            <ThemeProvider>
+              <Router>
+                <Home />
+              </Router>
+            </ThemeProvider>
+          </I18nextProvider>
+        </QueryClientProvider>
+      </SheetApiProvider>
     </NhostReactProvider>
   );
 }

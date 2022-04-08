@@ -39,7 +39,7 @@ type SheetsListResult = {
 type SheetsKey = ["sheets"] | ["sheets", PageArgs];
 type SheetKey = ["sheet", number];
 
-type SheetApiService = {
+export type SheetApiService = {
   create: (args: CreateSheetArgs) => Promise<Sheet>;
   delete: (id: number) => Promise<void>;
   get: QueryFunction<Sheet, SheetKey>;

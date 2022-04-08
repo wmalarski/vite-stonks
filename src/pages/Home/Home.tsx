@@ -1,4 +1,3 @@
-import { SheetApiProvider } from "@/services/SheetApi";
 import { useAuthenticationStatus } from "@nhost/react";
 import { ReactElement } from "react";
 import { Dashboard } from "./Dashboard/Dashboard";
@@ -13,11 +12,7 @@ export const Home = (): ReactElement => {
   }
 
   if (isAuthenticated) {
-    return (
-      <SheetApiProvider>
-        <Dashboard />
-      </SheetApiProvider>
-    );
+    return <Dashboard />;
   }
 
   return <Login />;
