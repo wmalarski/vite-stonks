@@ -7,7 +7,7 @@ import { useSheetApi } from "@/services/SheetApi";
 import { Button, PageHeader, Result } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, Outlet, useMatch, useNavigate } from "react-location";
+import { Outlet, useMatch, useNavigate } from "react-location";
 import { useQuery } from "react-query";
 
 export const Sheet = (): ReactElement => {
@@ -59,9 +59,6 @@ export const Sheet = (): ReactElement => {
       subTitle={t("sheetSubtitle")}
       title={data.name}
     >
-      <Link<LocationGenerics> to={paths.settings(sheetId)}>Settings</Link>
-      <Link<LocationGenerics> to={paths.invoice(sheetId, "1")}>Invoice</Link>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
       <Outlet />
     </PageHeader>
   );

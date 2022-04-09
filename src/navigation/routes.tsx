@@ -1,5 +1,6 @@
 import { Translation } from "@/components/Translation/Translation";
 import { Invoice } from "@/pages/Invoice/Invoice";
+import { Invoices } from "@/pages/Invoices/Invoices";
 import { Settings } from "@/pages/Settings/Settings";
 import { Sheet } from "@/pages/Sheet/Sheet";
 import { Sheets } from "@/pages/Sheets/Sheets";
@@ -27,6 +28,10 @@ export const routes = (): Route<LocationGenerics>[] => [
           sidebar: (params) => <SheetSidebar sheetId={params.sheetId} />,
         },
         children: [
+          {
+            path: "/",
+            element: <Invoices />,
+          },
           {
             path: "settings",
             element: <Settings />,
