@@ -17,5 +17,8 @@
   "removeSheet": "Remove",
   "editSheet": "Edit",
   "saveSheetButton": "Save",
-  "editSheetTitle": "Edit"
+  "editSheetTitle": "Edit",
+  "sheetReload": "Reload page",
+  "sheetErrorMessage": "There are some problems with your operation.",
+  "sheetSubtitle": "Spreadsheet data"
 }
