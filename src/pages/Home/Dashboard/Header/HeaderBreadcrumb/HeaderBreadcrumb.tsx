@@ -20,7 +20,7 @@ export const HeaderBreadcrumb = (): ReactElement => {
       {filtered.map((match) => (
         <Breadcrumb.Item key={match.pathname}>
           <Link to={match.pathname}>
-            {match.route.meta?.breadcrumb(match.params)}
+            {match.route.meta?.breadcrumb?.(match.params)}
           </Link>
         </Breadcrumb.Item>
       ))}

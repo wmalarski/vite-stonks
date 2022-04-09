@@ -1,8 +1,10 @@
+import { LocationGenerics } from "@/navigation/location";
 import { LogoutOutlined } from "@ant-design/icons";
 import { useSignOut } from "@nhost/react";
-import { Button, Menu } from "antd";
+import { Button } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
+import { useMatches } from "react-location";
 import * as classes from "./Sidebar.css";
 
 export const Sidebar = (): ReactElement => {
@@ -10,13 +12,18 @@ export const Sidebar = (): ReactElement => {
 
   const { signOut } = useSignOut();
 
+  const matches = useMatches<LocationGenerics>();
+
+  const sidebarMatch = matches
+    .reverse()
+    .find((match) => match.route?.meta?.sidebar);
+
   return (
     <div className={classes.container}>
-      <Menu theme="light" mode="vertical" defaultSelectedKeys={["2"]}>
-        <Menu.Item key="1">nav 1</Menu.Item>
-        <Menu.Item key="2">nav 2</Menu.Item>
-        <Menu.Item key="3">nav 3</Menu.Item>
-      </Menu>
+      <div>
+        {sidebarMatch &&
+          sidebarMatch.route.meta?.sidebar?.(sidebarMatch.params)}
+      </div>
       <div className={classes.bottom}>
         <Button icon={<LogoutOutlined />} type="text" onClick={signOut} block>
           {t("logout")}

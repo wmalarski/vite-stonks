@@ -7,6 +7,7 @@ export type LocationGenerics = MakeGenerics<{
     invoiceId: string;
   };
   RouteMeta: {
-    breadcrumb: (params: LocationGenerics["Params"]) => ReactElement;
+    breadcrumb?: (params: LocationGenerics["Params"]) => ReactElement;
+    sidebar?: (params: LocationGenerics["Params"]) => ReactElement;
   };
 }>;

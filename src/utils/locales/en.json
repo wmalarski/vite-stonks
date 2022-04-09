@@ -20,5 +20,6 @@
   "editSheetTitle": "Edit",
   "sheetReload": "Reload page",
   "sheetErrorMessage": "There are some problems with your operation.",
-  "sheetSubtitle": "Spreadsheet data"
+  "sheetSubtitle": "Spreadsheet data",
+  "sheetDetails": "Details"
 }
