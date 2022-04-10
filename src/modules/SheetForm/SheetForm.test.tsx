@@ -3,24 +3,29 @@ import i18n from "@/utils/i18next";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
+import { Form } from "antd";
 import { ComponentProps } from "react";
-import { SheetForm } from "./SheetForm";
+import { SheetForm, SheetFormArgs } from "./SheetForm";
 
 type Props = ComponentProps<typeof SheetForm>;
 
-const renderComponent = ({
+const Component = ({
   wrapperProps,
   ...props
-}: PropsWithTestWrapper<Partial<Props>> = {}) => {
-  const defaultProps: Props = {
-    form: {} as any,
-  };
+}: PropsWithTestWrapper<Partial<Props>>) => {
+  const [form] = Form.useForm<SheetFormArgs>();
 
-  return render(
+  const defaultProps: Props = { form };
+
+  return (
     <TestWrapper {...wrapperProps}>
       <SheetForm {...defaultProps} {...props} />
     </TestWrapper>
   );
+};
+
+const renderComponent = (props: PropsWithTestWrapper<Partial<Props>> = {}) => {
+  return render(<Component {...props} />);
 };
 
 describe("<CreateSheetForm />", () => {

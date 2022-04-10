@@ -23,7 +23,7 @@ export const Sheets = (): ReactElement => {
 
   return (
     <PageHeader
-      extra={[<CreateSheet />]}
+      extra={[<CreateSheet key="create" />]}
       ghost={false}
       subTitle={t("sheetsSubtitle")}
       title={t("sheetsTitle")}

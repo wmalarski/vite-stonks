@@ -1,3 +1,4 @@
+import { mockSheet } from "@/tests/mocks";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import type { Story } from "@ladle/react";
 import { ComponentProps } from "react";
@@ -5,12 +6,15 @@ import { RemoveSheet } from "./RemoveSheet";
 
 export default {
   title: "modules/RemoveSheet",
-  component: RemoveSheet
+  component: RemoveSheet,
 };
 
 type Props = ComponentProps<typeof RemoveSheet>;
 
-const RemoveSheetStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const RemoveSheetStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <RemoveSheet {...props} />
@@ -19,4 +23,4 @@ const RemoveSheetStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ..
 };
 
 export const Playground = RemoveSheetStory.bind({});
-Playground.args = { wrapperProps: {} };
+Playground.args = { wrapperProps: {}, sheet: mockSheet };

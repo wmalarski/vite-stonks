@@ -5,12 +5,15 @@ import { Dashboard } from "./Dashboard";
 
 export default {
   title: "pages/Home/Dashboard",
-  component: Dashboard
+  component: Dashboard,
 };
 
 type Props = ComponentProps<typeof Dashboard>;
 
-const DashboardStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const DashboardStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <Dashboard {...props} />

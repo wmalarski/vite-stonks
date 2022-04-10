@@ -5,12 +5,15 @@ import { Sidebar } from "./Sidebar";
 
 export default {
   title: "pages/Home/Dashboard/Sidebar",
-  component: Sidebar
+  component: Sidebar,
 };
 
 type Props = ComponentProps<typeof Sidebar>;
 
-const SidebarStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const SidebarStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <Sidebar {...props} />

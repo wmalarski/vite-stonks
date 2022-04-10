@@ -1,3 +1,4 @@
+import { mockSheet } from "@/tests/mocks";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import type { Story } from "@ladle/react";
 import { ComponentProps } from "react";
@@ -5,12 +6,15 @@ import { InvoicesList } from "./InvoicesList";
 
 export default {
   title: "pages/Invoices/InvoicesList",
-  component: InvoicesList
+  component: InvoicesList,
 };
 
 type Props = ComponentProps<typeof InvoicesList>;
 
-const InvoicesListStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const InvoicesListStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <InvoicesList {...props} />
@@ -19,4 +23,4 @@ const InvoicesListStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, .
 };
 
 export const Playground = InvoicesListStory.bind({});
-Playground.args = { wrapperProps: {} };
+Playground.args = { wrapperProps: {}, sheet: mockSheet };

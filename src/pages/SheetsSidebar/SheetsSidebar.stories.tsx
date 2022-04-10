@@ -5,12 +5,15 @@ import { SheetsSidebar } from "./SheetsSidebar";
 
 export default {
   title: "pages/SheetsSidebar",
-  component: SheetsSidebar
+  component: SheetsSidebar,
 };
 
 type Props = ComponentProps<typeof SheetsSidebar>;
 
-const SheetsSidebarStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const SheetsSidebarStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <SheetsSidebar {...props} />

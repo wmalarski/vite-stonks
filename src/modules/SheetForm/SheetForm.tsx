@@ -2,7 +2,7 @@ import { Form, FormInstance, Input } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 
-type SheetFormArgs = {
+export type SheetFormArgs = {
   name: string;
   sheetId: string;
 };
