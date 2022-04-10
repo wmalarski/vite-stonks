@@ -15,11 +15,10 @@ export const Sheet = (): ReactElement => {
 
   const navigate = useNavigate();
   const { params } = useMatch<LocationGenerics>();
-  const sheetId = Number(params.sheetId);
 
   const sheetApi = useSheetApi();
   const { data, refetch, isError, isLoading } = useQuery(
-    sheetApi.key(sheetId),
+    sheetApi.key(Number(params.sheetId)),
     sheetApi.get
   );
 
@@ -52,8 +51,12 @@ export const Sheet = (): ReactElement => {
   return (
     <PageHeader
       extra={[
-        <EditSheet sheet={data} />,
-        <RemoveSheet sheet={data} onSuccess={handleRemoveSuccess} />,
+        <EditSheet key="edit" sheet={data} />,
+        <RemoveSheet
+          key="remove"
+          onSuccess={handleRemoveSuccess}
+          sheet={data}
+        />,
       ]}
       ghost={false}
       subTitle={t("sheetSubtitle")}

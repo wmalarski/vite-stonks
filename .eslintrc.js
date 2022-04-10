@@ -3,11 +3,9 @@ module.exports = {
     browser: true,
     es2021: true,
     node: true,
-    "jest/globals": true,
   },
   extends: [
     "eslint:recommended",
-    "plugin:jest/all",
     "plugin:import/typescript",
     "plugin:jsx-a11y/recommended",
     "plugin:promise/recommended",
@@ -27,8 +25,6 @@ module.exports = {
   plugins: [],
   rules: {
     "prettier/prettier": "error",
-    "jest/no-hooks": "off",
-    "jest/no-disabled-tests": "off",
     "react/react-in-jsx-scope": "off",
   },
   settings: {
