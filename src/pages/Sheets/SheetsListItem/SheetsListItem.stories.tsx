@@ -23,4 +23,4 @@ const SheetsListItemStory: Story<PropsWithTestWrapper<Props>> = ({
 };
 
 export const Playground = SheetsListItemStory.bind({});
-Playground.args = { wrapperProps: {}, sheet: mockSheet };
+Playground.args = { wrapperProps: {}, sheet: mockSheet() };

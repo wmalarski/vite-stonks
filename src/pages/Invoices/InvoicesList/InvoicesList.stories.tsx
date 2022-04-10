@@ -23,4 +23,4 @@ const InvoicesListStory: Story<PropsWithTestWrapper<Props>> = ({
 };
 
 export const Playground = InvoicesListStory.bind({});
-Playground.args = { wrapperProps: {}, sheet: mockSheet };
+Playground.args = { wrapperProps: {}, sheet: mockSheet() };

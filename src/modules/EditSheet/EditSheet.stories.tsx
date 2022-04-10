@@ -23,4 +23,4 @@ const EditSheetStory: Story<PropsWithTestWrapper<Props>> = ({
 };
 
 export const Playground = EditSheetStory.bind({});
-Playground.args = { wrapperProps: {}, sheet: mockSheet };
+Playground.args = { wrapperProps: {}, sheet: mockSheet() };

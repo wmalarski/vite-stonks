@@ -14,7 +14,7 @@ const renderComponent = ({
   ...props
 }: PropsWithTestWrapper<Partial<Props>> = {}) => {
   const defaultProps: Props = {
-    sheetId: String(mockSheet.id),
+    sheetId: String(mockSheet().id),
   };
 
   return render(

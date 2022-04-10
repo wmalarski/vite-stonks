@@ -58,7 +58,7 @@ type SheetApiContextValue =
       api: SheetApiService;
     };
 
-const SheetApiContext = createContext<SheetApiContextValue>({
+export const SheetApiContext = createContext<SheetApiContextValue>({
   isInitialized: false,
 });
 

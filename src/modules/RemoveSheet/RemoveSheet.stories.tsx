@@ -23,4 +23,4 @@ const RemoveSheetStory: Story<PropsWithTestWrapper<Props>> = ({
 };
 
 export const Playground = RemoveSheetStory.bind({});
-Playground.args = { wrapperProps: {}, sheet: mockSheet };
+Playground.args = { wrapperProps: {}, sheet: mockSheet() };

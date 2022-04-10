@@ -23,4 +23,4 @@ const SheetSidebarStory: Story<PropsWithTestWrapper<Props>> = ({
 };
 
 export const Playground = SheetSidebarStory.bind({});
-Playground.args = { wrapperProps: {}, sheetId: mockSheet.id };
+Playground.args = { wrapperProps: {}, sheetId: mockSheet().id };
