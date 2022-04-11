@@ -78,7 +78,7 @@ type Props = {
   children: ReactNode;
 };
 
-const table = "Doc";
+const table = "Docs";
 
 export const DocApiProvider = ({ children }: Props): ReactElement => {
   const value = useMemo<DocApiContextValue>(() => {

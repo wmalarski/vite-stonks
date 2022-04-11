@@ -1,17 +1,12 @@
-import { useAuthenticationStatus } from "@nhost/react";
+import { useUser } from "@/services/AuthApi";
 import { ReactElement } from "react";
-import { Loading } from "../../components/Loading/Loading";
 import { Dashboard } from "./Dashboard/Dashboard";
 import { Login } from "./Login/Login";
 
 export const Home = (): ReactElement => {
-  const { isLoading, isAuthenticated } = useAuthenticationStatus();
+  const user = useUser();
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isAuthenticated) {
+  if (user) {
     return <Dashboard />;
   }
 

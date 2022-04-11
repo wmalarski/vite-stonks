@@ -1,22 +1,28 @@
 import { LocationGenerics } from "@/navigation/location";
+import { useAuthApi } from "@/services/AuthApi";
 import { LogoutOutlined } from "@ant-design/icons";
-import { useSignOut } from "@nhost/react";
 import { Button } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { useMatches } from "react-location";
+import { useMutation } from "react-query";
 import * as classes from "./Sidebar.css";
 
 export const Sidebar = (): ReactElement => {
   const { t } = useTranslation("common");
 
-  const { signOut } = useSignOut();
+  const authApi = useAuthApi();
+  const { mutate } = useMutation(authApi.signOut);
 
   const matches = useMatches<LocationGenerics>();
 
   const sidebarMatch = matches
     .reverse()
     .find((match) => match.route?.meta?.sidebar);
+
+  const handleSignOutClick = () => {
+    mutate();
+  };
 
   return (
     <div className={classes.container}>
@@ -25,7 +31,12 @@ export const Sidebar = (): ReactElement => {
           sidebarMatch.route.meta?.sidebar?.(sidebarMatch.params)}
       </div>
       <div className={classes.bottom}>
-        <Button icon={<LogoutOutlined />} type="text" onClick={signOut} block>
+        <Button
+          icon={<LogoutOutlined />}
+          type="text"
+          onClick={handleSignOutClick}
+          block
+        >
           {t("logout")}
         </Button>
       </div>
