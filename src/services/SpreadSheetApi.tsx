@@ -1,4 +1,3 @@
-import { useAccessToken } from "@nhost/react";
 import {
   createContext,
   ReactElement,
@@ -7,6 +6,7 @@ import {
   useMemo,
 } from "react";
 import { QueryFunction } from "react-query";
+import { useGoogleFetch } from "./useGoogleFetch";
 
 const endpoint = "https://sheets.googleapis.com/v4/spreadsheets";
 
@@ -49,22 +49,15 @@ type Props = {
 };
 
 export const SpreadSheetApiProvider = ({ children }: Props): ReactElement => {
-  const accessToken = useAccessToken();
+  const googleFetch = useGoogleFetch();
 
   const value = useMemo<SheetApiContextValue | null>(() => {
-    if (!accessToken) return null;
-
     return {
       isInitialized: true,
       api: {
         get: async ({ queryKey }) => {
           const url = `${endpoint}/${queryKey[1]}`;
-          const result = await fetch(url, {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          });
+          const result = await googleFetch(url, { method: "GET" });
           return await result.json();
         },
         key: (id) => {
@@ -72,7 +65,7 @@ export const SpreadSheetApiProvider = ({ children }: Props): ReactElement => {
         },
       },
     };
-  }, [accessToken]);
+  }, [googleFetch]);
 
   if (!value) return <>{children}</>;
 
