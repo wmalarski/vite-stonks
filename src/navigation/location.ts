@@ -3,7 +3,7 @@ import { MakeGenerics } from "react-location";
 
 export type LocationGenerics = MakeGenerics<{
   Params: {
-    sheetId: string;
+    docId: string;
     invoiceId: string;
   };
   RouteMeta: {

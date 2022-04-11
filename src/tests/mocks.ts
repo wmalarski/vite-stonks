@@ -1,31 +1,32 @@
-import { Sheet, SheetApiService } from "@/services/SheetApi";
+import { Doc, DocApiService } from "@/services/SheetApi";
 import { SpreadSheet, SpreadSheetApiService } from "@/services/SpreadSheetApi";
 
-export const mockSheet = (update: Partial<Sheet> = {}): Sheet => {
+export const mockDoc = (update: Partial<Doc> = {}): Doc => {
   const id = update.id ?? Math.floor(Math.random() * 1e10);
   return {
-    createdAt: new Date().toISOString(),
+    created_at: new Date().toISOString(),
     id,
     name: `Mocked-${id}`,
-    sheetId: "1B8yq3arNoNU8izDdA_GDWt-jYhv6GhIBCvIncv8MMz8",
+    sheet_id: "1B8yq3arNoNU8izDdA_GDWt-jYhv6GhIBCvIncv8MMz8",
+    user_id: "1",
     ...update,
   };
 };
 
-export const mockSheetApi = ({
+export const mockDocApi = ({
   initialCount = 5,
 }: {
   initialCount?: number;
-} = {}): SheetApiService => {
-  const collection: Sheet[] = Array(initialCount)
+} = {}): DocApiService => {
+  const collection: Doc[] = Array(initialCount)
     .fill(0)
-    .map(() => mockSheet());
+    .map(() => mockDoc());
 
   return {
     create: (args) => {
-      const sheet = mockSheet(args);
-      collection.push(sheet);
-      return Promise.resolve(sheet);
+      const doc = mockDoc(args);
+      collection.push(doc);
+      return Promise.resolve(doc);
     },
     delete: (id) => {
       const index = collection.findIndex((entry) => entry.id === id);
@@ -34,20 +35,20 @@ export const mockSheetApi = ({
       return Promise.resolve();
     },
     get: ({ queryKey }) => {
-      const sheet = collection.find((entry) => entry.id == queryKey[1]);
-      if (!sheet) return Promise.reject();
-      return Promise.resolve(sheet);
+      const doc = collection.find((entry) => entry.id == queryKey[1]);
+      if (!doc) return Promise.reject();
+      return Promise.resolve(doc);
     },
     key: (id) => {
-      return ["sheet", id];
+      return ["doc", id];
     },
     list: ({ queryKey }) => {
       const { limit, offset } = queryKey[1] ?? { limit: 50, offset: 0 };
       const sliced = collection.slice(offset, offset + limit);
-      return Promise.resolve({ sheets: sliced, count: collection.length });
+      return Promise.resolve({ docs: sliced, count: collection.length });
     },
     listKey: (pagination) => {
-      return pagination ? ["sheets", pagination] : ["sheets"];
+      return pagination ? ["docs", pagination] : ["docs"];
     },
     update: (args) => {
       const index = collection.findIndex((entry) => entry.id === args.id);

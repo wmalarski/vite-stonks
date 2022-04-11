@@ -1,6 +1,6 @@
 import { LocationGenerics } from "@/navigation/location";
 import { paths } from "@/navigation/paths";
-import { useSheetApi } from "@/services/SheetApi";
+import { useDocApi } from "@/services/SheetApi";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useMatch } from "react-location";
@@ -11,15 +11,15 @@ export const Invoices = (): ReactElement => {
   const { t } = useTranslation("common");
 
   const { params } = useMatch<LocationGenerics>();
-  const id = Number(params.sheetId);
+  const id = Number(params.docId);
 
-  const sheetApi = useSheetApi();
-  const { data } = useQuery(sheetApi.key(id), sheetApi.get);
+  const docApi = useDocApi();
+  const { data } = useQuery(docApi.key(id), docApi.get);
 
   return (
     <div>
       <p>{t("Invoices")}</p>
-      {data && <InvoicesList sheet={data} />}
+      {data && <InvoicesList doc={data} />}
       <Link<LocationGenerics> to={paths.invoice(id, "1")}>Invoice</Link>
     </div>
   );

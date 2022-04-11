@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 export type SheetFormArgs = {
   name: string;
-  sheetId: string;
+  sheet_id: string;
 };
 
 type Props = {
@@ -29,7 +29,7 @@ export const SheetForm = ({ form, initialValues }: Props): ReactElement => {
       >
         <Input />
       </Form.Item>
-      <Form.Item label={t("sheetIdLabel")} name="sheetId">
+      <Form.Item label={t("sheetIdLabel")} name="sheet_id">
         <Input />
       </Form.Item>
     </Form>

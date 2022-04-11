@@ -6,24 +6,26 @@ import {
   useMemo,
 } from "react";
 import { QueryFunction } from "react-query";
-import { nhost } from "./nhost";
+import { supabase } from "./supabase";
 
-export type Sheet = {
-  createdAt: string;
+export type Doc = {
+  created_at: string;
   id: number;
   name: string;
-  sheetId: string;
+  sheet_id: string;
+  user_id: string;
 };
 
-export type CreateSheetArgs = {
+export type CreateDocArgs = {
   name: string;
-  sheetId: string;
+  sheet_id: string;
+  user_id: string;
 };
 
-export type UpdateSheetArgs = {
+export type UpdateDocArgs = {
   id: number;
   name: string;
-  sheetId: string;
+  sheet_id: string;
 };
 
 export type PageArgs = {
@@ -31,42 +33,42 @@ export type PageArgs = {
   offset: number;
 };
 
-type SheetsListResult = {
-  sheets: Sheet[];
+type DocListResult = {
+  docs: Doc[];
   count: number;
 };
 
-type SheetsKey = ["sheets"] | ["sheets", PageArgs];
-type SheetKey = ["sheet", number];
+type DocsKey = ["docs"] | ["docs", PageArgs];
+type DocKey = ["doc", number];
 
-export type SheetApiService = {
-  create: (args: CreateSheetArgs) => Promise<Sheet>;
+export type DocApiService = {
+  create: (args: CreateDocArgs) => Promise<Doc>;
   delete: (id: number) => Promise<void>;
-  get: QueryFunction<Sheet, SheetKey>;
-  key: (id: number) => SheetKey;
-  list: QueryFunction<SheetsListResult, SheetsKey>;
-  listKey: (pagination?: PageArgs) => SheetsKey;
-  update: (args: UpdateSheetArgs) => Promise<Sheet>;
+  get: QueryFunction<Doc, DocKey>;
+  key: (id: number) => DocKey;
+  list: QueryFunction<DocListResult, DocsKey>;
+  listKey: (pagination?: PageArgs) => DocsKey;
+  update: (args: UpdateDocArgs) => Promise<Doc>;
 };
 
-type SheetApiContextValue =
+type DocApiContextValue =
   | {
       isInitialized: false;
     }
   | {
       isInitialized: true;
-      api: SheetApiService;
+      api: DocApiService;
     };
 
-export const SheetApiContext = createContext<SheetApiContextValue>({
+export const DocApiContext = createContext<DocApiContextValue>({
   isInitialized: false,
 });
 
-export const useSheetApi = (): SheetApiService => {
-  const context = useContext(SheetApiContext);
+export const useDocApi = (): DocApiService => {
+  const context = useContext(DocApiContext);
 
   if (!context.isInitialized) {
-    throw new Error("Sheet Api context not defined");
+    throw new Error("Doc Api context not defined");
   }
 
   return context.api;
@@ -76,110 +78,65 @@ type Props = {
   children: ReactNode;
 };
 
-export const SheetApiProvider = ({ children }: Props): ReactElement => {
-  const value = useMemo<SheetApiContextValue>(() => {
+const table = "Doc";
+
+export const DocApiProvider = ({ children }: Props): ReactElement => {
+  const value = useMemo<DocApiContextValue>(() => {
     return {
       isInitialized: true,
       api: {
         create: async (args) => {
-          const { data, error } = await nhost.graphql.request(
-            `mutation ($name: String, $sheetId: String) {
-              insert: insert_sheets_one(object: {
-                name: $name,
-                sheetId: $sheetId
-              }) {
-                createdAt
-                id
-                name
-                sheetId
-              }
-            }`,
-            args
-          );
+          const { error, data } = await supabase
+            .from<Doc>(table)
+            .insert(args)
+            .single();
           if (error) throw error;
-          return (data as { insert: Sheet }).insert;
+          return data;
         },
         delete: async (id) => {
-          const { error } = await nhost.graphql.request(
-            `mutation ($id: Int!){
-              delete: delete_sheets_by_pk(id: $id) {
-                id  
-              }
-            }`,
-            { id }
-          );
+          const { error } = await supabase
+            .from<Doc>(table)
+            .delete()
+            .eq("id", id);
           if (error) throw error;
         },
         get: async ({ queryKey }) => {
-          const { data, error } = await nhost.graphql.request(
-            `query ($id: Int!) {
-              sheet: sheets_by_pk(id: $id) {
-                createdAt
-                id
-                name
-                sheetId
-              }
-            }`,
-            { id: queryKey[1] }
-          );
+          const { data, error } = await supabase
+            .from<Doc>(table)
+            .select("*")
+            .eq("id", queryKey[1])
+            .single();
           if (error) throw error;
-          return (data as { sheet: Sheet }).sheet;
+          return data;
         },
         key: (id) => {
-          return ["sheet", id];
+          return ["doc", id];
         },
         list: async ({ queryKey }) => {
-          const { data, error } = await nhost.graphql.request(
-            `query ($limit: Int, $offset: Int) {
-              sheets(order_by: {createdAt: asc}, limit: $limit, offset: $offset) {
-                createdAt
-                id
-                name
-                sheetId 
-              }
-              aggregate: sheets_aggregate {
-                aggregate {
-                  count
-                }
-              }
-            }`,
-            queryKey[1]
-          );
+          const args = queryKey[1] ?? { limit: 50, offset: 0 };
+          const { data, error, count } = await supabase
+            .from<Doc>(table)
+            .select("*", { count: "estimated" })
+            .range(args.offset, args.offset + args.limit);
           if (error) throw error;
-          const result = data as {
-            sheets: Sheet[];
-            aggregate: { aggregate: { count: number } };
-          };
-          return {
-            sheets: result.sheets,
-            count: result.aggregate.aggregate.count,
-          };
+          return { docs: data, count: count ?? 0 };
         },
         listKey: (pagination) => {
-          return pagination ? ["sheets", pagination] : ["sheets"];
+          return pagination ? ["docs", pagination] : ["docs"];
         },
         update: async (args) => {
-          const { data, error } = await nhost.graphql.request(
-            `mutation ($id:Int!, $name: String, $sheetId: String) {
-              update: update_sheets_by_pk(pk_columns: { id: $id }, _set: { name: $name, sheetId: $sheetId }) {
-                createdAt
-                id
-                name
-                sheetId
-              }
-            }`,
-            args
-          );
+          const { data, error } = await supabase
+            .from<Doc>(table)
+            .update(args)
+            .single();
           if (error) throw error;
-          return (data as { update: Sheet }).update;
+          return data;
         },
       },
     };
   }, []);
 
   return (
-    <SheetApiContext.Provider value={value}>
-      {children}
-    </SheetApiContext.Provider>
+    <DocApiContext.Provider value={value}>{children}</DocApiContext.Provider>
   );
 };

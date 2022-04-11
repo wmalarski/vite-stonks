@@ -1,4 +1,4 @@
-import { Sheet, useSheetApi } from "@/services/SheetApi";
+import { Doc, useDocApi } from "@/services/SheetApi";
 import { Button } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
@@ -6,24 +6,24 @@ import { useMutation, useQueryClient } from "react-query";
 
 type Props = {
   onSuccess?: () => void;
-  sheet: Sheet;
+  doc: Doc;
 };
 
-export const RemoveSheet = ({ onSuccess, sheet }: Props): ReactElement => {
+export const RemoveSheet = ({ onSuccess, doc }: Props): ReactElement => {
   const { t } = useTranslation("common");
 
-  const sheetApi = useSheetApi();
+  const docApi = useDocApi();
   const client = useQueryClient();
 
-  const { mutate, isLoading } = useMutation(sheetApi.delete, {
+  const { mutate, isLoading } = useMutation(docApi.delete, {
     onSuccess: () => {
-      client.invalidateQueries(sheetApi.listKey());
+      client.invalidateQueries(docApi.listKey());
       onSuccess?.();
     },
   });
 
   const handleRemoveClick = () => {
-    mutate(sheet.id);
+    mutate(doc.id);
   };
 
   return (

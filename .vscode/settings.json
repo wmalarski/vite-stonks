@@ -3,6 +3,7 @@
         "antd",
         "nhost",
         "Stonks",
+        "SUPABASE",
         "vite"
     ]
 }

@@ -10,6 +10,11 @@ export const Login = (): ReactElement => {
 
   const { google } = useProviderLink();
 
+  // supabase.auth.signIn({
+  //   // provider can be 'github', 'google', 'gitlab', and more
+  //   provider: 'github'
+  // })
+
   return (
     <div className={classes.container}>
       <div className={classes.box}>

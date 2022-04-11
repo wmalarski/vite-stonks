@@ -21,11 +21,11 @@ export const routes = (): Route<LocationGenerics>[] => [
     path: "sheet",
     children: [
       {
-        path: ":sheetId",
+        path: ":docId",
         element: <Sheet />,
         meta: {
           breadcrumb: () => <Translation label="sheet" />,
-          sidebar: (params) => <SheetSidebar sheetId={params.sheetId} />,
+          sidebar: (params) => <SheetSidebar docId={params.docId} />,
         },
         children: [
           {

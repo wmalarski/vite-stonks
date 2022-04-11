@@ -1,4 +1,4 @@
-import { Sheet, UpdateSheetArgs, useSheetApi } from "@/services/SheetApi";
+import { Doc, UpdateDocArgs, useDocApi } from "@/services/SheetApi";
 import { Button, Form, Modal } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -6,22 +6,22 @@ import { useMutation, useQueryClient } from "react-query";
 import { SheetForm } from "../SheetForm/SheetForm";
 
 type Props = {
-  sheet: Sheet;
+  doc: Doc;
 };
 
-export const EditSheet = ({ sheet }: Props): ReactElement => {
+export const EditSheet = ({ doc }: Props): ReactElement => {
   const { t } = useTranslation("common");
 
   const [isOpen, setIsOpen] = useState(false);
-  const [form] = Form.useForm<UpdateSheetArgs>();
+  const [form] = Form.useForm<UpdateDocArgs>();
 
-  const sheetApi = useSheetApi();
+  const docApi = useDocApi();
   const client = useQueryClient();
 
-  const { mutate, isLoading } = useMutation(sheetApi.update, {
+  const { mutate, isLoading } = useMutation(docApi.update, {
     onSuccess: () => {
-      client.invalidateQueries(sheetApi.listKey());
-      client.invalidateQueries(sheetApi.key(sheet.id));
+      client.invalidateQueries(docApi.listKey());
+      client.invalidateQueries(docApi.key(doc.id));
       setIsOpen(false);
     },
   });
@@ -33,7 +33,7 @@ export const EditSheet = ({ sheet }: Props): ReactElement => {
   const handleOkClick = async () => {
     try {
       const values = await form.validateFields();
-      mutate({ ...values, id: sheet.id });
+      mutate({ ...values, id: doc.id });
     } catch (info) {
       console.error("Validate Failed:", info);
     }
@@ -56,7 +56,7 @@ export const EditSheet = ({ sheet }: Props): ReactElement => {
         title={t("editSheetTitle")}
         visible={isOpen}
       >
-        <SheetForm form={form} initialValues={sheet} />
+        <SheetForm form={form} initialValues={doc} />
       </Modal>
     </>
   );

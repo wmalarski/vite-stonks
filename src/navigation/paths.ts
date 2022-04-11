@@ -1,7 +1,7 @@
 export const paths = {
   home: "/",
-  sheet: (sheetId: number): string => `/sheet/${sheetId}`,
-  settings: (sheetId: number): string => `/sheet/${sheetId}/settings`,
-  invoice: (sheetId: number, invoiceId: string): string =>
-    `/sheet/${sheetId}/invoice/${invoiceId}`,
+  doc: (docId: number): string => `/sheet/${docId}`,
+  settings: (docId: number): string => `/sheet/${docId}/settings`,
+  invoice: (docId: number, invoiceId: string): string =>
+    `/sheet/${docId}/invoice/${invoiceId}`,
 };

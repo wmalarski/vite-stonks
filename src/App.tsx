@@ -7,14 +7,14 @@ import { QueryClientProvider } from "react-query";
 import { Home } from "./pages/Home/Home";
 import { queryClient } from "./services/client";
 import { nhost } from "./services/nhost";
-import { SheetApiProvider } from "./services/SheetApi";
+import { DocApiProvider } from "./services/SheetApi";
 import { SpreadSheetApiProvider } from "./services/SpreadSheetApi";
 
 function App() {
   return (
     <NhostReactProvider nhost={nhost}>
       <QueryClientProvider client={queryClient}>
-        <SheetApiProvider>
+        <DocApiProvider>
           <SpreadSheetApiProvider>
             <I18nextProvider i18n={i18next}>
               <ThemeProvider>
@@ -24,7 +24,7 @@ function App() {
               </ThemeProvider>
             </I18nextProvider>
           </SpreadSheetApiProvider>
-        </SheetApiProvider>
+        </DocApiProvider>
       </QueryClientProvider>
     </NhostReactProvider>
   );

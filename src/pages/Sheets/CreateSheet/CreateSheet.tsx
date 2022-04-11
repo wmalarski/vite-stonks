@@ -1,5 +1,6 @@
 import { SheetForm } from "@/modules/SheetForm/SheetForm";
-import { CreateSheetArgs, useSheetApi } from "@/services/SheetApi";
+import { CreateDocArgs, useDocApi } from "@/services/SheetApi";
+import { supabase } from "@/services/supabase";
 import { Button, Form, Modal } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -9,14 +10,14 @@ export const CreateSheet = (): ReactElement => {
   const { t } = useTranslation("common");
 
   const [isOpen, setIsOpen] = useState(false);
-  const [form] = Form.useForm<CreateSheetArgs>();
+  const [form] = Form.useForm<CreateDocArgs>();
 
-  const sheetApi = useSheetApi();
+  const docApi = useDocApi();
   const client = useQueryClient();
 
-  const { mutate, isLoading } = useMutation(sheetApi.create, {
+  const { mutate, isLoading } = useMutation(docApi.create, {
     onSuccess: () => {
-      client.invalidateQueries(sheetApi.listKey());
+      client.invalidateQueries(docApi.listKey());
       setIsOpen(false);
     },
   });
@@ -27,8 +28,10 @@ export const CreateSheet = (): ReactElement => {
 
   const handleOkClick = async () => {
     try {
+      const user = supabase.auth.user();
+      if (!user) return;
       const values = await form.validateFields();
-      mutate(values);
+      mutate({ ...values, user_id: user.id });
     } catch (info) {
       console.error("Validate Failed:", info);
     }

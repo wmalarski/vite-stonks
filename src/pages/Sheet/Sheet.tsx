@@ -3,7 +3,7 @@ import { EditSheet } from "@/modules/EditSheet/EditSheet";
 import { RemoveSheet } from "@/modules/RemoveSheet/RemoveSheet";
 import { LocationGenerics } from "@/navigation/location";
 import { paths } from "@/navigation/paths";
-import { useSheetApi } from "@/services/SheetApi";
+import { useDocApi } from "@/services/SheetApi";
 import { Button, PageHeader, Result } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
@@ -16,10 +16,10 @@ export const Sheet = (): ReactElement => {
   const navigate = useNavigate();
   const { params } = useMatch<LocationGenerics>();
 
-  const sheetApi = useSheetApi();
+  const docApi = useDocApi();
   const { data, refetch, isError, isLoading } = useQuery(
-    sheetApi.key(Number(params.sheetId)),
-    sheetApi.get
+    docApi.key(Number(params.docId)),
+    docApi.get
   );
 
   const handleRefreshClick = () => {
@@ -51,12 +51,8 @@ export const Sheet = (): ReactElement => {
   return (
     <PageHeader
       extra={[
-        <EditSheet key="edit" sheet={data} />,
-        <RemoveSheet
-          key="remove"
-          onSuccess={handleRemoveSuccess}
-          sheet={data}
-        />,
+        <EditSheet key="edit" doc={data} />,
+        <RemoveSheet key="remove" onSuccess={handleRemoveSuccess} doc={data} />,
       ]}
       ghost={false}
       subTitle={t("sheetSubtitle")}

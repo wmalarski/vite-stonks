@@ -1,5 +1,5 @@
 import { Router } from "@/navigation/Router";
-import { SheetApiContext, SheetApiService } from "@/services/SheetApi";
+import { DocApiContext, DocApiService } from "@/services/SheetApi";
 import {
   SpreadSheetApiContext,
   SpreadSheetApiService,
@@ -7,11 +7,11 @@ import {
 import i18next from "@/utils/i18next";
 import { ReactElement, ReactNode } from "react";
 import { I18nextProvider } from "react-i18next";
-import { mockSheetApi, mockSpreadSheetApi } from "./mocks";
+import { mockDocApi, mockSpreadSheetApi } from "./mocks";
 
 export type TestWrapperProps = {
   children?: ReactNode;
-  sheetApi?: SheetApiService;
+  docApi?: DocApiService;
   spreadSheetApi?: SpreadSheetApiService;
 };
 
@@ -21,12 +21,12 @@ export type PropsWithTestWrapper<T = unknown> = T & {
 
 export const TestWrapper = ({
   children,
-  sheetApi,
+  docApi,
   spreadSheetApi,
 }: TestWrapperProps): ReactElement => {
   return (
-    <SheetApiContext.Provider
-      value={{ isInitialized: true, api: sheetApi ?? mockSheetApi() }}
+    <DocApiContext.Provider
+      value={{ isInitialized: true, api: docApi ?? mockDocApi() }}
     >
       <SpreadSheetApiContext.Provider
         value={{
@@ -38,6 +38,6 @@ export const TestWrapper = ({
           <I18nextProvider i18n={i18next}>{children}</I18nextProvider>
         </Router>
       </SpreadSheetApiContext.Provider>
-    </SheetApiContext.Provider>
+    </DocApiContext.Provider>
   );
 };

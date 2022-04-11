@@ -1,19 +1,19 @@
-import { Sheet } from "@/services/SheetApi";
+import { Doc } from "@/services/SheetApi";
 import { useSpreadSheetApi } from "@/services/SpreadSheetApi";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
 
 type Props = {
-  sheet: Sheet;
+  doc: Doc;
 };
 
-export const InvoicesList = ({ sheet }: Props): ReactElement => {
+export const InvoicesList = ({ doc }: Props): ReactElement => {
   const { t } = useTranslation("common");
 
   const spreadSheetApi = useSpreadSheetApi();
   const { data, error } = useQuery(
-    spreadSheetApi.key(sheet.sheetId),
+    spreadSheetApi.key(doc.sheet_id),
     spreadSheetApi.get
   );
 
