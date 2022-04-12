@@ -30,6 +30,10 @@ export const Sheet = (): ReactElement => {
     navigate({ to: paths.home });
   };
 
+  const handleBackClick = () => {
+    navigate({ to: paths.home });
+  };
+
   if (isLoading) {
     return <Loading />;
   }
@@ -55,8 +59,10 @@ export const Sheet = (): ReactElement => {
         <RemoveSheet key="remove" onSuccess={handleRemoveSuccess} doc={data} />,
       ]}
       ghost={false}
+      onBack={handleBackClick}
       subTitle={t("sheetSubtitle")}
       title={data.name}
+      style={{ height: "100%", overflow: "clip" }}
     >
       <Outlet />
     </PageHeader>

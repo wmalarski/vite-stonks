@@ -18,4 +18,6 @@ export const side = style({
 
 export const content = style({
   padding: vars.space.md,
+  maxHeight: "calc(100vh - 64px)",
+  // overflow: "clip",
 });

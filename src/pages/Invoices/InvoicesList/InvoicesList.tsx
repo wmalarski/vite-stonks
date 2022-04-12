@@ -1,7 +1,6 @@
 import { Doc } from "@/services/DocApi";
 import { useSpreadSheetApi } from "@/services/SpreadSheetApi";
 import { ReactElement } from "react";
-import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
 
 type Props = {
@@ -9,20 +8,15 @@ type Props = {
 };
 
 export const InvoicesList = ({ doc }: Props): ReactElement => {
-  const { t } = useTranslation("common");
-
   const spreadSheetApi = useSpreadSheetApi();
-  const { data, error } = useQuery(
+  const { data } = useQuery(
     spreadSheetApi.key(doc.sheet_id),
     spreadSheetApi.get
   );
 
-  console.log({ data, error });
-
   return (
-    <div>
-      <p>{t("InvoicesList")}</p>
-      <div>{JSON.stringify(data, null, 2)}</div>
+    <div style={{ overflow: "scroll", height: "100%" }}>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 };

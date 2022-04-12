@@ -21,12 +21,15 @@ export const useGoogleFetch = (): GoogleFetch => {
 
       if (!accessToken) return fetch(info, init);
 
-      return fetch(`${info}?${params}`, {
+      const authorization = `${tokenType} ${accessToken}`;
+      const url = `${info}?${params}`;
+
+      return fetch(url, {
         ...init,
         headers: {
           ...init?.headers,
           "Content-Type": "application/json",
-          Authorization: `${tokenType} ${accessToken}`,
+          Authorization: authorization,
         },
       });
     },
