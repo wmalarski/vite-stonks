@@ -1,4 +1,4 @@
-import { Doc } from "@/services/SheetApi";
+import { Doc } from "@/services/DocApi";
 import { useSpreadSheetApi } from "@/services/SpreadSheetApi";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";

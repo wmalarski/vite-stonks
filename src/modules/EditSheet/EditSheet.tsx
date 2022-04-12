@@ -1,4 +1,4 @@
-import { Doc, UpdateDocArgs, useDocApi } from "@/services/SheetApi";
+import { Doc, UpdateDocArgs, useDocApi } from "@/services/DocApi";
 import { Button, Form, Modal } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";

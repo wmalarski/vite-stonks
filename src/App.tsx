@@ -6,7 +6,7 @@ import { QueryClientProvider } from "react-query";
 import { Home } from "./pages/Home/Home";
 import { AuthApiProvider } from "./services/AuthApi";
 import { queryClient } from "./services/client";
-import { DocApiProvider } from "./services/SheetApi";
+import { DocApiProvider } from "./services/DocApi";
 import { SpreadSheetApiProvider } from "./services/SpreadSheetApi";
 
 function App() {

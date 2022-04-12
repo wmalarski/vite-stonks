@@ -1,6 +1,6 @@
 import { LocationGenerics } from "@/navigation/location";
 import { paths } from "@/navigation/paths";
-import { useDocApi } from "@/services/SheetApi";
+import { useDocApi } from "@/services/DocApi";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useMatch } from "react-location";

@@ -3,7 +3,7 @@ import { EditSheet } from "@/modules/EditSheet/EditSheet";
 import { RemoveSheet } from "@/modules/RemoveSheet/RemoveSheet";
 import { LocationGenerics } from "@/navigation/location";
 import { paths } from "@/navigation/paths";
-import { useDocApi } from "@/services/SheetApi";
+import { useDocApi } from "@/services/DocApi";
 import { Button, PageHeader, Result } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";

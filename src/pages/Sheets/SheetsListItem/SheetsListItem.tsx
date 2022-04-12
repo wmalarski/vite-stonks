@@ -1,7 +1,7 @@
 import { EditSheet } from "@/modules/EditSheet/EditSheet";
 import { RemoveSheet } from "@/modules/RemoveSheet/RemoveSheet";
 import { paths } from "@/navigation/paths";
-import { Doc } from "@/services/SheetApi";
+import { Doc } from "@/services/DocApi";
 import { List } from "antd";
 import { ReactElement } from "react";
 import { Link } from "react-location";

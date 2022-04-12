@@ -1,4 +1,4 @@
-import { Doc, DocApiService } from "@/services/SheetApi";
+import { Doc, DocApiService } from "@/services/DocApi";
 import { SpreadSheet, SpreadSheetApiService } from "@/services/SpreadSheetApi";
 
 export const mockDoc = (update: Partial<Doc> = {}): Doc => {
