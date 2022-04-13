@@ -1,5 +1,5 @@
 import { Doc, DocApiService } from "@/services/DocApi";
-import { SpreadSheet, SpreadSheetApiService } from "@/services/SpreadSheetApi";
+import { Invoice, SpreadSheetApiService } from "@/services/SpreadSheetApi";
 
 export const mockDoc = (update: Partial<Doc> = {}): Doc => {
   const id = update.id ?? Math.floor(Math.random() * 1e10);
@@ -62,14 +62,14 @@ export const mockDocApi = ({
 };
 
 export const mockSpreadSheetApi = (): SpreadSheetApiService => {
-  const collection: SpreadSheet[] = [];
+  const collection: Record<string, Invoice[]> = {};
   return {
-    get: ({ queryKey }) => {
-      const sheet = collection.find((entry) => entry.id == queryKey[1]);
-      if (!sheet) return Promise.reject();
-      return Promise.resolve(sheet);
+    list: ({ queryKey }) => {
+      const invoices = collection[queryKey[1]];
+      if (!invoices) return Promise.reject();
+      return Promise.resolve(invoices);
     },
-    key: (id) => {
+    keyList: (id) => {
       return ["spreadSheet", id];
     },
   };

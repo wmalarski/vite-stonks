@@ -10,8 +10,9 @@ type Props = {
 export const InvoicesList = ({ doc }: Props): ReactElement => {
   const spreadSheetApi = useSpreadSheetApi();
   const { data } = useQuery(
-    spreadSheetApi.key(doc.sheet_id),
-    spreadSheetApi.get
+    spreadSheetApi.keyList(doc.sheet_id),
+    spreadSheetApi.list,
+    { refetchOnWindowFocus: false }
   );
 
   return <pre>{JSON.stringify(data, null, 2)}</pre>;
