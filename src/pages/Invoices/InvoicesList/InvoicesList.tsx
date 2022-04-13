@@ -14,9 +14,5 @@ export const InvoicesList = ({ doc }: Props): ReactElement => {
     spreadSheetApi.get
   );
 
-  return (
-    <div style={{ overflow: "scroll", height: "100%" }}>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </div>
-  );
+  return <pre>{JSON.stringify(data, null, 2)}</pre>;
 };

@@ -9,6 +9,7 @@ import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet, useMatch, useNavigate } from "react-location";
 import { useQuery } from "react-query";
+import * as classes from "./Sheet.css";
 
 export const Sheet = (): ReactElement => {
   const { t } = useTranslation("common");
@@ -53,18 +54,24 @@ export const Sheet = (): ReactElement => {
   }
 
   return (
-    <PageHeader
-      extra={[
-        <EditSheet key="edit" doc={data} />,
-        <RemoveSheet key="remove" onSuccess={handleRemoveSuccess} doc={data} />,
-      ]}
-      ghost={false}
-      onBack={handleBackClick}
-      subTitle={t("sheetSubtitle")}
-      title={data.name}
-      style={{ height: "100%", overflow: "clip" }}
-    >
-      <Outlet />
-    </PageHeader>
+    <div className={classes.page}>
+      <PageHeader
+        extra={[
+          <EditSheet key="edit" doc={data} />,
+          <RemoveSheet
+            key="remove"
+            onSuccess={handleRemoveSuccess}
+            doc={data}
+          />,
+        ]}
+        ghost={false}
+        onBack={handleBackClick}
+        subTitle={t("sheetSubtitle")}
+        title={data.name}
+      />
+      <div className={classes.content}>
+        <Outlet />
+      </div>
+    </div>
   );
 };
