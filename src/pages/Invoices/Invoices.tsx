@@ -1,8 +1,10 @@
+import { SheetHeader } from "@/modules/SheetHeader/SheetHeader";
 import { LocationGenerics } from "@/navigation/location";
 import { useDocApi } from "@/services/DocApi";
 import { ReactElement } from "react";
 import { useMatch } from "react-location";
 import { useQuery } from "react-query";
+import * as classes from "./Invoices.css";
 import { InvoicesList } from "./InvoicesList/InvoicesList";
 
 export const Invoices = (): ReactElement | null => {
@@ -14,5 +16,12 @@ export const Invoices = (): ReactElement | null => {
 
   if (!data) return null;
 
-  return <InvoicesList doc={data} />;
+  return (
+    <div>
+      <SheetHeader doc={data} />
+      <div className={classes.content}>
+        <InvoicesList doc={data} />
+      </div>
+    </div>
+  );
 };
