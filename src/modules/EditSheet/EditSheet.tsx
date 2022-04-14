@@ -45,9 +45,7 @@ export const EditSheet = ({ doc }: Props): ReactElement => {
 
   return (
     <>
-      <Button onClick={handleOpenClick} type="primary">
-        {t("editSheet")}
-      </Button>
+      <Button onClick={handleOpenClick}>{t("editSheet")}</Button>
       <Modal
         okButtonProps={{ loading: isLoading }}
         okText={t("saveSheetButton")}

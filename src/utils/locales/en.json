@@ -21,5 +21,21 @@
   "sheetReload": "Reload page",
   "sheetErrorMessage": "There are some problems with your operation.",
   "sheetSubtitle": "Spreadsheet data",
-  "sheetDetails": "Details"
+  "sheetDetails": "Details",
+  "invoiceId": "Id",
+  "invoiceDate": "Date",
+  "invoiceNumber": "Number",
+  "invoiceCompany": "Company",
+  "invoiceName": "Name",
+  "invoiceAddress": "Address",
+  "invoiceNip": "Nip",
+  "invoiceTitle": "Title",
+  "invoiceData": "Data",
+  "invoicePrice": "Price",
+  "invoiceHours": "Hours",
+  "invoiceSummary": "Summary",
+  "invoiceActions": "Actions",
+  "invoiceDetails": "Details",
+  "invoiceRemove": "Remove",
+  "invoiceCopy": "Copy"
 }

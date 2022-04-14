@@ -14,14 +14,15 @@ export const useGoogleFetch = (): GoogleFetch => {
 
   return useCallback(
     (info, init, search) => {
-      const params = new URLSearchParams({
-        key: import.meta.env.VITE_GOOGLE_API_KEY as string,
-        ...search,
-      });
-
       if (!accessToken) return fetch(info, init);
 
       const authorization = `${tokenType} ${accessToken}`;
+      const params = new URLSearchParams({
+        key: import.meta.env.VITE_GOOGLE_API_KEY as string,
+        // access_token: accessToken,
+        ...search,
+      });
+
       const url = `${info}?${params}`;
 
       return fetch(url, {
