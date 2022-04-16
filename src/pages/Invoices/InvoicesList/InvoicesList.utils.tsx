@@ -5,10 +5,12 @@ import { InvoiceActions } from "./InvoiceActions/InvoiceActions";
 import { InvoiceTitle } from "./InvoiceTitle/InvoiceTitle";
 
 type UseColumnsArgs = {
-  docId: number;
+  sheetId: number;
 };
 
-export const useColumns = ({ docId }: UseColumnsArgs): ColumnsType<Invoice> => {
+export const useColumns = ({
+  sheetId,
+}: UseColumnsArgs): ColumnsType<Invoice> => {
   const { t } = useTranslation("common");
 
   return [
@@ -35,13 +37,16 @@ export const useColumns = ({ docId }: UseColumnsArgs): ColumnsType<Invoice> => {
       dataIndex: "title",
       key: "title",
       width: "100%",
-      // ellipsis: true,
-      render: (_, record) => <InvoiceTitle invoice={record} docId={docId} />,
+      render: (_, record) => (
+        <InvoiceTitle invoice={record} sheetId={sheetId} />
+      ),
     },
     {
       title: t("invoiceActions"),
       key: "actions",
-      render: (_, record) => <InvoiceActions invoice={record} docId={docId} />,
+      render: (_, record) => (
+        <InvoiceActions invoice={record} sheetId={sheetId} />
+      ),
       colSpan: 1,
     },
   ];

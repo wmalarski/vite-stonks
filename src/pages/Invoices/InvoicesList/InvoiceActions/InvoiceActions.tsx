@@ -5,19 +5,19 @@ import { useTranslation } from "react-i18next";
 import * as classes from "./InvoiceActions.css";
 
 type Props = {
-  docId: number;
+  sheetId: number;
   invoice: Invoice;
 };
 
-export const InvoiceActions = ({ docId, invoice }: Props): ReactElement => {
+export const InvoiceActions = ({ sheetId, invoice }: Props): ReactElement => {
   const { t } = useTranslation("common");
 
   const handleCopyClick = () => {
-    console.log({ docId, invoice });
+    console.log({ sheetId, invoice });
   };
 
   const handleRemoveClick = () => {
-    console.log({ docId, invoice });
+    console.log({ sheetId, invoice });
   };
 
   return (

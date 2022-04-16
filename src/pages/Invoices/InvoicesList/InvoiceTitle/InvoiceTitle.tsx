@@ -4,10 +4,10 @@ import { ReactElement } from "react";
 import { Link } from "react-location";
 
 type Props = {
-  docId: number;
+  sheetId: number;
   invoice: Invoice;
 };
 
-export const InvoiceTitle = ({ docId, invoice }: Props): ReactElement => {
-  return <Link to={paths.invoice(docId, invoice.id)}>{invoice.title}</Link>;
+export const InvoiceTitle = ({ sheetId, invoice }: Props): ReactElement => {
+  return <Link to={paths.invoice(sheetId, invoice.id)}>{invoice.title}</Link>;
 };

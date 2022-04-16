@@ -8,7 +8,7 @@ import {
 import { QueryFunction } from "react-query";
 import { supabase } from "./supabase";
 
-export type Doc = {
+export type Sheet = {
   created_at: string;
   id: number;
   name: string;
@@ -16,59 +16,59 @@ export type Doc = {
   user_id: string;
 };
 
-export type CreateDocArgs = {
+export type CreateSheetArgs = {
   name: string;
   sheet_id: string;
   user_id: string;
 };
 
-export type UpdateDocArgs = {
+export type UpdateSheetArgs = {
   id: number;
   name: string;
   sheet_id: string;
 };
 
-export type PageArgs = {
+export type SheetPageArgs = {
   limit: number;
   offset: number;
 };
 
-type DocListResult = {
-  docs: Doc[];
+type SheetListResult = {
+  sheets: Sheet[];
   count: number;
 };
 
-type DocsKey = ["docs"] | ["docs", PageArgs];
-type DocKey = ["doc", number];
+type SheetsKey = ["sheets"] | ["sheets", SheetPageArgs];
+type SheetKey = ["sheet", number];
 
-export type DocApiService = {
-  create: (args: CreateDocArgs) => Promise<Doc>;
+export type SheetApiService = {
+  create: (args: CreateSheetArgs) => Promise<Sheet>;
   delete: (id: number) => Promise<void>;
-  get: QueryFunction<Doc, DocKey>;
-  key: (id: number) => DocKey;
-  list: QueryFunction<DocListResult, DocsKey>;
-  listKey: (pagination?: PageArgs) => DocsKey;
-  update: (args: UpdateDocArgs) => Promise<Doc>;
+  get: QueryFunction<Sheet, SheetKey>;
+  key: (id: number) => SheetKey;
+  list: QueryFunction<SheetListResult, SheetsKey>;
+  listKey: (pagination?: SheetPageArgs) => SheetsKey;
+  update: (args: UpdateSheetArgs) => Promise<Sheet>;
 };
 
-type DocApiContextValue =
+type SheetApiContextValue =
   | {
       isInitialized: false;
     }
   | {
       isInitialized: true;
-      api: DocApiService;
+      api: SheetApiService;
     };
 
-export const DocApiContext = createContext<DocApiContextValue>({
+export const SheetApiContext = createContext<SheetApiContextValue>({
   isInitialized: false,
 });
 
-export const useDocApi = (): DocApiService => {
-  const context = useContext(DocApiContext);
+export const useSheetApi = (): SheetApiService => {
+  const context = useContext(SheetApiContext);
 
   if (!context.isInitialized) {
-    throw new Error("Doc Api context not defined");
+    throw new Error("Sheet Api context not defined");
   }
 
   return context.api;
@@ -80,14 +80,14 @@ type Props = {
 
 const table = "Docs";
 
-export const DocApiProvider = ({ children }: Props): ReactElement => {
-  const value = useMemo<DocApiContextValue>(() => {
+export const SheetApiProvider = ({ children }: Props): ReactElement => {
+  const value = useMemo<SheetApiContextValue>(() => {
     return {
       isInitialized: true,
       api: {
         create: async (args) => {
           const { error, data } = await supabase
-            .from<Doc>(table)
+            .from<Sheet>(table)
             .insert(args)
             .single();
           if (error) throw error;
@@ -95,14 +95,14 @@ export const DocApiProvider = ({ children }: Props): ReactElement => {
         },
         delete: async (id) => {
           const { error } = await supabase
-            .from<Doc>(table)
+            .from<Sheet>(table)
             .delete()
             .eq("id", id);
           if (error) throw error;
         },
         get: async ({ queryKey }) => {
           const { data, error } = await supabase
-            .from<Doc>(table)
+            .from<Sheet>(table)
             .select("*")
             .eq("id", queryKey[1])
             .single();
@@ -110,23 +110,23 @@ export const DocApiProvider = ({ children }: Props): ReactElement => {
           return data;
         },
         key: (id) => {
-          return ["doc", id];
+          return ["sheet", id];
         },
         list: async ({ queryKey }) => {
           const args = queryKey[1] ?? { limit: 50, offset: 0 };
           const { data, error, count } = await supabase
-            .from<Doc>(table)
+            .from<Sheet>(table)
             .select("*", { count: "estimated" })
             .range(args.offset, args.offset + args.limit);
           if (error) throw error;
-          return { docs: data, count: count ?? 0 };
+          return { sheets: data, count: count ?? 0 };
         },
         listKey: (pagination) => {
-          return pagination ? ["docs", pagination] : ["docs"];
+          return pagination ? ["sheets", pagination] : ["sheets"];
         },
         update: async (args) => {
           const { data, error } = await supabase
-            .from<Doc>(table)
+            .from<Sheet>(table)
             .update(args)
             .single();
           if (error) throw error;
@@ -137,6 +137,8 @@ export const DocApiProvider = ({ children }: Props): ReactElement => {
   }, []);
 
   return (
-    <DocApiContext.Provider value={value}>{children}</DocApiContext.Provider>
+    <SheetApiContext.Provider value={value}>
+      {children}
+    </SheetApiContext.Provider>
   );
 };

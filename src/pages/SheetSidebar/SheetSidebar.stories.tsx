@@ -1,4 +1,4 @@
-import { mockDoc } from "@/tests/mocks";
+import { mockSheet } from "@/tests/mocks";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import type { Story } from "@ladle/react";
 import { ComponentProps } from "react";
@@ -23,4 +23,4 @@ const SheetSidebarStory: Story<PropsWithTestWrapper<Props>> = ({
 };
 
 export const Playground = SheetSidebarStory.bind({});
-Playground.args = { wrapperProps: {}, docId: mockDoc().id };
+Playground.args = { wrapperProps: {}, sheetId: mockSheet().id };

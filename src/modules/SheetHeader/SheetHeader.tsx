@@ -1,5 +1,5 @@
 import { paths } from "@/navigation/paths";
-import { Doc } from "@/services/DocApi";
+import { Sheet } from "@/services/SheetApi";
 import { PageHeader } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
@@ -8,10 +8,10 @@ import { EditSheet } from "../EditSheet/EditSheet";
 import { RemoveSheet } from "../RemoveSheet/RemoveSheet";
 
 type Props = {
-  doc: Doc;
+  sheet: Sheet;
 };
 
-export const SheetHeader = ({ doc }: Props): ReactElement => {
+export const SheetHeader = ({ sheet }: Props): ReactElement => {
   const { t } = useTranslation("common");
 
   const navigate = useNavigate();
@@ -27,13 +27,17 @@ export const SheetHeader = ({ doc }: Props): ReactElement => {
   return (
     <PageHeader
       extra={[
-        <EditSheet key="edit" doc={doc} />,
-        <RemoveSheet key="remove" onSuccess={handleRemoveSuccess} doc={doc} />,
+        <EditSheet key="edit" sheet={sheet} />,
+        <RemoveSheet
+          key="remove"
+          onSuccess={handleRemoveSuccess}
+          sheet={sheet}
+        />,
       ]}
       ghost={false}
       onBack={handleBackClick}
       subTitle={t("sheetSubtitle")}
-      title={doc.name}
+      title={sheet.name}
     />
   );
 };

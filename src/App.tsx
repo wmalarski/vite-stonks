@@ -6,13 +6,13 @@ import { QueryClientProvider } from "react-query";
 import { Home } from "./pages/Home/Home";
 import { AuthApiProvider } from "./services/AuthApi";
 import { queryClient } from "./services/client";
-import { DocApiProvider } from "./services/DocApi";
 import { InvoiceApiProvider } from "./services/InvoiceApi";
+import { SheetApiProvider } from "./services/SheetApi";
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <DocApiProvider>
+      <SheetApiProvider>
         <InvoiceApiProvider>
           <AuthApiProvider>
             <I18nextProvider i18n={i18next}>
@@ -24,7 +24,7 @@ function App() {
             </I18nextProvider>
           </AuthApiProvider>
         </InvoiceApiProvider>
-      </DocApiProvider>
+      </SheetApiProvider>
     </QueryClientProvider>
   );
 }

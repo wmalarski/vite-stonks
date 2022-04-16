@@ -1,4 +1,4 @@
-import { useDocApi } from "@/services/DocApi";
+import { useSheetApi } from "@/services/SheetApi";
 import { List, PageHeader, Pagination } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -15,8 +15,11 @@ export const Sheets = (): ReactElement => {
   const [page, setPage] = useState(1);
   const pagination = { offset: (page - 1) * PageSize, limit: PageSize };
 
-  const docApi = useDocApi();
-  const { data, isLoading } = useQuery(docApi.listKey(pagination), docApi.list);
+  const sheetApi = useSheetApi();
+  const { data, isLoading } = useQuery(
+    sheetApi.listKey(pagination),
+    sheetApi.list
+  );
 
   return (
     <PageHeader
@@ -27,9 +30,9 @@ export const Sheets = (): ReactElement => {
     >
       <List
         loading={isLoading}
-        dataSource={data?.docs}
+        dataSource={data?.sheets}
         itemLayout="horizontal"
-        renderItem={(item) => <SheetsListItem doc={item} />}
+        renderItem={(item) => <SheetsListItem sheet={item} />}
       />
       <div className={classes.pagination}>
         <Pagination

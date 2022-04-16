@@ -1,5 +1,5 @@
-import { Doc } from "@/services/DocApi";
 import { useInvoiceApi } from "@/services/InvoiceApi";
+import { Sheet } from "@/services/SheetApi";
 import { Table } from "antd";
 import { ReactElement } from "react";
 import { useQuery } from "react-query";
@@ -7,18 +7,18 @@ import * as classes from "./InvoicesList.css";
 import { useColumns } from "./InvoicesList.utils";
 
 type Props = {
-  doc: Doc;
+  sheet: Sheet;
 };
 
-export const InvoicesList = ({ doc }: Props): ReactElement => {
+export const InvoicesList = ({ sheet }: Props): ReactElement => {
   const spreadSheetApi = useInvoiceApi();
   const { data, isLoading } = useQuery(
-    spreadSheetApi.keyList(doc.sheet_id),
+    spreadSheetApi.keyList(sheet.sheet_id),
     spreadSheetApi.list,
     { refetchOnWindowFocus: false }
   );
 
-  const columns = useColumns({ docId: doc.id });
+  const columns = useColumns({ sheetId: sheet.id });
 
   return (
     <Table

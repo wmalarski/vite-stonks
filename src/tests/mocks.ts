@@ -1,7 +1,7 @@
-import { Doc, DocApiService } from "@/services/DocApi";
 import { Invoice, InvoiceApiService } from "@/services/InvoiceApi";
+import { Sheet, SheetApiService } from "@/services/SheetApi";
 
-export const mockDoc = (update: Partial<Doc> = {}): Doc => {
+export const mockSheet = (update: Partial<Sheet> = {}): Sheet => {
   const id = update.id ?? Math.floor(Math.random() * 1e10);
   return {
     created_at: new Date().toISOString(),
@@ -31,20 +31,20 @@ export const mockInvoice = (update: Partial<Invoice> = {}): Invoice => {
   };
 };
 
-export const mockDocApi = ({
+export const mockSheetApi = ({
   initialCount = 5,
 }: {
   initialCount?: number;
-} = {}): DocApiService => {
-  const collection: Doc[] = Array(initialCount)
+} = {}): SheetApiService => {
+  const collection: Sheet[] = Array(initialCount)
     .fill(0)
-    .map(() => mockDoc());
+    .map(() => mockSheet());
 
   return {
     create: (args) => {
-      const doc = mockDoc(args);
-      collection.push(doc);
-      return Promise.resolve(doc);
+      const data = mockSheet(args);
+      collection.push(data);
+      return Promise.resolve(data);
     },
     delete: (id) => {
       const index = collection.findIndex((entry) => entry.id === id);
@@ -53,20 +53,20 @@ export const mockDocApi = ({
       return Promise.resolve();
     },
     get: ({ queryKey }) => {
-      const doc = collection.find((entry) => entry.id == queryKey[1]);
-      if (!doc) return Promise.reject();
-      return Promise.resolve(doc);
+      const data = collection.find((entry) => entry.id == queryKey[1]);
+      if (!data) return Promise.reject();
+      return Promise.resolve(data);
     },
     key: (id) => {
-      return ["doc", id];
+      return ["sheet", id];
     },
     list: ({ queryKey }) => {
       const { limit, offset } = queryKey[1] ?? { limit: 50, offset: 0 };
       const sliced = collection.slice(offset, offset + limit);
-      return Promise.resolve({ docs: sliced, count: collection.length });
+      return Promise.resolve({ sheets: sliced, count: collection.length });
     },
     listKey: (pagination) => {
-      return pagination ? ["docs", pagination] : ["docs"];
+      return pagination ? ["sheets", pagination] : ["sheets"];
     },
     update: (args) => {
       const index = collection.findIndex((entry) => entry.id === args.id);
@@ -79,7 +79,7 @@ export const mockDocApi = ({
   };
 };
 
-export const mockSpreadSheetApi = (): InvoiceApiService => {
+export const mockInvoiceApi = (): InvoiceApiService => {
   const collection: Record<string, Invoice[]> = {};
   return {
     list: ({ queryKey }) => {

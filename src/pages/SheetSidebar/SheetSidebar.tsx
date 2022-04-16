@@ -6,14 +6,14 @@ import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-location";
 
 type Props = {
-  docId: string;
+  sheetId: string;
 };
 
-export const SheetSidebar = ({ docId }: Props): ReactElement => {
+export const SheetSidebar = ({ sheetId }: Props): ReactElement => {
   const { t } = useTranslation("common");
 
   const location = useLocation();
-  const id = Number(docId);
+  const id = Number(sheetId);
 
   return (
     <Menu
@@ -21,8 +21,8 @@ export const SheetSidebar = ({ docId }: Props): ReactElement => {
       selectedKeys={[location.current.pathname]}
       theme="light"
     >
-      <Menu.Item key={paths.doc(id)} icon={<BarsOutlined />}>
-        <Link to={paths.doc(id)}>{t("sheetDetails")}</Link>
+      <Menu.Item key={paths.sheet(id)} icon={<BarsOutlined />}>
+        <Link to={paths.sheet(id)}>{t("sheetDetails")}</Link>
       </Menu.Item>
       <Menu.Item key={paths.settings(id)} icon={<SettingOutlined />}>
         <Link to={paths.settings(id)}>{t("settings")}</Link>

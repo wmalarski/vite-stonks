@@ -1,6 +1,6 @@
 import { Loading } from "@/components/Loading/Loading";
 import { LocationGenerics } from "@/navigation/location";
-import { useDocApi } from "@/services/DocApi";
+import { useSheetApi } from "@/services/SheetApi";
 import { Button, Result } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,10 +12,10 @@ export const Sheet = (): ReactElement => {
 
   const { params } = useMatch<LocationGenerics>();
 
-  const docApi = useDocApi();
+  const sheetApi = useSheetApi();
   const { data, refetch, isError, isLoading } = useQuery(
-    docApi.key(Number(params.docId)),
-    docApi.get
+    sheetApi.key(Number(params.sheetId)),
+    sheetApi.get
   );
 
   const handleRefreshClick = () => {
