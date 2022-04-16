@@ -75,7 +75,7 @@ export const useInvoiceApi = (): InvoiceApiService => {
 };
 
 const getInvoiceRange = (row: number): string => {
-  return `${invoicesSpreadSheetName}!A${row + 1}:K${row + 1}`;
+  return `${invoicesSpreadSheetName}!A${row + 3}:K${row + 3}`;
 };
 
 const getInvoicesRanges = (sheets: SpreadSheetData[]): string => {
@@ -87,10 +87,10 @@ const getInvoicesRanges = (sheets: SpreadSheetData[]): string => {
   return `${invoicesSpreadSheetName}!A1:K${rowCount + 1}`;
 };
 
-const getInvoices = (sheets: SpreadSheetData[]): Invoice[] => {
+const getInvoices = (sheets: SpreadSheetData[], drop: number): Invoice[] => {
   return sheets
     .flatMap((sheet) => sheet.data)
-    .flatMap((data) => data.rowData.slice(2))
+    .flatMap((data) => data.rowData.slice(drop))
     .flatMap((rowData, index) => {
       const id = rowData.values[0].formattedValue;
       const date = rowData.values[1].formattedValue;
@@ -102,6 +102,7 @@ const getInvoices = (sheets: SpreadSheetData[]): Invoice[] => {
       const hours = rowData.values[7].formattedValue;
       const price = rowData.values[8].formattedValue;
       const summary = rowData.values[9].formattedValue;
+
       if (
         !address ||
         !company ||
@@ -115,6 +116,7 @@ const getInvoices = (sheets: SpreadSheetData[]): Invoice[] => {
         !title
       )
         return [];
+
       return [
         {
           address,
@@ -156,7 +158,9 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
             }
           );
           const rawInvoices = await invoicesResponse.json();
-          const invoices = getInvoices(rawInvoices.sheets);
+          const invoices = getInvoices(rawInvoices.sheets, 0);
+
+          if (invoices.length < 1) throw new Error("Not invoice with index");
 
           return invoices[0];
         },
@@ -178,7 +182,7 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
             }
           );
           const rawInvoices = await invoicesResponse.json();
-          const invoices = getInvoices(rawInvoices.sheets);
+          const invoices = getInvoices(rawInvoices.sheets, 2);
 
           return invoices;
         },

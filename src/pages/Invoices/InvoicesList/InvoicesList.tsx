@@ -20,6 +20,8 @@ export const InvoicesList = ({ sheet }: Props): ReactElement => {
 
   const columns = useColumns({ sheetId: sheet.id });
 
+  console.log({ data });
+
   return (
     <Table
       bordered

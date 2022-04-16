@@ -37,5 +37,6 @@
   "invoiceActions": "Actions",
   "invoiceDetails": "Details",
   "invoiceRemove": "Remove",
-  "invoiceCopy": "Copy"
+  "invoiceCopy": "Copy",
+  "invoiceEdit": "Edit"
 }

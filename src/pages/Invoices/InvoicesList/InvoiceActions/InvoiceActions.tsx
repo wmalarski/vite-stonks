@@ -20,8 +20,13 @@ export const InvoiceActions = ({ sheetId, invoice }: Props): ReactElement => {
     console.log({ sheetId, invoice });
   };
 
+  const handleEditClick = () => {
+    //
+  };
+
   return (
-    <div className={classes.list}>
+    <div key={invoice.id} className={classes.list}>
+      <Button onClick={handleEditClick}>{t("invoiceEdit")}</Button>
       <Button onClick={handleCopyClick}>{t("invoiceCopy")}</Button>
       <Button danger onClick={handleRemoveClick}>
         {t("invoiceRemove")}

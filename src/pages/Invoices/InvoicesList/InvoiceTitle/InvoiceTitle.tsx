@@ -9,5 +9,12 @@ type Props = {
 };
 
 export const InvoiceTitle = ({ sheetId, invoice }: Props): ReactElement => {
-  return <Link to={paths.invoice(sheetId, invoice.id)}>{invoice.title}</Link>;
+  return (
+    <Link
+      key={`title-${invoice.id}`}
+      to={paths.invoice(sheetId, invoice.index)}
+    >
+      {invoice.title}
+    </Link>
+  );
 };

@@ -1,3 +1,4 @@
+import { Loading } from "@/components/Loading/Loading";
 import { SheetHeader } from "@/modules/SheetHeader/SheetHeader";
 import { LocationGenerics } from "@/navigation/location";
 import { useSheetApi } from "@/services/SheetApi";
@@ -14,7 +15,7 @@ export const Invoices = (): ReactElement | null => {
   const sheetApi = useSheetApi();
   const { data } = useQuery(sheetApi.key(id), sheetApi.get);
 
-  if (!data) return null;
+  if (!data) return <Loading />;
 
   return (
     <div>
