@@ -1,5 +1,5 @@
 import { paths } from "@/navigation/paths";
-import { Invoice } from "@/services/SpreadSheetApi";
+import { Invoice } from "@/services/InvoiceApi";
 import { ReactElement } from "react";
 import { Link } from "react-location";
 

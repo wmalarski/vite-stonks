@@ -1,4 +1,4 @@
-import { Invoice } from "@/services/SpreadSheetApi";
+import { Invoice } from "@/services/InvoiceApi";
 import { Button } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";

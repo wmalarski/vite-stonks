@@ -5,12 +5,15 @@ import { InvoiceActions } from "./InvoiceActions";
 
 export default {
   title: "pages/Invoices/InvoicesList/InvoiceActions",
-  component: InvoiceActions
+  component: InvoiceActions,
 };
 
 type Props = ComponentProps<typeof InvoiceActions>;
 
-const InvoiceActionsStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const InvoiceActionsStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <InvoiceActions {...props} />

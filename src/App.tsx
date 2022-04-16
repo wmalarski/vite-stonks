@@ -7,13 +7,13 @@ import { Home } from "./pages/Home/Home";
 import { AuthApiProvider } from "./services/AuthApi";
 import { queryClient } from "./services/client";
 import { DocApiProvider } from "./services/DocApi";
-import { SpreadSheetApiProvider } from "./services/SpreadSheetApi";
+import { InvoiceApiProvider } from "./services/InvoiceApi";
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <DocApiProvider>
-        <SpreadSheetApiProvider>
+        <InvoiceApiProvider>
           <AuthApiProvider>
             <I18nextProvider i18n={i18next}>
               <ThemeProvider>
@@ -23,7 +23,7 @@ function App() {
               </ThemeProvider>
             </I18nextProvider>
           </AuthApiProvider>
-        </SpreadSheetApiProvider>
+        </InvoiceApiProvider>
       </DocApiProvider>
     </QueryClientProvider>
   );

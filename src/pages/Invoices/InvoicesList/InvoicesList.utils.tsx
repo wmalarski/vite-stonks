@@ -1,4 +1,4 @@
-import { Invoice } from "@/services/SpreadSheetApi";
+import { Invoice } from "@/services/InvoiceApi";
 import { ColumnsType } from "antd/lib/table";
 import { useTranslation } from "react-i18next";
 import { InvoiceActions } from "./InvoiceActions/InvoiceActions";

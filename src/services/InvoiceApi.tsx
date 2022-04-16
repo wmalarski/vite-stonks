@@ -9,7 +9,7 @@ import { QueryFunction } from "react-query";
 import { useGoogleFetch } from "./useGoogleFetch";
 
 const endpoint = "https://sheets.googleapis.com/v4/spreadsheets";
-const invoicesSheet = "Rachunki";
+const invoicesSpreadSheetName = "Rachunki";
 
 export type Invoice = {
   address: string;
@@ -17,6 +17,7 @@ export type Invoice = {
   date: string;
   hours: number;
   id: string;
+  index: number;
   name: string;
   nip: string;
   price: number;
@@ -24,7 +25,7 @@ export type Invoice = {
   title: string;
 };
 
-type Sheet = {
+type SpreadSheetData = {
   data: {
     rowData: {
       values: {
@@ -40,52 +41,57 @@ type Sheet = {
   };
 };
 
-type SpreadSheetKey = ["spreadSheet", string];
+type InvoicesKey = ["invoices", string];
+type InvoiceKey = ["invoice", string, number];
 
-export type SpreadSheetApiService = {
-  list: QueryFunction<Invoice[], SpreadSheetKey>;
-  keyList: (id: string) => SpreadSheetKey;
+export type InvoiceApiService = {
+  get: QueryFunction<Invoice, InvoiceKey>;
+  key: (id: string, row: number) => InvoiceKey;
+  list: QueryFunction<Invoice[], InvoicesKey>;
+  keyList: (id: string) => InvoicesKey;
 };
 
-type SheetApiContextValue =
+type InvoiceApiContextValue =
   | {
       isInitialized: false;
     }
   | {
       isInitialized: true;
-      api: SpreadSheetApiService;
+      api: InvoiceApiService;
     };
 
-export const SpreadSheetApiContext = createContext<SheetApiContextValue>({
+export const InvoiceApiContext = createContext<InvoiceApiContextValue>({
   isInitialized: false,
 });
 
-export const useSpreadSheetApi = (): SpreadSheetApiService => {
-  const context = useContext(SpreadSheetApiContext);
+export const useInvoiceApi = (): InvoiceApiService => {
+  const context = useContext(InvoiceApiContext);
 
   if (!context.isInitialized) {
-    throw new Error("Spread Sheet Api context not defined");
+    throw new Error("Invoice Api context not defined");
   }
 
   return context.api;
 };
 
-const getInvoicesRanges = (sheets: Sheet[]): string => {
+const getInvoiceRange = (row: number): string => {
+  return `${invoicesSpreadSheetName}!A${row + 1}:K${row + 1}`;
+};
+
+const getInvoicesRanges = (sheets: SpreadSheetData[]): string => {
   const invoices = sheets.find(
-    (sheet) => sheet.properties.title === invoicesSheet
+    (sheet) => sheet.properties.title === invoicesSpreadSheetName
   );
   const rowCount = invoices?.properties.gridProperties.columnCount ?? 0;
 
-  const range = `${invoicesSheet}!A1:K${rowCount + 1}`;
-
-  return range;
+  return `${invoicesSpreadSheetName}!A1:K${rowCount + 1}`;
 };
 
-const getInvoices = (sheets: Sheet[]): Invoice[] => {
+const getInvoices = (sheets: SpreadSheetData[]): Invoice[] => {
   return sheets
     .flatMap((sheet) => sheet.data)
     .flatMap((data) => data.rowData.slice(2))
-    .flatMap((rowData) => {
+    .flatMap((rowData, index) => {
       const id = rowData.values[0].formattedValue;
       const date = rowData.values[1].formattedValue;
       const name = rowData.values[2].formattedValue;
@@ -116,6 +122,7 @@ const getInvoices = (sheets: Sheet[]): Invoice[] => {
           date,
           hours: parseInt(hours),
           id,
+          index,
           name,
           nip,
           price: parseInt(price),
@@ -130,13 +137,32 @@ type Props = {
   children: ReactNode;
 };
 
-export const SpreadSheetApiProvider = ({ children }: Props): ReactElement => {
+export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
   const googleFetch = useGoogleFetch();
 
-  const value = useMemo<SheetApiContextValue | null>(() => {
+  const value = useMemo<InvoiceApiContextValue>(() => {
     return {
       isInitialized: true,
       api: {
+        get: async ({ queryKey }) => {
+          const url = `${endpoint}/${queryKey[1]}`;
+          const invoicesResponse = await googleFetch(
+            url,
+            { method: "GET" },
+            {
+              ranges: getInvoiceRange(queryKey[2]),
+              includeGridData: "true",
+              fields: "sheets.data.rowData.values.formattedValue",
+            }
+          );
+          const rawInvoices = await invoicesResponse.json();
+          const invoices = getInvoices(rawInvoices.sheets);
+
+          return invoices[0];
+        },
+        key: (id, row) => {
+          return ["invoice", id, row];
+        },
         list: async ({ queryKey }) => {
           const url = `${endpoint}/${queryKey[1]}`;
           const propertiesResponse = await googleFetch(url, { method: "GET" });
@@ -157,7 +183,7 @@ export const SpreadSheetApiProvider = ({ children }: Props): ReactElement => {
           return invoices;
         },
         keyList: (id) => {
-          return ["spreadSheet", id];
+          return ["invoices", id];
         },
       },
     };
@@ -166,8 +192,8 @@ export const SpreadSheetApiProvider = ({ children }: Props): ReactElement => {
   if (!value) return <>{children}</>;
 
   return (
-    <SpreadSheetApiContext.Provider value={value}>
+    <InvoiceApiContext.Provider value={value}>
       {children}
-    </SpreadSheetApiContext.Provider>
+    </InvoiceApiContext.Provider>
   );
 };

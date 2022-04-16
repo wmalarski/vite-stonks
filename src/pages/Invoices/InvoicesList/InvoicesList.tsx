@@ -1,5 +1,5 @@
 import { Doc } from "@/services/DocApi";
-import { useSpreadSheetApi } from "@/services/SpreadSheetApi";
+import { useInvoiceApi } from "@/services/InvoiceApi";
 import { Table } from "antd";
 import { ReactElement } from "react";
 import { useQuery } from "react-query";
@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const InvoicesList = ({ doc }: Props): ReactElement => {
-  const spreadSheetApi = useSpreadSheetApi();
+  const spreadSheetApi = useInvoiceApi();
   const { data, isLoading } = useQuery(
     spreadSheetApi.keyList(doc.sheet_id),
     spreadSheetApi.list,
