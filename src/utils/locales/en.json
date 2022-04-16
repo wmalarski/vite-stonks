@@ -38,5 +38,13 @@
   "invoiceDetails": "Details",
   "invoiceRemove": "Remove",
   "invoiceCopy": "Copy",
-  "invoiceEdit": "Edit"
+  "invoiceEdit": "Edit",
+  "addressLabel": "Address",
+  "companyLabel": "Company",
+  "dateLabel": "Date",
+  "hoursLabel": "Hours",
+  "invoiceNameLabel": "Name",
+  "nipLabel": "Nip",
+  "priceLabel": "Price",
+  "titleLabel": "Title"
 }

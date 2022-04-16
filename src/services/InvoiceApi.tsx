@@ -16,7 +16,6 @@ export type Invoice = {
   company: string;
   date: string;
   hours: number;
-  id: string;
   index: number;
   name: string;
   nip: string;
@@ -45,10 +44,13 @@ type InvoicesKey = ["invoices", string];
 type InvoiceKey = ["invoice", string, number];
 
 export type InvoiceApiService = {
+  create: (id: string, args: Invoice) => Promise<void>;
+  delete: (id: string, index: number) => Promise<void>;
   get: QueryFunction<Invoice, InvoiceKey>;
-  key: (id: string, row: number) => InvoiceKey;
+  key: (id: string, index: number) => InvoiceKey;
   list: QueryFunction<Invoice[], InvoicesKey>;
-  keyList: (id: string) => InvoicesKey;
+  listKey: (id: string) => InvoicesKey;
+  update: (id: string, args: Invoice) => Promise<void>;
 };
 
 type InvoiceApiContextValue =
@@ -146,6 +148,12 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
     return {
       isInitialized: true,
       api: {
+        create: async () => {
+          return Promise.resolve();
+        },
+        delete: async () => {
+          return Promise.resolve();
+        },
         get: async ({ queryKey }) => {
           const url = `${endpoint}/${queryKey[1]}`;
           const invoicesResponse = await googleFetch(
@@ -186,8 +194,11 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
 
           return invoices;
         },
-        keyList: (id) => {
+        listKey: (id) => {
           return ["invoices", id];
+        },
+        update: () => {
+          return Promise.resolve();
         },
       },
     };

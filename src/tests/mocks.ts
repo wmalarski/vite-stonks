@@ -14,13 +14,12 @@ export const mockSheet = (update: Partial<Sheet> = {}): Sheet => {
 };
 
 export const mockInvoice = (update: Partial<Invoice> = {}): Invoice => {
-  const id = update.id ?? Math.floor(Math.random() * 1e10);
+  const id = Math.floor(Math.random() * 1e10);
   return {
     address: "Address",
     company: "Company",
     date: new Date().toISOString(),
     hours: 160,
-    id: String(id),
     index: 0,
     name: `Name-${id}`,
     nip: "4567890",
@@ -82,13 +81,15 @@ export const mockSheetApi = ({
 export const mockInvoiceApi = (): InvoiceApiService => {
   const collection: Record<string, Invoice[]> = {};
   return {
-    list: ({ queryKey }) => {
-      const invoices = collection[queryKey[1]];
-      if (!invoices) return Promise.reject();
-      return Promise.resolve(invoices);
+    create: (id, args) => {
+      const invoices = collection[id];
+      invoices.splice(args.index, 0, args);
+      return Promise.resolve();
     },
-    keyList: (id) => {
-      return ["invoices", id];
+    delete: (id, index) => {
+      const invoices = collection[id];
+      invoices.splice(index, 1);
+      return Promise.resolve();
     },
     get: ({ queryKey }) => {
       const invoices = collection[queryKey[1]];
@@ -96,6 +97,19 @@ export const mockInvoiceApi = (): InvoiceApiService => {
     },
     key: (id, row) => {
       return ["invoice", id, row];
+    },
+    list: ({ queryKey }) => {
+      const invoices = collection[queryKey[1]];
+      if (!invoices) return Promise.reject();
+      return Promise.resolve(invoices);
+    },
+    listKey: (id) => {
+      return ["invoices", id];
+    },
+    update: (id, args) => {
+      const invoices = collection[id];
+      invoices.splice(args.index, 1, args);
+      return Promise.resolve();
     },
   };
 };

@@ -13,7 +13,7 @@ type Props = {
 export const InvoicesList = ({ sheet }: Props): ReactElement => {
   const spreadSheetApi = useInvoiceApi();
   const { data, isLoading } = useQuery(
-    spreadSheetApi.keyList(sheet.sheet_id),
+    spreadSheetApi.listKey(sheet.sheet_id),
     spreadSheetApi.list,
     { refetchOnWindowFocus: false }
   );
