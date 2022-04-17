@@ -39,6 +39,8 @@
   "invoiceRemove": "Remove",
   "invoiceCopy": "Copy",
   "invoiceEdit": "Edit",
+  "saveInvoiceButton": "Save",
+  "editInvoiceTitle": "Edit invoice",
   "addressLabel": "Address",
   "companyLabel": "Company",
   "dateLabel": "Date",

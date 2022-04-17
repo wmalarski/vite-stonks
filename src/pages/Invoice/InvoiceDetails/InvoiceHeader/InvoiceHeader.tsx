@@ -1,3 +1,4 @@
+import { EditInvoice } from "@/modules/EditInvoice/EditInvoice";
 import { paths } from "@/navigation/paths";
 import { Invoice } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
@@ -28,16 +29,10 @@ export const InvoiceHeader = ({ invoice, sheet }: Props): ReactElement => {
     navigate({ to: paths.sheet(sheet.id) });
   };
 
-  const handleEditClick = () => {
-    //
-  };
-
   return (
     <PageHeader
       extra={[
-        <Button key="edit" onClick={handleEditClick}>
-          {t("invoiceEdit")}
-        </Button>,
+        <EditInvoice key="edit" invoice={invoice} sheet={sheet} />,
         <Button key="copy" onClick={handleCopyClick}>
           {t("invoiceCopy")}
         </Button>,

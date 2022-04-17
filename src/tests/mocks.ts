@@ -81,12 +81,12 @@ export const mockSheetApi = ({
 export const mockInvoiceApi = (): InvoiceApiService => {
   const collection: Record<string, Invoice[]> = {};
   return {
-    create: (id, args) => {
+    create: ({ id, create }) => {
       const invoices = collection[id];
-      invoices.splice(args.index, 0, args);
+      invoices.splice(create.index, 0, create);
       return Promise.resolve();
     },
-    delete: (id, index) => {
+    delete: ({ id, index }) => {
       const invoices = collection[id];
       invoices.splice(index, 1);
       return Promise.resolve();
@@ -106,9 +106,9 @@ export const mockInvoiceApi = (): InvoiceApiService => {
     listKey: (id) => {
       return ["invoices", id];
     },
-    update: (id, args) => {
+    update: ({ id, update }) => {
       const invoices = collection[id];
-      invoices.splice(args.index, 1, args);
+      invoices.splice(update.index, 1, update);
       return Promise.resolve();
     },
   };

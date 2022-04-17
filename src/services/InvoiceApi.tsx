@@ -40,17 +40,32 @@ type SpreadSheetData = {
   };
 };
 
+type CreateInvoiceArgs = {
+  id: string;
+  create: Invoice;
+};
+
+type DeleteInvoiceArgs = {
+  id: string;
+  index: number;
+};
+
+type UpdateInvoiceArgs = {
+  id: string;
+  update: Invoice;
+};
+
 type InvoicesKey = ["invoices", string];
 type InvoiceKey = ["invoice", string, number];
 
 export type InvoiceApiService = {
-  create: (id: string, args: Invoice) => Promise<void>;
-  delete: (id: string, index: number) => Promise<void>;
+  create: (args: CreateInvoiceArgs) => Promise<void>;
+  delete: (args: DeleteInvoiceArgs) => Promise<void>;
   get: QueryFunction<Invoice, InvoiceKey>;
   key: (id: string, index: number) => InvoiceKey;
   list: QueryFunction<Invoice[], InvoicesKey>;
   listKey: (id: string) => InvoicesKey;
-  update: (id: string, args: Invoice) => Promise<void>;
+  update: (args: UpdateInvoiceArgs) => Promise<void>;
 };
 
 type InvoiceApiContextValue =

@@ -1,16 +1,15 @@
 import { Invoice } from "@/services/InvoiceApi";
+import { Sheet } from "@/services/SheetApi";
 import { ColumnsType } from "antd/lib/table";
 import { useTranslation } from "react-i18next";
 import { InvoiceActions } from "./InvoiceActions/InvoiceActions";
 import { InvoiceTitle } from "./InvoiceTitle/InvoiceTitle";
 
 type UseColumnsArgs = {
-  sheetId: number;
+  sheet: Sheet;
 };
 
-export const useColumns = ({
-  sheetId,
-}: UseColumnsArgs): ColumnsType<Invoice> => {
+export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Invoice> => {
   const { t } = useTranslation("common");
 
   return [
@@ -38,15 +37,13 @@ export const useColumns = ({
       key: "title",
       width: "100%",
       render: (_, record) => (
-        <InvoiceTitle invoice={record} sheetId={sheetId} />
+        <InvoiceTitle invoice={record} sheetId={sheet.id} />
       ),
     },
     {
       title: t("invoiceActions"),
       key: "actions",
-      render: (_, record) => (
-        <InvoiceActions invoice={record} sheetId={sheetId} />
-      ),
+      render: (_, record) => <InvoiceActions invoice={record} sheet={sheet} />,
       colSpan: 1,
     },
   ];

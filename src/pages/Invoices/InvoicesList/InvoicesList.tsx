@@ -12,15 +12,14 @@ type Props = {
 
 export const InvoicesList = ({ sheet }: Props): ReactElement => {
   const spreadSheetApi = useInvoiceApi();
+
   const { data, isLoading } = useQuery(
     spreadSheetApi.listKey(sheet.sheet_id),
     spreadSheetApi.list,
     { refetchOnWindowFocus: false }
   );
 
-  const columns = useColumns({ sheetId: sheet.id });
-
-  console.log({ data });
+  const columns = useColumns({ sheet });
 
   return (
     <Table
