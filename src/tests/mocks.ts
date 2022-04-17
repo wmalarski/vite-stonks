@@ -84,7 +84,7 @@ export const mockInvoiceApi = (): InvoiceApiService => {
     create: ({ id, create }) => {
       const invoices = collection[id];
       invoices.splice(create.index, 0, create);
-      return Promise.resolve();
+      return Promise.resolve(create);
     },
     delete: ({ id, index }) => {
       const invoices = collection[id];

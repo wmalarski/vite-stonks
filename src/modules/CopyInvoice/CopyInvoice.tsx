@@ -1,16 +1,67 @@
-import { ReactElement } from "react";
+import { Invoice, useInvoiceApi } from "@/services/InvoiceApi";
+import { Sheet } from "@/services/SheetApi";
+import { Button, Form, Modal } from "antd";
+import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useMutation, useQueryClient } from "react-query";
+import { InvoiceForm } from "../InvoiceForm/InvoiceForm";
 
 type Props = {
-  data?: string;
+  invoice: Invoice;
+  onSuccess: (invoice: Invoice) => void;
+  sheet: Sheet;
 };
 
-export const CopyInvoice = ({ data }: Props): ReactElement => {
+export const CopyInvoice = ({
+  invoice,
+  onSuccess,
+  sheet,
+}: Props): ReactElement => {
   const { t } = useTranslation("common");
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [form] = Form.useForm<Invoice>();
+
+  const invoiceApi = useInvoiceApi();
+  const client = useQueryClient();
+
+  const { mutate, isLoading } = useMutation(invoiceApi.create, {
+    onSuccess: (invoice) => {
+      client.invalidateQueries(invoiceApi.listKey(sheet.sheet_id));
+      onSuccess(invoice);
+    },
+  });
+
+  const handleOpenClick = () => {
+    setIsOpen(true);
+  };
+
+  const handleCancelClick = () => {
+    setIsOpen(false);
+  };
+
+  const handleOkClick = async () => {
+    try {
+      const create = await form.validateFields();
+      mutate({ create, id: sheet.sheet_id });
+    } catch (info) {
+      console.error("Validate Failed:", info);
+    }
+  };
+
   return (
-    <div>
-      <p>{t("CopyInvoice")}</p>
-      <div>{data}</div>
-    </div>
+    <>
+      <Button onClick={handleOpenClick}>{t("invoiceCopy")}</Button>
+      <Modal
+        okButtonProps={{ loading: isLoading }}
+        okText={t("saveInvoiceButton")}
+        onCancel={handleCancelClick}
+        onOk={handleOkClick}
+        title={t("copyInvoiceTitle")}
+        visible={isOpen}
+      >
+        <InvoiceForm form={form} initialValues={invoice} />
+      </Modal>
+    </>
   );
 };

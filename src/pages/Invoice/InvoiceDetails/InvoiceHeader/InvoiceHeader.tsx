@@ -1,11 +1,11 @@
+import { CopyInvoice } from "@/modules/CopyInvoice/CopyInvoice";
 import { EditInvoice } from "@/modules/EditInvoice/EditInvoice";
 import { RemoveInvoice } from "@/modules/RemoveInvoice/RemoveInvoice";
 import { paths } from "@/navigation/paths";
 import { Invoice } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
-import { Button, PageHeader } from "antd";
+import { PageHeader } from "antd";
 import { ReactElement } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-location";
 
 type Props = {
@@ -14,16 +14,14 @@ type Props = {
 };
 
 export const InvoiceHeader = ({ invoice, sheet }: Props): ReactElement => {
-  const { t } = useTranslation("common");
-
   const navigate = useNavigate();
 
   const handleRemoveSuccess = () => {
     navigate({ to: paths.sheet(sheet.id) });
   };
 
-  const handleCopyClick = () => {
-    navigate({ to: paths.home });
+  const handleCopySuccess = (copy: Invoice) => {
+    navigate({ to: paths.invoice(sheet.id, copy.index) });
   };
 
   const handleBackClick = () => {
@@ -34,9 +32,12 @@ export const InvoiceHeader = ({ invoice, sheet }: Props): ReactElement => {
     <PageHeader
       extra={[
         <EditInvoice key="edit" invoice={invoice} sheet={sheet} />,
-        <Button key="copy" onClick={handleCopyClick}>
-          {t("invoiceCopy")}
-        </Button>,
+        <CopyInvoice
+          invoice={invoice}
+          key="copy"
+          onSuccess={handleCopySuccess}
+          sheet={sheet}
+        />,
         <RemoveInvoice
           invoice={invoice}
           key="remove"

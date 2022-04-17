@@ -59,7 +59,7 @@ type InvoicesKey = ["invoices", string];
 type InvoiceKey = ["invoice", string, number];
 
 export type InvoiceApiService = {
-  create: (args: CreateInvoiceArgs) => Promise<void>;
+  create: (args: CreateInvoiceArgs) => Promise<Invoice>;
   delete: (args: DeleteInvoiceArgs) => Promise<void>;
   get: QueryFunction<Invoice, InvoiceKey>;
   key: (id: string, index: number) => InvoiceKey;
@@ -163,8 +163,8 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
     return {
       isInitialized: true,
       api: {
-        create: async () => {
-          return Promise.resolve();
+        create: async ({ create }) => {
+          return Promise.resolve(create);
         },
         delete: async () => {
           return Promise.resolve();
