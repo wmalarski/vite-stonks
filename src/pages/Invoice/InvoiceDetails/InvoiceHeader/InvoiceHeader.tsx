@@ -1,4 +1,5 @@
 import { EditInvoice } from "@/modules/EditInvoice/EditInvoice";
+import { RemoveInvoice } from "@/modules/RemoveInvoice/RemoveInvoice";
 import { paths } from "@/navigation/paths";
 import { Invoice } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
@@ -17,8 +18,8 @@ export const InvoiceHeader = ({ invoice, sheet }: Props): ReactElement => {
 
   const navigate = useNavigate();
 
-  const handleRemoveClick = () => {
-    navigate({ to: paths.home });
+  const handleRemoveSuccess = () => {
+    navigate({ to: paths.sheet(sheet.id) });
   };
 
   const handleCopyClick = () => {
@@ -36,9 +37,12 @@ export const InvoiceHeader = ({ invoice, sheet }: Props): ReactElement => {
         <Button key="copy" onClick={handleCopyClick}>
           {t("invoiceCopy")}
         </Button>,
-        <Button key="remove" danger onClick={handleRemoveClick}>
-          {t("invoiceRemove")}
-        </Button>,
+        <RemoveInvoice
+          invoice={invoice}
+          key="remove"
+          onSuccess={handleRemoveSuccess}
+          sheet={sheet}
+        />,
       ]}
       ghost={false}
       onBack={handleBackClick}

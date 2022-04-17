@@ -1,4 +1,5 @@
 import { EditInvoice } from "@/modules/EditInvoice/EditInvoice";
+import { RemoveInvoice } from "@/modules/RemoveInvoice/RemoveInvoice";
 import { Invoice } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
 import { Button } from "antd";
@@ -14,18 +15,14 @@ type Props = {
 export const InvoiceActions = ({ sheet, invoice }: Props): ReactElement => {
   const { t } = useTranslation("common");
 
-  const handleCopyClick = () => {
-    console.log({ sheet, invoice });
-  };
-
   const handleRemoveClick = () => {
     console.log({ sheet, invoice });
   };
 
   return (
     <div key={invoice.index} className={classes.list}>
-      <EditInvoice key="edit" invoice={invoice} sheet={sheet} />
-      <Button onClick={handleCopyClick}>{t("invoiceCopy")}</Button>
+      <EditInvoice invoice={invoice} sheet={sheet} />
+      <RemoveInvoice invoice={invoice} sheet={sheet} />
       <Button danger onClick={handleRemoveClick}>
         {t("invoiceRemove")}
       </Button>
