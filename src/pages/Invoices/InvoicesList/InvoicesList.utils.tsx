@@ -1,5 +1,6 @@
 import { Invoice } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
+import { formatDate } from "@/utils/format";
 import { ColumnsType } from "antd/lib/table";
 import { useTranslation } from "react-i18next";
 import { InvoiceActions } from "./InvoiceActions/InvoiceActions";
@@ -24,6 +25,7 @@ export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Invoice> => {
       key: "date",
       title: t("invoiceDate"),
       width: 90,
+      render: formatDate,
     },
     {
       title: t("invoiceNumber"),

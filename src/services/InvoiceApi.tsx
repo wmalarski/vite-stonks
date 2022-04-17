@@ -1,3 +1,5 @@
+import { parseDate } from "@/utils/format";
+import moment from "moment";
 import {
   createContext,
   ReactElement,
@@ -14,7 +16,7 @@ const invoicesSpreadSheetName = "Rachunki";
 export type Invoice = {
   address: string;
   company: string;
-  date: string;
+  date: moment.Moment;
   hours: number;
   index: number;
   name: string;
@@ -138,7 +140,7 @@ const getInvoices = (sheets: SpreadSheetData[], drop: number): Invoice[] => {
         {
           address,
           company,
-          date,
+          date: parseDate(date),
           hours: parseInt(hours),
           id,
           index,

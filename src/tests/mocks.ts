@@ -1,5 +1,6 @@
 import { Invoice, InvoiceApiService } from "@/services/InvoiceApi";
 import { Sheet, SheetApiService } from "@/services/SheetApi";
+import moment from "moment";
 
 export const mockSheet = (update: Partial<Sheet> = {}): Sheet => {
   const id = update.id ?? Math.floor(Math.random() * 1e10);
@@ -18,7 +19,7 @@ export const mockInvoice = (update: Partial<Invoice> = {}): Invoice => {
   return {
     address: "Address",
     company: "Company",
-    date: new Date().toISOString(),
+    date: moment(new Date()),
     hours: 160,
     index: 0,
     name: `Name-${id}`,

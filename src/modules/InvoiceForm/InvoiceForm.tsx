@@ -1,5 +1,5 @@
 import { Invoice } from "@/services/InvoiceApi";
-import { Form, FormInstance, Input } from "antd";
+import { DatePicker, Form, FormInstance, Input, InputNumber } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -12,8 +12,10 @@ export const InvoiceForm = ({ form, initialValues }: Props): ReactElement => {
   const { t } = useTranslation("common");
   return (
     <Form
+      labelCol={{ span: 4 }}
+      wrapperCol={{ span: 20 }}
       form={form}
-      layout="vertical"
+      layout="horizontal"
       name="sheet_form"
       initialValues={initialValues}
     >
@@ -42,24 +44,12 @@ export const InvoiceForm = ({ form, initialValues }: Props): ReactElement => {
         <Input />
       </Form.Item>
       <Form.Item
-        label={t("dateLabel")}
-        name="date"
+        label={t("nipLabel")}
+        name="nip"
         rules={[
           {
             required: true,
-            message: t("fieldRequired", { label: t("dateLabel") }),
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label={t("hoursLabel")}
-        name="hours"
-        rules={[
-          {
-            required: true,
-            message: t("fieldRequired", { label: t("hoursLabel") }),
+            message: t("fieldRequired", { label: t("nipLabel") }),
           },
         ]}
       >
@@ -78,12 +68,12 @@ export const InvoiceForm = ({ form, initialValues }: Props): ReactElement => {
         <Input />
       </Form.Item>
       <Form.Item
-        label={t("nipLabel")}
-        name="nip"
+        label={t("titleLabel")}
+        name="title"
         rules={[
           {
             required: true,
-            message: t("fieldRequired", { label: t("nipLabel") }),
+            message: t("fieldRequired", { label: t("titleLabel") }),
           },
         ]}
       >
@@ -99,19 +89,31 @@ export const InvoiceForm = ({ form, initialValues }: Props): ReactElement => {
           },
         ]}
       >
-        <Input />
+        <InputNumber min={0} step={0} />
       </Form.Item>
       <Form.Item
-        label={t("titleLabel")}
-        name="title"
+        label={t("hoursLabel")}
+        name="hours"
         rules={[
           {
             required: true,
-            message: t("fieldRequired", { label: t("titleLabel") }),
+            message: t("fieldRequired", { label: t("hoursLabel") }),
           },
         ]}
       >
-        <Input />
+        <InputNumber min={0} step={0} />
+      </Form.Item>
+      <Form.Item
+        label={t("dateLabel")}
+        name="date"
+        rules={[
+          {
+            required: true,
+            message: t("fieldRequired", { label: t("dateLabel") }),
+          },
+        ]}
+      >
+        <DatePicker />
       </Form.Item>
     </Form>
   );
