@@ -42,6 +42,8 @@
   "saveInvoiceButton": "Save",
   "editInvoiceTitle": "Edit invoice",
   "copyInvoiceTitle": "Copy invoice",
+  "invoiceCreate": "Create invoice",
+  "createInvoiceTitle": "Create invoice",
   "addressLabel": "Address",
   "companyLabel": "Company",
   "dateLabel": "Date",
