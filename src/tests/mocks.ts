@@ -18,6 +18,7 @@ export const mockInvoice = (update: Partial<Invoice> = {}): Invoice => {
   const id = Math.floor(Math.random() * 1e10);
   return {
     address: "Address",
+    address2: "Address2",
     company: "Company",
     date: moment(new Date()),
     hours: 160,

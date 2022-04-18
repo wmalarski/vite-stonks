@@ -15,6 +15,7 @@ const invoicesSpreadSheetName = "Rachunki";
 
 export type Invoice = {
   address: string;
+  address2: string;
   company: string;
   date: moment.Moment;
   hours: number;
@@ -139,6 +140,7 @@ const getInvoices = (sheets: SpreadSheetData[], drop: number): Invoice[] => {
       return [
         {
           address,
+          address2: "Address2",
           company,
           date: parseDate(date),
           hours: parseInt(hours),

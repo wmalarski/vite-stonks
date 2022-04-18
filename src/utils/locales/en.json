@@ -51,5 +51,8 @@
   "invoiceNameLabel": "Name",
   "nipLabel": "Nip",
   "priceLabel": "Price",
-  "titleLabel": "Title"
+  "titleLabel": "Title",
+  "previewHeader": "{{city}}, day {{date}}",
+  "previewRecipient": "Recipient",
+  "previewSeller": "Seller"
 }

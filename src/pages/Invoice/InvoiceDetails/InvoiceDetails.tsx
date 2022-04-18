@@ -1,6 +1,8 @@
 import { Loading } from "@/components/Loading/Loading";
+import { InvoicePreview } from "@/modules/InvoicePreview/InvoicePreview";
 import { LocationGenerics } from "@/navigation/location";
 import { useInvoiceApi } from "@/services/InvoiceApi";
+import { Profile } from "@/services/ProfileApi";
 import { Sheet } from "@/services/SheetApi";
 import { ReactElement } from "react";
 import { useMatch } from "react-location";
@@ -22,12 +24,20 @@ export const InvoiceDetails = ({ sheet }: Props): ReactElement => {
     { refetchOnWindowFocus: false }
   );
 
+  const profile: Profile = {
+    city: "Warsaw",
+    address1: "ul. Per",
+    address2: "33-333 Warsaw",
+    company: "Company1",
+    nip: "345678987",
+  };
+
   if (isLoading || !data) return <Loading />;
 
   return (
     <div>
       <InvoiceHeader invoice={data} sheet={sheet} />
-      <pre>{JSON.stringify({ data, sheet }, null, 2)}</pre>
+      <InvoicePreview profile={profile} invoice={data} />
     </div>
   );
 };
