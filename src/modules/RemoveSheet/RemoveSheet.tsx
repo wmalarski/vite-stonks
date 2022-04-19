@@ -28,7 +28,7 @@ export const RemoveSheet = ({ onSuccess, sheet }: Props): ReactElement => {
 
   return (
     <Button danger loading={isLoading} onClick={handleRemoveClick}>
-      {t("removeSheet")}
+      {t("sheet.remove")}
     </Button>
   );
 };

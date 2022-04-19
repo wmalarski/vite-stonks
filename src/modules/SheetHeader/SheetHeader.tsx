@@ -47,7 +47,7 @@ export const SheetHeader = ({ sheet }: Props): ReactElement => {
       ]}
       ghost={false}
       onBack={handleBackClick}
-      subTitle={t("sheetSubtitle")}
+      subTitle={t("sheet.subtitle")}
       title={sheet.name}
     />
   );

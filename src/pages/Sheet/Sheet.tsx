@@ -30,10 +30,10 @@ export const Sheet = (): ReactElement => {
     return (
       <Result
         status="error"
-        title={t("sheetErrorMessage")}
+        title={t("sheet.errorMessage")}
         extra={
           <Button type="primary" key="back" onClick={handleRefreshClick}>
-            {t("sheetReload")}
+            {t("sheet.reload")}
           </Button>
         }
       />

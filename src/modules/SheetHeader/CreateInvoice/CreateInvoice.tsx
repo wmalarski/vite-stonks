@@ -46,13 +46,13 @@ export const CreateInvoice = ({ onSuccess, sheet }: Props): ReactElement => {
 
   return (
     <>
-      <Button onClick={handleOpenClick}>{t("invoiceCreate")}</Button>
+      <Button onClick={handleOpenClick}>{t("invoice.create.button")}</Button>
       <Modal
         okButtonProps={{ loading: isLoading }}
-        okText={t("saveInvoiceButton")}
+        okText={t("invoice.create.save")}
         onCancel={handleCancelClick}
         onOk={handleOkClick}
-        title={t("createInvoiceTitle")}
+        title={t("invoice.create.title")}
         visible={isOpen}
       >
         <InvoiceForm form={form} />

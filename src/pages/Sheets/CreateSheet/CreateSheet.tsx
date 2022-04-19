@@ -44,14 +44,14 @@ export const CreateSheet = (): ReactElement => {
   return (
     <>
       <Button onClick={handleOpenClick} type="primary">
-        {t("addSheet")}
+        {t("sheet.create.button")}
       </Button>
       <Modal
         okButtonProps={{ loading: isLoading }}
-        okText={t("addButton")}
+        okText={t("sheet.create.save")}
         onCancel={handleCancelClick}
         onOk={handleOkClick}
-        title={t("addSheetTitle")}
+        title={t("sheet.create.title")}
         visible={isOpen}
       >
         <SheetForm form={form} />

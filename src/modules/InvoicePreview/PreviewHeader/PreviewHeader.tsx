@@ -17,7 +17,7 @@ export const PreviewHeader = ({ invoice, profile }: Props): ReactElement => {
   return (
     <div className={classes.layout}>
       <Typography.Text>
-        {t("previewHeader", {
+        {t("preview.header", {
           city: profile.city,
           date: formatDate(invoice.date.toDate()),
         })}

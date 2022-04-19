@@ -23,13 +23,20 @@ export const SheetForm = ({ form, initialValues }: Props): ReactElement => {
       initialValues={initialValues}
     >
       <Form.Item
-        label={t("nameLabel")}
+        label={t("sheet.form.name")}
         name="name"
-        rules={[{ required: true, message: t("nameRequired") }]}
+        rules={[
+          {
+            required: true,
+            message: t("form.fieldRequired", {
+              label: t("sheet.form.name"),
+            }),
+          },
+        ]}
       >
         <Input />
       </Form.Item>
-      <Form.Item label={t("sheetIdLabel")} name="sheet_id">
+      <Form.Item label={t("sheet.form.sheetId")} name="sheet_id">
         <Input />
       </Form.Item>
     </Form>

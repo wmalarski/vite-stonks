@@ -22,7 +22,7 @@ export const Login = (): ReactElement => {
         <Typography.Title>{t("pageTitle")}</Typography.Title>
         <Divider style={{ marginTop: 0 }} />
         <Button icon={<GoogleOutlined />} onClick={handleClick}>
-          {t("loginGoogle")}
+          {t("login.google")}
         </Button>
       </div>
     </div>

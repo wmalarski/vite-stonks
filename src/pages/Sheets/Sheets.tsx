@@ -25,8 +25,8 @@ export const Sheets = (): ReactElement => {
     <PageHeader
       extra={[<CreateSheet key="create" />]}
       ghost={false}
-      subTitle={t("sheetsSubtitle")}
-      title={t("sheetsTitle")}
+      subTitle={t("sheets.subtitle")}
+      title={t("sheets.title")}
     >
       <List
         loading={isLoading}

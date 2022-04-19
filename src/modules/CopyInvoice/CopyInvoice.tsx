@@ -51,13 +51,13 @@ export const CopyInvoice = ({
 
   return (
     <>
-      <Button onClick={handleOpenClick}>{t("invoiceCopy")}</Button>
+      <Button onClick={handleOpenClick}>{t("invoice.copy.button")}</Button>
       <Modal
         okButtonProps={{ loading: isLoading }}
-        okText={t("saveInvoiceButton")}
+        okText={t("invoice.copy.save")}
         onCancel={handleCancelClick}
         onOk={handleOkClick}
-        title={t("copyInvoiceTitle")}
+        title={t("invoice.copy.title")}
         visible={isOpen}
       >
         <InvoiceForm form={form} initialValues={invoice} />

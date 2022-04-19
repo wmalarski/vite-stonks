@@ -15,7 +15,7 @@ export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Invoice> => {
 
   return [
     {
-      title: t("invoiceId"),
+      title: t("invoices.id"),
       dataIndex: "id",
       key: "id",
       width: 30,
@@ -23,18 +23,18 @@ export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Invoice> => {
     {
       dataIndex: "date",
       key: "date",
-      title: t("invoiceDate"),
+      title: t("invoices.date"),
       width: 90,
       render: formatDate,
     },
     {
-      title: t("invoiceNumber"),
+      title: t("invoices.number"),
       dataIndex: "name",
       key: "name",
       width: 90,
     },
     {
-      title: t("invoiceTitle"),
+      title: t("invoices.title"),
       dataIndex: "title",
       key: "title",
       width: "100%",
@@ -43,7 +43,7 @@ export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Invoice> => {
       ),
     },
     {
-      title: t("invoiceActions"),
+      title: t("invoices.actions"),
       key: "actions",
       render: (_, record) => <InvoiceActions invoice={record} sheet={sheet} />,
       colSpan: 1,

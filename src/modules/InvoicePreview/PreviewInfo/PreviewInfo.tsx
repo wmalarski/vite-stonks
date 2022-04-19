@@ -9,7 +9,7 @@ export const PreviewInfo = ({ data }: Props): ReactElement => {
   const { t } = useTranslation("common");
   return (
     <div>
-      <p>{t("PreviewInfo")}</p>
+      <p>{t("preview.info")}</p>
       <div>{data}</div>
     </div>
   );

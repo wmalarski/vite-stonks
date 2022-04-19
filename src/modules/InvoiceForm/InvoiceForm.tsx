@@ -20,96 +20,108 @@ export const InvoiceForm = ({ form, initialValues }: Props): ReactElement => {
       initialValues={initialValues}
     >
       <Form.Item
-        label={t("addressLabel")}
+        label={t("invoice.form.address")}
         name="address"
         rules={[
           {
             required: true,
-            message: t("fieldRequired", { label: t("addressLabel") }),
+            message: t("form.fieldRequired", {
+              label: t("invoice.form.address"),
+            }),
           },
         ]}
       >
         <Input />
       </Form.Item>
       <Form.Item
-        label={t("companyLabel")}
+        label={t("invoice.form.company")}
         name="company"
         rules={[
           {
             required: true,
-            message: t("fieldRequired", { label: t("companyLabel") }),
+            message: t("form.fieldRequired", {
+              label: t("invoice.form.company"),
+            }),
           },
         ]}
       >
         <Input />
       </Form.Item>
       <Form.Item
-        label={t("nipLabel")}
+        label={t("invoice.form.nip")}
         name="nip"
         rules={[
           {
             required: true,
-            message: t("fieldRequired", { label: t("nipLabel") }),
+            message: t("form.fieldRequired", { label: t("invoice.form.nip") }),
           },
         ]}
       >
         <Input />
       </Form.Item>
       <Form.Item
-        label={t("invoiceNameLabel")}
+        label={t("invoice.form.name")}
         name="name"
         rules={[
           {
             required: true,
-            message: t("fieldRequired", { label: t("invoiceNameLabel") }),
+            message: t("form.fieldRequired", { label: t("invoice.form.name") }),
           },
         ]}
       >
         <Input />
       </Form.Item>
       <Form.Item
-        label={t("titleLabel")}
+        label={t("invoice.form.title")}
         name="title"
         rules={[
           {
             required: true,
-            message: t("fieldRequired", { label: t("titleLabel") }),
+            message: t("form.fieldRequired", {
+              label: t("invoice.form.title"),
+            }),
           },
         ]}
       >
         <Input />
       </Form.Item>
       <Form.Item
-        label={t("priceLabel")}
+        label={t("invoice.form.price")}
         name="price"
         rules={[
           {
             required: true,
-            message: t("fieldRequired", { label: t("priceLabel") }),
+            message: t("form.fieldRequired", {
+              label: t("invoice.form.price"),
+            }),
           },
         ]}
       >
         <InputNumber min={0} step={0} />
       </Form.Item>
       <Form.Item
-        label={t("hoursLabel")}
+        label={t("invoice.form.hours")}
         name="hours"
         rules={[
           {
             required: true,
-            message: t("fieldRequired", { label: t("hoursLabel") }),
+            message: t("form.fieldRequired", {
+              label: t("invoice.form.hours"),
+            }),
           },
         ]}
       >
         <InputNumber min={0} step={0} />
       </Form.Item>
       <Form.Item
-        label={t("dateLabel")}
+        label={t("invoice.form.date")}
         name="date"
         rules={[
           {
             required: true,
-            message: t("fieldRequired", { label: t("dateLabel") }),
+            message: t("form.fieldRequired", {
+              label: t("invoice.form.date"),
+            }),
           },
         ]}
       >

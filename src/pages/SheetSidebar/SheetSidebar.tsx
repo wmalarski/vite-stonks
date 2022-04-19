@@ -22,10 +22,10 @@ export const SheetSidebar = ({ sheetId }: Props): ReactElement => {
       theme="light"
     >
       <Menu.Item key={paths.sheet(id)} icon={<BarsOutlined />}>
-        <Link to={paths.sheet(id)}>{t("sheetDetails")}</Link>
+        <Link to={paths.sheet(id)}>{t("navigation.details")}</Link>
       </Menu.Item>
       <Menu.Item key={paths.settings(id)} icon={<SettingOutlined />}>
-        <Link to={paths.settings(id)}>{t("settings")}</Link>
+        <Link to={paths.settings(id)}>{t("navigation.settings")}</Link>
       </Menu.Item>
     </Menu>
   );

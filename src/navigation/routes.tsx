@@ -24,7 +24,7 @@ export const routes = (): Route<LocationGenerics>[] => [
         path: ":sheetId",
         element: <Sheet />,
         meta: {
-          breadcrumb: () => <Translation label="sheet" />,
+          breadcrumb: () => <Translation label="navigation.sheet" />,
           sidebar: (params) => <SheetSidebar sheetId={params.sheetId} />,
         },
         children: [
@@ -36,7 +36,7 @@ export const routes = (): Route<LocationGenerics>[] => [
             path: "settings",
             element: <Settings />,
             meta: {
-              breadcrumb: () => <Translation label="settings" />,
+              breadcrumb: () => <Translation label="navigation.settings" />,
             },
           },
           {
@@ -46,7 +46,7 @@ export const routes = (): Route<LocationGenerics>[] => [
                 path: ":invoiceId",
                 element: <Invoice />,
                 meta: {
-                  breadcrumb: () => <Translation label="invoice" />,
+                  breadcrumb: () => <Translation label="navigation.invoice" />,
                 },
               },
             ],

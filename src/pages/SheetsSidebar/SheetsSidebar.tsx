@@ -17,7 +17,7 @@ export const SheetsSidebar = (): ReactElement => {
       theme="light"
     >
       <Menu.Item key={paths.home} icon={<BankOutlined />}>
-        <Link to={paths.home}>{t("sheetsTitle")}</Link>
+        <Link to={paths.home}>{t("navigation.sheets")}</Link>
       </Menu.Item>
     </Menu>
   );

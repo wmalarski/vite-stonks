@@ -45,13 +45,13 @@ export const EditSheet = ({ sheet }: Props): ReactElement => {
 
   return (
     <>
-      <Button onClick={handleOpenClick}>{t("editSheet")}</Button>
+      <Button onClick={handleOpenClick}>{t("sheet.edit.button")}</Button>
       <Modal
         okButtonProps={{ loading: isLoading }}
-        okText={t("saveSheetButton")}
+        okText={t("sheet.edit.save")}
         onCancel={handleCancelClick}
         onOk={handleOkClick}
-        title={t("editSheetTitle")}
+        title={t("sheet.edit.title")}
         visible={isOpen}
       >
         <SheetForm form={form} initialValues={sheet} />

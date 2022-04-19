@@ -37,7 +37,7 @@ export const Sidebar = (): ReactElement => {
           onClick={handleSignOutClick}
           block
         >
-          {t("logout")}
+          {t("navigation.logout")}
         </Button>
       </div>
     </div>

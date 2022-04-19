@@ -15,7 +15,7 @@ export const HeaderBreadcrumb = (): ReactElement => {
   return (
     <Breadcrumb>
       <Breadcrumb.Item>
-        <Link to={paths.home}>{t("home")}</Link>
+        <Link to={paths.home}>{t("navigation.home")}</Link>
       </Breadcrumb.Item>
       {filtered.map((match) => (
         <Breadcrumb.Item key={match.pathname}>

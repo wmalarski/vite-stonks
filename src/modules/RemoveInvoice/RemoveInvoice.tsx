@@ -34,7 +34,7 @@ export const RemoveInvoice = ({
 
   return (
     <Button danger loading={isLoading} onClick={handleRemoveClick}>
-      {t("invoiceRemove")}
+      {t("invoice.remove")}
     </Button>
   );
 };
