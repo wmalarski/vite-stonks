@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const EditSheet = ({ sheet }: Props): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "sheet.edit" });
 
   const [isOpen, setIsOpen] = useState(false);
   const [form] = Form.useForm<UpdateSheetArgs>();
@@ -45,13 +45,13 @@ export const EditSheet = ({ sheet }: Props): ReactElement => {
 
   return (
     <>
-      <Button onClick={handleOpenClick}>{t("sheet.edit.button")}</Button>
+      <Button onClick={handleOpenClick}>{t("button")}</Button>
       <Modal
         okButtonProps={{ loading: isLoading }}
-        okText={t("sheet.edit.save")}
+        okText={t("save")}
         onCancel={handleCancelClick}
         onOk={handleOkClick}
-        title={t("sheet.edit.title")}
+        title={t("title")}
         visible={isOpen}
       >
         <SheetForm form={form} initialValues={sheet} />

@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useMatches } from "react-location";
 
 export const HeaderBreadcrumb = (): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "navigation" });
 
   const matches = useMatches<LocationGenerics>();
 
@@ -15,7 +15,7 @@ export const HeaderBreadcrumb = (): ReactElement => {
   return (
     <Breadcrumb>
       <Breadcrumb.Item>
-        <Link to={paths.home}>{t("navigation.home")}</Link>
+        <Link to={paths.home}>{t("home")}</Link>
       </Breadcrumb.Item>
       {filtered.map((match) => (
         <Breadcrumb.Item key={match.pathname}>

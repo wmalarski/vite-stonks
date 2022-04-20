@@ -7,7 +7,7 @@ import { useMatch } from "react-location";
 import { useQuery } from "react-query";
 
 export const Settings = (): ReactElement | null => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "settings" });
 
   const { params } = useMatch<LocationGenerics>();
   const id = Number(params.sheetId);

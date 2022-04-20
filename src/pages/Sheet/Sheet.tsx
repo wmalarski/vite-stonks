@@ -8,7 +8,7 @@ import { Outlet, useMatch } from "react-location";
 import { useQuery } from "react-query";
 
 export const Sheet = (): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "sheet" });
 
   const { params } = useMatch<LocationGenerics>();
 
@@ -30,10 +30,10 @@ export const Sheet = (): ReactElement => {
     return (
       <Result
         status="error"
-        title={t("sheet.errorMessage")}
+        title={t("errorMessage")}
         extra={
           <Button type="primary" key="back" onClick={handleRefreshClick}>
-            {t("sheet.reload")}
+            {t("reload")}
           </Button>
         }
       />

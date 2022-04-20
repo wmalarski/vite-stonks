@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const SheetSidebar = ({ sheetId }: Props): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "navigation" });
 
   const location = useLocation();
   const id = Number(sheetId);
@@ -22,10 +22,10 @@ export const SheetSidebar = ({ sheetId }: Props): ReactElement => {
       theme="light"
     >
       <Menu.Item key={paths.sheet(id)} icon={<BarsOutlined />}>
-        <Link to={paths.sheet(id)}>{t("navigation.details")}</Link>
+        <Link to={paths.sheet(id)}>{t("details")}</Link>
       </Menu.Item>
       <Menu.Item key={paths.settings(id)} icon={<SettingOutlined />}>
-        <Link to={paths.settings(id)}>{t("navigation.settings")}</Link>
+        <Link to={paths.settings(id)}>{t("settings")}</Link>
       </Menu.Item>
     </Menu>
   );

@@ -6,7 +6,7 @@ type Props = {
 };
 
 export const PreviewSummary = ({ data }: Props): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "preview" });
   return (
     <div>
       <p>{t("PreviewSummary")}</p>

@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const RemoveSheet = ({ onSuccess, sheet }: Props): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "sheet" });
 
   const sheetApi = useSheetApi();
   const client = useQueryClient();
@@ -28,7 +28,7 @@ export const RemoveSheet = ({ onSuccess, sheet }: Props): ReactElement => {
 
   return (
     <Button danger loading={isLoading} onClick={handleRemoveClick}>
-      {t("sheet.remove")}
+      {t("remove")}
     </Button>
   );
 };

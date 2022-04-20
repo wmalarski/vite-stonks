@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const EditInvoice = ({ invoice, sheet }: Props): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "invoice.edit" });
 
   const [isOpen, setIsOpen] = useState(false);
   const [form] = Form.useForm<Invoice>();
@@ -46,13 +46,13 @@ export const EditInvoice = ({ invoice, sheet }: Props): ReactElement => {
 
   return (
     <>
-      <Button onClick={handleOpenClick}>{t("invoice.edit.button")}</Button>
+      <Button onClick={handleOpenClick}>{t("button")}</Button>
       <Modal
         okButtonProps={{ loading: isLoading }}
-        okText={t("invoice.edit.save")}
+        okText={t("save")}
         onCancel={handleCancelClick}
         onOk={handleOkClick}
-        title={t("invoice.edit.title")}
+        title={t("title")}
         visible={isOpen}
       >
         <InvoiceForm form={form} initialValues={invoice} />

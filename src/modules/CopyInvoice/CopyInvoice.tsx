@@ -17,7 +17,7 @@ export const CopyInvoice = ({
   onSuccess,
   sheet,
 }: Props): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "invoice.copy" });
 
   const [isOpen, setIsOpen] = useState(false);
   const [form] = Form.useForm<Invoice>();
@@ -51,13 +51,13 @@ export const CopyInvoice = ({
 
   return (
     <>
-      <Button onClick={handleOpenClick}>{t("invoice.copy.button")}</Button>
+      <Button onClick={handleOpenClick}>{t("button")}</Button>
       <Modal
         okButtonProps={{ loading: isLoading }}
-        okText={t("invoice.copy.save")}
+        okText={t("save")}
         onCancel={handleCancelClick}
         onOk={handleOkClick}
-        title={t("invoice.copy.title")}
+        title={t("title")}
         visible={isOpen}
       >
         <InvoiceForm form={form} initialValues={invoice} />

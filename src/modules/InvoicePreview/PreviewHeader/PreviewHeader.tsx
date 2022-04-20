@@ -12,12 +12,12 @@ type Props = {
 };
 
 export const PreviewHeader = ({ invoice, profile }: Props): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "preview" });
 
   return (
     <div className={classes.layout}>
       <Typography.Text>
-        {t("preview.header", {
+        {t("header", {
           city: profile.city,
           date: formatDate(invoice.date.toDate()),
         })}

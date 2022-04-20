@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const SheetHeader = ({ sheet }: Props): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "sheet" });
 
   const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ export const SheetHeader = ({ sheet }: Props): ReactElement => {
       ]}
       ghost={false}
       onBack={handleBackClick}
-      subTitle={t("sheet.subtitle")}
+      subTitle={t("subtitle")}
       title={sheet.name}
     />
   );

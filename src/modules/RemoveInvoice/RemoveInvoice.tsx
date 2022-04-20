@@ -16,7 +16,7 @@ export const RemoveInvoice = ({
   onSuccess,
   sheet,
 }: Props): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "invoice" });
 
   const invoiceApi = useInvoiceApi();
   const client = useQueryClient();
@@ -34,7 +34,7 @@ export const RemoveInvoice = ({
 
   return (
     <Button danger loading={isLoading} onClick={handleRemoveClick}>
-      {t("invoice.remove")}
+      {t("remove")}
     </Button>
   );
 };

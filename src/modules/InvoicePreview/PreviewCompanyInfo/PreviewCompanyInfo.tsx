@@ -8,10 +8,10 @@ type Props = {
 };
 
 export const PreviewCompanyInfo = ({ invoice }: Props): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "preview" });
   return (
     <div>
-      <Typography.Title level={5}>{t("preview.recipient")}</Typography.Title>
+      <Typography.Title level={5}>{t("recipient")}</Typography.Title>
       <Typography.Paragraph>{invoice.company}</Typography.Paragraph>
       <Typography.Paragraph>{invoice.address}</Typography.Paragraph>
       <Typography.Paragraph>{invoice.address2}</Typography.Paragraph>

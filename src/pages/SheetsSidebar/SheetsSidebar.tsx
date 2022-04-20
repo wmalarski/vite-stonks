@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-location";
 
 export const SheetsSidebar = (): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "navigation" });
 
   const location = useLocation();
 
@@ -17,7 +17,7 @@ export const SheetsSidebar = (): ReactElement => {
       theme="light"
     >
       <Menu.Item key={paths.home} icon={<BankOutlined />}>
-        <Link to={paths.home}>{t("navigation.sheets")}</Link>
+        <Link to={paths.home}>{t("sheets")}</Link>
       </Menu.Item>
     </Menu>
   );

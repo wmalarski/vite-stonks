@@ -9,7 +9,7 @@ import { useMutation } from "react-query";
 import * as classes from "./Sidebar.css";
 
 export const Sidebar = (): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "navigation" });
 
   const authApi = useAuthApi();
   const { mutate } = useMutation(authApi.signOut);
@@ -37,7 +37,7 @@ export const Sidebar = (): ReactElement => {
           onClick={handleSignOutClick}
           block
         >
-          {t("navigation.logout")}
+          {t("logout")}
         </Button>
       </div>
     </div>

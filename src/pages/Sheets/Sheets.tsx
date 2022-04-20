@@ -10,7 +10,7 @@ import { SheetsListItem } from "./SheetsListItem/SheetsListItem";
 const PageSize = 10;
 
 export const Sheets = (): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "sheets" });
 
   const [page, setPage] = useState(1);
   const pagination = { offset: (page - 1) * PageSize, limit: PageSize };
@@ -25,8 +25,8 @@ export const Sheets = (): ReactElement => {
     <PageHeader
       extra={[<CreateSheet key="create" />]}
       ghost={false}
-      subTitle={t("sheets.subtitle")}
-      title={t("sheets.title")}
+      subTitle={t("subtitle")}
+      title={t("title")}
     >
       <List
         loading={isLoading}

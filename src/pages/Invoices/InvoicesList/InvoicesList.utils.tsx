@@ -11,11 +11,11 @@ type UseColumnsArgs = {
 };
 
 export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Invoice> => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "invoices" });
 
   return [
     {
-      title: t("invoices.id"),
+      title: t("id"),
       dataIndex: "id",
       key: "id",
       width: 30,
@@ -23,18 +23,18 @@ export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Invoice> => {
     {
       dataIndex: "date",
       key: "date",
-      title: t("invoices.date"),
+      title: t("date"),
       width: 90,
       render: formatDate,
     },
     {
-      title: t("invoices.number"),
+      title: t("number"),
       dataIndex: "name",
       key: "name",
       width: 90,
     },
     {
-      title: t("invoices.title"),
+      title: t("title"),
       dataIndex: "title",
       key: "title",
       width: "100%",
@@ -43,7 +43,7 @@ export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Invoice> => {
       ),
     },
     {
-      title: t("invoices.actions"),
+      title: t("actions"),
       key: "actions",
       render: (_, record) => <InvoiceActions invoice={record} sheet={sheet} />,
       colSpan: 1,

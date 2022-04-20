@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
 
 export const CreateSheet = (): ReactElement => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("common", { keyPrefix: "sheet.create" });
 
   const [isOpen, setIsOpen] = useState(false);
   const [form] = Form.useForm<CreateSheetArgs>();
@@ -44,14 +44,14 @@ export const CreateSheet = (): ReactElement => {
   return (
     <>
       <Button onClick={handleOpenClick} type="primary">
-        {t("sheet.create.button")}
+        {t("button")}
       </Button>
       <Modal
         okButtonProps={{ loading: isLoading }}
-        okText={t("sheet.create.save")}
+        okText={t("save")}
         onCancel={handleCancelClick}
         onOk={handleOkClick}
-        title={t("sheet.create.title")}
+        title={t("title")}
         visible={isOpen}
       >
         <SheetForm form={form} />
