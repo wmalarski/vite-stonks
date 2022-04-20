@@ -14,8 +14,27 @@ module.exports = (plop) => {
       {
         type: "addMany",
         destination: "src/{{path}}",
-        base: `.templates`,
-        templateFiles: `.templates/*.hbs`,
+        base: `.templates/component`,
+        templateFiles: `.templates/component/*.hbs`,
+      },
+    ],
+  });
+
+  plop.setGenerator("service", {
+    description: "React.js Service",
+    prompts: [
+      {
+        type: "input",
+        name: "model",
+        message: "Model name",
+      },
+    ],
+    actions: [
+      {
+        type: "addMany",
+        destination: "src/services",
+        base: `.templates/service`,
+        templateFiles: `.templates/service/*.hbs`,
       },
     ],
   });

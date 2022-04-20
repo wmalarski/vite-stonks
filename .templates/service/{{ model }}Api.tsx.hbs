@@ -1,0 +1,128 @@
+import {
+  createContext,
+  ReactElement,
+  ReactNode,
+  useContext,
+  useMemo,
+} from "react";
+import { QueryFunction } from "react-query";
+
+type {{ model }}Id = string;
+
+export type {{ model }} = {
+  id: {{ model }}Id;
+  data: string;
+};
+
+export type Create{{ model }}Args = {
+  data: string;
+};
+
+export type Update{{ model }}Args = {
+  id: {{ model }}Id;
+  data: string;
+};
+
+export type {{ model }}PageArgs = {
+  limit: number;
+  offset: number;
+};
+
+type {{ model }}ListResult = {
+  {{ camelCase model }}s: {{ model }}[];
+  count: number;
+};
+
+type {{ model }}sKey = ["{{ camelCase model }}s"] | ["{{ camelCase model }}s", {{ model }}PageArgs];
+type {{ model }}Key = ["{{ camelCase model }}", {{ model }}Id];
+
+export type {{ model }}ApiService = {
+  create: (args: Create{{ model }}Args) => Promise<{{ model }}>;
+  delete: (id: {{ model }}Id) => Promise<void>;
+  get: QueryFunction<{{ model }}, {{ model }}Key>;
+  key: (id: {{ model }}Id) => {{ model }}Key;
+  list: QueryFunction<{{ model }}ListResult, {{ model }}sKey>;
+  listKey: (pagination?: {{ model }}PageArgs) => {{ model }}sKey;
+  update: (args: Update{{ model }}Args) => Promise<{{ model }}>;
+};
+
+type {{ model }}ApiContextValue =
+  | {
+      isInitialized: false;
+    }
+  | {
+      isInitialized: true;
+      api: {{ model }}ApiService;
+    };
+
+export const {{ model }}ApiContext = createContext<{{ model }}ApiContextValue>({
+  isInitialized: false,
+});
+
+export const use{{ model }}Api = (): {{ model }}ApiService => {
+  const context = useContext({{ model }}ApiContext);
+
+  if (!context.isInitialized) {
+    throw new Error("{{ model }} Api context not defined");
+  }
+
+  return context.api;
+};
+
+type Props = {
+  children: ReactNode;
+};
+
+export const {{ model }}ApiProvider = ({ children }: Props): ReactElement => {
+  const value = useMemo<{{ model }}ApiContextValue>(() => {
+    const baseUrl = "";
+    const apiFetch = (input: RequestInfo, init: RequestInit) => {
+      return fetch(input, init);
+    };
+    return {
+      isInitialized: true,
+      api: {
+        create: async (args) => {
+          const body = JSON.stringify(args);
+          const response = await apiFetch(baseUrl, { method: "POST", body });
+          return response.json();
+        },
+        delete: async (id) => {
+          const url = `${baseUrl}/${id}`;
+          await apiFetch(url, { method: "DELETE" });
+        },
+        get: async ({ queryKey }) => {
+          const url = `${baseUrl}/${queryKey[1]}`;
+          const response = await apiFetch(url, { method: "GET" });
+          return response.json();
+        },
+        key: (id) => {
+          return ["{{ camelCase model }}", id];
+        },
+        list: async ({ queryKey }) => {
+          const params = new URLSearchParams({
+            limit: String(queryKey[1]?.limit ?? 50),
+            offset: String(queryKey[1]?.offset ?? 0),
+          });
+          const url = `${baseUrl}?${params}`;
+          const response = await apiFetch(url, { method: "GET" });
+          return response.json();
+        },
+        listKey: (pagination) => {
+          return pagination ? ["{{ camelCase model }}s", pagination] : ["{{ camelCase model }}s"];
+        },
+        update: async (args) => {
+          const body = JSON.stringify(args);
+          const response = await apiFetch(baseUrl, { method: "PUT", body });
+          return response.json();
+        },
+      },
+    };
+  }, []);
+
+  return (
+    <{{ model }}ApiContext.Provider value={value}>
+      {children}
+    </{{ model }}ApiContext.Provider>
+  );
+};

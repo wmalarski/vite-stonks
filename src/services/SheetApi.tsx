@@ -8,9 +8,11 @@ import {
 import { QueryFunction } from "react-query";
 import { supabase } from "./supabase";
 
+type SheetId = number;
+
 export type Sheet = {
   created_at: string;
-  id: number;
+  id: SheetId;
   name: string;
   sheet_id: string;
   user_id: string;
@@ -23,7 +25,7 @@ export type CreateSheetArgs = {
 };
 
 export type UpdateSheetArgs = {
-  id: number;
+  id: SheetId;
   name: string;
   sheet_id: string;
 };
@@ -43,9 +45,9 @@ type SheetKey = ["sheet", number];
 
 export type SheetApiService = {
   create: (args: CreateSheetArgs) => Promise<Sheet>;
-  delete: (id: number) => Promise<void>;
+  delete: (id: SheetId) => Promise<void>;
   get: QueryFunction<Sheet, SheetKey>;
-  key: (id: number) => SheetKey;
+  key: (id: SheetId) => SheetKey;
   list: QueryFunction<SheetListResult, SheetsKey>;
   listKey: (pagination?: SheetPageArgs) => SheetsKey;
   update: (args: UpdateSheetArgs) => Promise<Sheet>;
