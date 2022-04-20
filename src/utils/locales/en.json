@@ -84,6 +84,13 @@
     "bank": "Bank name:",
     "account": "Account number:",
     "transaction": "Transaction",
-    "money": "Money"
+    "money": "Money",
+    "lp": "Lp",
+    "title": "Title",
+    "unit": "Unit",
+    "hour": "Hour",
+    "count": "Count",
+    "price": "Price",
+    "summary": "Summary"
   }
 }

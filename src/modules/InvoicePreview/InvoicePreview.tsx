@@ -39,7 +39,7 @@ export const InvoicePreview = ({ profile, invoice }: Props): ReactElement => {
       </Row>
       <Row>
         <Col span={24}>
-          <PreviewTable />
+          <PreviewTable invoice={invoice} />
         </Col>
       </Row>
       <Row>
