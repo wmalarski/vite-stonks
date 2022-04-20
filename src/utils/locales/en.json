@@ -78,6 +78,12 @@
     "header": "{{city}}, day {{date}}",
     "recipient": "Recipient",
     "seller": "Seller",
-    "info": "Info"
+    "info": "Invoice {{name}}",
+    "payment": "Payment method:",
+    "paymentDeadline": "Deadline:",
+    "bank": "Bank name:",
+    "account": "Account number:",
+    "transaction": "Transaction",
+    "money": "Money"
   }
 }

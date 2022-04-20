@@ -25,9 +25,11 @@ export const InvoiceDetails = ({ sheet }: Props): ReactElement => {
   );
 
   const profile: Profile = {
-    city: "Warsaw",
+    account: "4567899876",
     address1: "ul. Per",
     address2: "33-333 Warsaw",
+    bank: "Millennium",
+    city: "Warsaw",
     company: "Company1",
     nip: "345678987",
   };

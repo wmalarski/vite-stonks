@@ -1,5 +1,6 @@
 import { Invoice } from "@/services/InvoiceApi";
 import { Profile } from "@/services/ProfileApi";
+import { Col, Row } from "antd";
 import { ReactElement } from "react";
 import * as classes from "./InvoicePreview.css";
 import { PreviewCompanyInfo } from "./PreviewCompanyInfo/PreviewCompanyInfo";
@@ -18,23 +19,39 @@ type Props = {
 export const InvoicePreview = ({ profile, invoice }: Props): ReactElement => {
   return (
     <div className={classes.layout}>
-      <div className={classes.twoColumn}>
-        <PreviewHeader profile={profile} invoice={invoice} />
-      </div>
-      <PreviewMyInfo profile={profile} />
-      <PreviewCompanyInfo invoice={invoice} />
-      <div className={classes.twoColumn}>
-        <PreviewInfo />
-      </div>
-      <div className={classes.twoColumn}>
-        <PreviewTable />
-      </div>
-      <div className={classes.twoColumn}>
-        <PreviewSummary />
-      </div>
-      <div className={classes.twoColumn}>
-        <PreviewNotes />
-      </div>
+      <Row>
+        <Col span={24}>
+          <PreviewHeader profile={profile} invoice={invoice} />
+        </Col>
+      </Row>
+      <Row>
+        <Col span={12}>
+          <PreviewMyInfo profile={profile} />
+        </Col>
+        <Col span={12}>
+          <PreviewCompanyInfo invoice={invoice} />
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}>
+          <PreviewInfo invoice={invoice} profile={profile} />
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}>
+          <PreviewTable />
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}>
+          <PreviewSummary />
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}>
+          <PreviewNotes />
+        </Col>
+      </Row>
     </div>
   );
 };
