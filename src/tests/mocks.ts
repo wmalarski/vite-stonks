@@ -1,4 +1,5 @@
 import { Invoice, InvoiceApiService } from "@/services/InvoiceApi";
+import { Profile } from "@/services/ProfileApi";
 import { Sheet, SheetApiService } from "@/services/SheetApi";
 import moment from "moment";
 
@@ -28,6 +29,19 @@ export const mockInvoice = (update: Partial<Invoice> = {}): Invoice => {
     price: 234,
     summary: 23456,
     title: "Title",
+    ...update,
+  };
+};
+
+export const mockProfile = (update: Partial<Profile> = {}): Profile => {
+  return {
+    account: "account",
+    address1: "address1",
+    address2: "address2",
+    bank: "Bank",
+    city: "City",
+    company: "company",
+    nip: "nip",
     ...update,
   };
 };
