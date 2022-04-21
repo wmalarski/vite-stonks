@@ -91,6 +91,10 @@
     "hour": "Hour",
     "count": "Count",
     "price": "Price",
-    "summary": "Summary"
+    "summary": "Summary",
+    "toPay": "To pay:",
+    "payed": "Payed:",
+    "leftToPay": "Left to pay:",
+    "amount": "{{ amount }},00 PLN"
   }
 }

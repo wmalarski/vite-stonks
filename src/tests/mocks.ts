@@ -18,7 +18,7 @@ export const mockSheet = (update: Partial<Sheet> = {}): Sheet => {
 export const mockInvoice = (update: Partial<Invoice> = {}): Invoice => {
   const id = Math.floor(Math.random() * 1e10);
   return {
-    address: "Address",
+    address1: "Address",
     address2: "Address2",
     company: "Company",
     date: moment(new Date()),

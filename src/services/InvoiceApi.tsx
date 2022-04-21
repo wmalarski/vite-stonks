@@ -14,7 +14,7 @@ const endpoint = "https://sheets.googleapis.com/v4/spreadsheets";
 const invoicesSpreadSheetName = "Rachunki";
 
 export type Invoice = {
-  address: string;
+  address1: string;
   address2: string;
   company: string;
   date: moment.Moment;
@@ -95,7 +95,7 @@ export const useInvoiceApi = (): InvoiceApiService => {
 };
 
 const getInvoiceRange = (row: number): string => {
-  return `${invoicesSpreadSheetName}!A${row + 3}:K${row + 3}`;
+  return `${invoicesSpreadSheetName}!A${row + 3}:L${row + 3}`;
 };
 
 const getInvoicesRanges = (sheets: SpreadSheetData[]): string => {
@@ -104,7 +104,7 @@ const getInvoicesRanges = (sheets: SpreadSheetData[]): string => {
   );
   const rowCount = invoices?.properties.gridProperties.columnCount ?? 0;
 
-  return `${invoicesSpreadSheetName}!A1:K${rowCount + 1}`;
+  return `${invoicesSpreadSheetName}!A1:L${rowCount + 1}`;
 };
 
 const getInvoices = (sheets: SpreadSheetData[], drop: number): Invoice[] => {
@@ -116,15 +116,17 @@ const getInvoices = (sheets: SpreadSheetData[], drop: number): Invoice[] => {
       const date = rowData.values[1].formattedValue;
       const name = rowData.values[2].formattedValue;
       const company = rowData.values[3].formattedValue;
-      const address = rowData.values[4].formattedValue;
-      const nip = rowData.values[5].formattedValue;
-      const title = rowData.values[6].formattedValue;
-      const hours = rowData.values[7].formattedValue;
-      const price = rowData.values[8].formattedValue;
-      const summary = rowData.values[9].formattedValue;
+      const address1 = rowData.values[4].formattedValue;
+      const address2 = rowData.values[5].formattedValue;
+      const nip = rowData.values[6].formattedValue;
+      const title = rowData.values[7].formattedValue;
+      const hours = rowData.values[8].formattedValue;
+      const price = rowData.values[9].formattedValue;
+      const summary = rowData.values[10].formattedValue;
 
       if (
-        !address ||
+        !address1 ||
+        !address2 ||
         !company ||
         !date ||
         !hours ||
@@ -139,8 +141,8 @@ const getInvoices = (sheets: SpreadSheetData[], drop: number): Invoice[] => {
 
       return [
         {
-          address,
-          address2: "Address2",
+          address1,
+          address2,
           company,
           date: parseDate(date),
           hours: parseInt(hours),
