@@ -1,3 +1,6 @@
+/// <reference types="vitest" />
+/// <reference types="vite/client" />
+
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 import react from "@vitejs/plugin-react";
 import * as path from "path";
@@ -21,4 +24,12 @@ export default defineConfig({
       },
     },
   },
+  ...({
+    test: {
+      globals: true,
+      environment: "jsdom",
+      setupFiles: "./src/tests/setup.ts",
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } as any),
 });
