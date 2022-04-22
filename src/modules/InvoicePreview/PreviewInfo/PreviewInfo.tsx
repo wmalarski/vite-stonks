@@ -1,5 +1,5 @@
 import { Invoice } from "@/services/InvoiceApi";
-import { Profile } from "@/services/ProfileApi";
+import { Sheet } from "@/services/SheetApi";
 import { formatDate } from "@/utils/format";
 import { Col, Radio, Row, Space, Typography } from "antd";
 import { ReactElement } from "react";
@@ -8,10 +8,10 @@ import * as classes from "./PreviewInfo.css";
 
 type Props = {
   invoice: Invoice;
-  profile: Profile;
+  sheet: Sheet;
 };
 
-export const PreviewInfo = ({ invoice, profile }: Props): ReactElement => {
+export const PreviewInfo = ({ invoice, sheet }: Props): ReactElement => {
   const { t } = useTranslation("common", { keyPrefix: "preview" });
 
   return (
@@ -49,7 +49,7 @@ export const PreviewInfo = ({ invoice, profile }: Props): ReactElement => {
               <Typography.Text>{t("bank")}</Typography.Text>
             </Col>
             <Col span={14}>
-              <Typography.Text>{profile.bank}</Typography.Text>
+              <Typography.Text>{sheet.bank}</Typography.Text>
             </Col>
           </Row>
           <Row gutter={10}>
@@ -57,7 +57,7 @@ export const PreviewInfo = ({ invoice, profile }: Props): ReactElement => {
               <Typography.Text>{t("account")}</Typography.Text>
             </Col>
             <Col span={14}>
-              <Typography.Text>{profile.account}</Typography.Text>
+              <Typography.Text>{sheet.account}</Typography.Text>
             </Col>
           </Row>
         </Col>

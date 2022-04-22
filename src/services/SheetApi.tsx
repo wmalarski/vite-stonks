@@ -16,6 +16,13 @@ export type Sheet = {
   name: string;
   sheet_id: string;
   user_id: string;
+  account: string;
+  address1: string;
+  address2: string;
+  bank: string;
+  city: string;
+  company: string;
+  nip: string;
 };
 
 export type CreateSheetArgs = {

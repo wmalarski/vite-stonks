@@ -1,4 +1,4 @@
-export type Profile = {
+export type Sheet = {
   account: string;
   address1: string;
   address2: string;
