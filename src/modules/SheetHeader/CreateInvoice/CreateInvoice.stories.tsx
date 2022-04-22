@@ -5,12 +5,15 @@ import { CreateInvoice } from "./CreateInvoice";
 
 export default {
   title: "modules/SheetHeader/CreateInvoice",
-  component: CreateInvoice
+  component: CreateInvoice,
 };
 
 type Props = ComponentProps<typeof CreateInvoice>;
 
-const CreateInvoiceStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const CreateInvoiceStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <CreateInvoice {...props} />

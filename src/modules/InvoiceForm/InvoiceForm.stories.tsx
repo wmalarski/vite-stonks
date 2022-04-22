@@ -5,12 +5,15 @@ import { InvoiceForm } from "./InvoiceForm";
 
 export default {
   title: "modules/InvoiceForm",
-  component: InvoiceForm
+  component: InvoiceForm,
 };
 
 type Props = ComponentProps<typeof InvoiceForm>;
 
-const InvoiceFormStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const InvoiceFormStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <InvoiceForm {...props} />

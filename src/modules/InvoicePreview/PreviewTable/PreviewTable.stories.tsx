@@ -5,12 +5,15 @@ import { PreviewTable } from "./PreviewTable";
 
 export default {
   title: "modules/InvoicePreview/PreviewTable",
-  component: PreviewTable
+  component: PreviewTable,
 };
 
 type Props = ComponentProps<typeof PreviewTable>;
 
-const PreviewTableStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const PreviewTableStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <PreviewTable {...props} />

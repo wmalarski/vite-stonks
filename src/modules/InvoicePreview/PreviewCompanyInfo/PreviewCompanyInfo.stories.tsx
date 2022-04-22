@@ -5,12 +5,15 @@ import { PreviewCompanyInfo } from "./PreviewCompanyInfo";
 
 export default {
   title: "modules/InvoicePreview/PreviewCompanyInfo",
-  component: PreviewCompanyInfo
+  component: PreviewCompanyInfo,
 };
 
 type Props = ComponentProps<typeof PreviewCompanyInfo>;
 
-const PreviewCompanyInfoStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const PreviewCompanyInfoStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <PreviewCompanyInfo {...props} />

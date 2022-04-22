@@ -5,12 +5,15 @@ import { EditInvoice } from "./EditInvoice";
 
 export default {
   title: "modules/EditInvoice",
-  component: EditInvoice
+  component: EditInvoice,
 };
 
 type Props = ComponentProps<typeof EditInvoice>;
 
-const EditInvoiceStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const EditInvoiceStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <EditInvoice {...props} />

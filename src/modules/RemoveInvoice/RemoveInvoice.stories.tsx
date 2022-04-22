@@ -5,12 +5,15 @@ import { RemoveInvoice } from "./RemoveInvoice";
 
 export default {
   title: "modules/RemoveInvoice",
-  component: RemoveInvoice
+  component: RemoveInvoice,
 };
 
 type Props = ComponentProps<typeof RemoveInvoice>;
 
-const RemoveInvoiceStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const RemoveInvoiceStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <RemoveInvoice {...props} />

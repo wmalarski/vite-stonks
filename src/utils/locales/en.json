@@ -95,6 +95,8 @@
     "toPay": "To pay:",
     "payed": "Payed:",
     "leftToPay": "Left to pay:",
-    "amount": "{{ amount }},00 PLN"
+    "amount": "{{ amount }},00 PLN",
+    "notes": "Notes",
+    "note": "Note"
   }
 }

@@ -5,12 +5,15 @@ import { PreviewHeader } from "./PreviewHeader";
 
 export default {
   title: "modules/InvoicePreview/PreviewHeader",
-  component: PreviewHeader
+  component: PreviewHeader,
 };
 
 type Props = ComponentProps<typeof PreviewHeader>;
 
-const PreviewHeaderStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const PreviewHeaderStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <PreviewHeader {...props} />

@@ -5,12 +5,15 @@ import { PreviewSummary } from "./PreviewSummary";
 
 export default {
   title: "modules/InvoicePreview/PreviewSummary",
-  component: PreviewSummary
+  component: PreviewSummary,
 };
 
 type Props = ComponentProps<typeof PreviewSummary>;
 
-const PreviewSummaryStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const PreviewSummaryStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <PreviewSummary {...props} />

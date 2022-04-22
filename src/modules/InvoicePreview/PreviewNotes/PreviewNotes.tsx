@@ -1,16 +1,14 @@
+import { Typography } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
+import * as classes from "./PreviewNotes.css";
 
-type Props = {
-  data?: string;
-};
-
-export const PreviewNotes = ({ data }: Props): ReactElement => {
+export const PreviewNotes = (): ReactElement => {
   const { t } = useTranslation("common", { keyPrefix: "preview" });
   return (
-    <div>
-      <p>{t("PreviewNotes")}</p>
-      <div>{data}</div>
+    <div className={classes.container}>
+      <Typography.Text strong>{t("notes")}</Typography.Text>
+      <Typography.Text>{t("note")}</Typography.Text>
     </div>
   );
 };
