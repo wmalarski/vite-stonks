@@ -1,9 +1,9 @@
-import { Sheet, UpdateSheetArgs, useSheetApi } from "@/services/SheetApi";
+import { Sheet, useSheetApi } from "@/services/SheetApi";
 import { Button, Form, Modal } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
-import { SheetForm } from "../SheetForm/SheetForm";
+import { SheetForm, SheetFormArgs } from "../SheetForm/SheetForm";
 
 type Props = {
   sheet: Sheet;
@@ -13,7 +13,7 @@ export const EditSheet = ({ sheet }: Props): ReactElement => {
   const { t } = useTranslation("common", { keyPrefix: "sheet.edit" });
 
   const [isOpen, setIsOpen] = useState(false);
-  const [form] = Form.useForm<UpdateSheetArgs>();
+  const [form] = Form.useForm<SheetFormArgs>();
 
   const sheetApi = useSheetApi();
   const client = useQueryClient();

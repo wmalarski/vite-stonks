@@ -1,26 +1,27 @@
+import { Loading } from "@/components/Loading/Loading";
 import { SheetHeader } from "@/modules/SheetHeader/SheetHeader";
 import { LocationGenerics } from "@/navigation/location";
 import { useSheetApi } from "@/services/SheetApi";
 import { ReactElement } from "react";
-import { useTranslation } from "react-i18next";
 import { useMatch } from "react-location";
 import { useQuery } from "react-query";
+import { SheetSettings } from "./SheetSettings/SheetSettings";
 
 export const Settings = (): ReactElement | null => {
-  const { t } = useTranslation("common", { keyPrefix: "settings" });
-
   const { params } = useMatch<LocationGenerics>();
   const id = Number(params.sheetId);
 
   const sheetApi = useSheetApi();
-  const { data } = useQuery(sheetApi.key(id), sheetApi.get);
+  const { data, isLoading } = useQuery(sheetApi.key(id), sheetApi.get);
+
+  if (isLoading) return <Loading />;
 
   if (!data) return null;
 
   return (
     <div>
       <SheetHeader sheet={data} />
-      <p>{t("Settings")}</p>
+      <SheetSettings sheet={data} />
     </div>
   );
 };

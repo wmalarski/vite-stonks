@@ -11,18 +11,18 @@ import { supabase } from "./supabase";
 type SheetId = number;
 
 export type Sheet = {
-  created_at: string;
-  id: SheetId;
-  name: string;
-  sheet_id: string;
-  user_id: string;
   account: string;
   address1: string;
   address2: string;
   bank: string;
   city: string;
   company: string;
+  created_at: string;
+  id: SheetId;
+  name: string;
   nip: string;
+  sheet_id: string;
+  user_id: string;
 };
 
 export type CreateSheetArgs = {
@@ -31,11 +31,8 @@ export type CreateSheetArgs = {
   user_id: string;
 };
 
-export type UpdateSheetArgs = {
-  id: SheetId;
-  name: string;
-  sheet_id: string;
-};
+export type UpdateSheetArgs = Partial<Omit<Sheet, "created_at">> &
+  Pick<Sheet, "id">;
 
 export type SheetPageArgs = {
   limit: number;
@@ -137,6 +134,7 @@ export const SheetApiProvider = ({ children }: Props): ReactElement => {
           const { data, error } = await supabase
             .from<Sheet>(table)
             .update(args)
+            .eq("id", args.id)
             .single();
           if (error) throw error;
           return data;
