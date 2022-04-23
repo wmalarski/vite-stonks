@@ -8,10 +8,11 @@ import {
   useMemo,
 } from "react";
 import { QueryFunction } from "react-query";
-import { useGoogleFetch } from "./useGoogleFetch";
-
-const endpoint = "https://sheets.googleapis.com/v4/spreadsheets";
-const invoicesSpreadSheetName = "Rachunki";
+import {
+  googleEndpoint,
+  SpreadSheetData,
+  useGoogleFetch,
+} from "./useGoogleFetch";
 
 export type Invoice = {
   address1: string;
@@ -25,22 +26,6 @@ export type Invoice = {
   price: number;
   summary: number;
   title: string;
-};
-
-type SpreadSheetData = {
-  data: {
-    rowData: {
-      values: {
-        formattedValue?: string;
-      }[];
-    }[];
-  }[];
-  properties: {
-    gridProperties: {
-      columnCount: number;
-    };
-    title: string;
-  };
 };
 
 type CreateInvoiceArgs = {
@@ -93,6 +78,8 @@ export const useInvoiceApi = (): InvoiceApiService => {
 
   return context.api;
 };
+
+const invoicesSpreadSheetName = "Rachunki";
 
 const getInvoiceRange = (row: number): string => {
   return `${invoicesSpreadSheetName}!A${row + 3}:L${row + 3}`;
@@ -176,7 +163,7 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
           return Promise.resolve();
         },
         get: async ({ queryKey }) => {
-          const url = `${endpoint}/${queryKey[1]}`;
+          const url = `${googleEndpoint}/${queryKey[1]}`;
           const invoicesResponse = await googleFetch(
             url,
             { method: "GET" },
@@ -197,7 +184,7 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
           return ["invoice", id, row];
         },
         list: async ({ queryKey }) => {
-          const url = `${endpoint}/${queryKey[1]}`;
+          const url = `${googleEndpoint}/${queryKey[1]}`;
           const propertiesResponse = await googleFetch(url, { method: "GET" });
           const properties = await propertiesResponse.json();
 

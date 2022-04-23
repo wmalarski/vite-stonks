@@ -7,6 +7,24 @@ type GoogleFetch = (
   search?: Record<string, string>
 ) => Promise<Response>;
 
+export type SpreadSheetData = {
+  data: {
+    rowData: {
+      values: {
+        formattedValue?: string;
+      }[];
+    }[];
+  }[];
+  properties: {
+    gridProperties: {
+      columnCount: number;
+    };
+    title: string;
+  };
+};
+
+export const googleEndpoint = "https://sheets.googleapis.com/v4/spreadsheets";
+
 export const useGoogleFetch = (): GoogleFetch => {
   const session = supabase.auth.session();
   const tokenType = session?.token_type;
