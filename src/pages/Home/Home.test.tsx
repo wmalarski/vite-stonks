@@ -27,7 +27,7 @@ describe("<Home />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("Home", { ns: "common" });
+    const header = i18n.t<string>("login.google", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

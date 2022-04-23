@@ -27,7 +27,7 @@ describe("<SignOutButton />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("SignOutButton", { ns: "common" });
+    const header = i18n.t<string>("navigation.logout", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

@@ -1,5 +1,7 @@
+import { AuthApiService } from "@/services/AuthApi";
 import { Invoice, InvoiceApiService } from "@/services/InvoiceApi";
 import { Sheet, SheetApiService } from "@/services/SheetApi";
+import { User } from "@supabase/supabase-js";
 import moment from "moment";
 
 export const mockSheet = (update: Partial<Sheet> = {}): Sheet => {
@@ -36,6 +38,29 @@ export const mockInvoice = (update: Partial<Invoice> = {}): Invoice => {
     summary: 23456,
     title: "Title",
     ...update,
+  };
+};
+
+export const mockUser = (update: Partial<User> = {}): User => {
+  const id = Math.floor(Math.random() * 1e10);
+  return {
+    app_metadata: {},
+    aud: "aud",
+    created_at: new Date().toISOString(),
+    id: String(id),
+    user_metadata: {},
+    ...update,
+  };
+};
+
+export const mockAuthApi = (): AuthApiService => {
+  return {
+    signIn: () => {
+      return Promise.resolve(mockUser());
+    },
+    signOut: () => {
+      return Promise.resolve();
+    },
   };
 };
 

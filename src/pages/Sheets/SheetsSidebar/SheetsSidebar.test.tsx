@@ -27,7 +27,7 @@ describe("<SheetsSidebar />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("SheetsSidebar", { ns: "common" });
+    const header = i18n.t<string>("navigation.sheets", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

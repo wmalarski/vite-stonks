@@ -1,17 +1,20 @@
-import { AuthApiContext } from "@/services/AuthApi";
+import { AuthApiContext, AuthApiService } from "@/services/AuthApi";
 import { InvoiceApiContext, InvoiceApiService } from "@/services/InvoiceApi";
 import { SheetApiContext, SheetApiService } from "@/services/SheetApi";
 import i18next from "@/utils/i18next";
+import { User } from "@supabase/supabase-js";
 import { ReactElement, ReactNode, useState } from "react";
 import { I18nextProvider } from "react-i18next";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
-import { mockInvoiceApi, mockSheetApi } from "./mocks";
+import { mockAuthApi, mockInvoiceApi, mockSheetApi } from "./mocks";
 
 export type TestWrapperProps = {
+  authApi?: AuthApiService;
   children?: ReactNode;
   invoiceApi?: InvoiceApiService;
   sheetApi?: SheetApiService;
+  user?: User | null;
 };
 
 export type PropsWithTestWrapper<T = unknown> = T & {
@@ -19,18 +22,20 @@ export type PropsWithTestWrapper<T = unknown> = T & {
 };
 
 export const TestWrapper = ({
+  authApi,
   children,
   invoiceApi,
   sheetApi,
+  user,
 }: TestWrapperProps): ReactElement => {
   const [client] = useState(() => new QueryClient());
   return (
     <QueryClientProvider client={client}>
       <AuthApiContext.Provider
         value={{
-          api,
+          api: authApi ?? mockAuthApi(),
           isInitialized: true,
-          user,
+          user: user ?? null,
         }}
       >
         <SheetApiContext.Provider
