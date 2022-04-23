@@ -1,13 +1,12 @@
 import { Loading } from "@/components/Loading/Loading";
-import { LocationGenerics } from "@/navigation/location";
 import { useSheetApi } from "@/services/SheetApi";
 import { ReactElement } from "react";
-import { useMatch } from "react-location";
 import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
 import { InvoiceDetails } from "./InvoiceDetails/InvoiceDetails";
 
 export const Invoice = (): ReactElement => {
-  const { params } = useMatch<LocationGenerics>();
+  const params = useParams();
   const id = Number(params.sheetId);
 
   const sheetApi = useSheetApi();

@@ -4,7 +4,7 @@ import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 
 type Props = {
-  initialValues?: Sheet;
+  initialValues: Sheet;
   isLoading: boolean;
   onFinish: (sheet: Partial<Sheet>) => void;
 };

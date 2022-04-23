@@ -1,9 +1,8 @@
 import { Layout } from "antd";
 import { ReactElement } from "react";
-import { Outlet } from "react-location";
+import { Outlet } from "react-router-dom";
 import * as classes from "./Dashboard.css";
 import { Header } from "./Header/Header";
-import { Sidebar } from "./Sidebar/Sidebar";
 
 export const Dashboard = (): ReactElement => {
   return (
@@ -11,14 +10,7 @@ export const Dashboard = (): ReactElement => {
       <Layout.Header className={classes.header}>
         <Header />
       </Layout.Header>
-      <Layout>
-        <Layout.Sider className={classes.side}>
-          <Sidebar />
-        </Layout.Sider>
-        <Layout.Content className={classes.content}>
-          <Outlet />
-        </Layout.Content>
-      </Layout>
+      <Outlet />
     </Layout>
   );
 };

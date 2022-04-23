@@ -4,7 +4,7 @@ import { Sheet } from "@/services/SheetApi";
 import { PageHeader } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-location";
+import { useNavigate } from "react-router-dom";
 import { EditSheet } from "../EditSheet/EditSheet";
 import { RemoveSheet } from "../RemoveSheet/RemoveSheet";
 import { CreateInvoice } from "./CreateInvoice/CreateInvoice";
@@ -19,15 +19,15 @@ export const SheetHeader = ({ sheet }: Props): ReactElement => {
   const navigate = useNavigate();
 
   const handleRemoveSuccess = () => {
-    navigate({ to: paths.home });
+    navigate(paths.home);
   };
 
   const handleBackClick = () => {
-    navigate({ to: paths.home });
+    navigate(paths.home);
   };
 
   const handleCreateSuccess = (invoice: Invoice) => {
-    navigate({ to: paths.invoice(sheet.id, invoice.index) });
+    navigate(paths.invoice(sheet.id, invoice.index));
   };
 
   return (

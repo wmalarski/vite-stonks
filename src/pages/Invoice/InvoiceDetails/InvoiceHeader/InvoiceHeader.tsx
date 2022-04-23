@@ -6,7 +6,7 @@ import { Invoice } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
 import { PageHeader } from "antd";
 import { ReactElement } from "react";
-import { useNavigate } from "react-location";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   invoice: Invoice;
@@ -17,15 +17,15 @@ export const InvoiceHeader = ({ invoice, sheet }: Props): ReactElement => {
   const navigate = useNavigate();
 
   const handleRemoveSuccess = () => {
-    navigate({ to: paths.sheet(sheet.id) });
+    navigate(paths.sheet(sheet.id));
   };
 
   const handleCopySuccess = (copy: Invoice) => {
-    navigate({ to: paths.invoice(sheet.id, copy.index) });
+    navigate(paths.invoice(sheet.id, copy.index));
   };
 
   const handleBackClick = () => {
-    navigate({ to: paths.sheet(sheet.id) });
+    navigate(paths.sheet(sheet.id));
   };
 
   return (

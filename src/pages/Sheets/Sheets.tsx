@@ -1,3 +1,4 @@
+import { ContentLayout } from "@/components/ContentLayout/ContentLayout";
 import { useSheetApi } from "@/services/SheetApi";
 import { List, PageHeader, Pagination } from "antd";
 import { ReactElement, useState } from "react";
@@ -22,26 +23,28 @@ export const Sheets = (): ReactElement => {
   );
 
   return (
-    <PageHeader
-      extra={[<CreateSheet key="create" />]}
-      ghost={false}
-      subTitle={t("subtitle")}
-      title={t("title")}
-    >
-      <List
-        loading={isLoading}
-        dataSource={data?.sheets}
-        itemLayout="horizontal"
-        renderItem={(item) => <SheetsListItem sheet={item} />}
-      />
-      <div className={classes.pagination}>
-        <Pagination
-          current={page}
-          disabled={(data?.count ?? 0) < 1}
-          onChange={setPage}
-          total={data?.count}
+    <ContentLayout sidebar={"hello"}>
+      <PageHeader
+        extra={[<CreateSheet key="create" />]}
+        ghost={false}
+        subTitle={t("subtitle")}
+        title={t("title")}
+      >
+        <List
+          loading={isLoading}
+          dataSource={data?.sheets}
+          itemLayout="horizontal"
+          renderItem={(item) => <SheetsListItem sheet={item} />}
         />
-      </div>
-    </PageHeader>
+        <div className={classes.pagination}>
+          <Pagination
+            current={page}
+            disabled={(data?.count ?? 0) < 1}
+            onChange={setPage}
+            total={data?.count}
+          />
+        </div>
+      </PageHeader>
+    </ContentLayout>
   );
 };

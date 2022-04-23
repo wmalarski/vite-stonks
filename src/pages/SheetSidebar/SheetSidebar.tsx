@@ -3,7 +3,7 @@ import { BarsOutlined, SettingOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useLocation } from "react-location";
+import { Link, useLocation } from "react-router-dom";
 
 type Props = {
   sheetId: string;
@@ -16,11 +16,7 @@ export const SheetSidebar = ({ sheetId }: Props): ReactElement => {
   const id = Number(sheetId);
 
   return (
-    <Menu
-      mode="vertical"
-      selectedKeys={[location.current.pathname]}
-      theme="light"
-    >
+    <Menu mode="vertical" selectedKeys={[location.pathname]} theme="light">
       <Menu.Item key={paths.sheet(id)} icon={<BarsOutlined />}>
         <Link to={paths.sheet(id)}>{t("details")}</Link>
       </Menu.Item>

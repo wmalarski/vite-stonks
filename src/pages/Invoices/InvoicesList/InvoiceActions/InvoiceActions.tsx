@@ -5,7 +5,7 @@ import { paths } from "@/navigation/paths";
 import { Invoice } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
 import { ReactElement } from "react";
-import { useNavigate } from "react-location";
+import { useNavigate } from "react-router-dom";
 import * as classes from "./InvoiceActions.css";
 
 type Props = {
@@ -17,7 +17,7 @@ export const InvoiceActions = ({ sheet, invoice }: Props): ReactElement => {
   const navigate = useNavigate();
 
   const handleCopySuccess = (copy: Invoice) => {
-    navigate({ to: paths.invoice(sheet.id, copy.index) });
+    navigate(paths.invoice(sheet.id, copy.index));
   };
 
   return (

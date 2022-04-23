@@ -5,12 +5,15 @@ import { SheetSettingsForm } from "./SheetSettingsForm";
 
 export default {
   title: "pages/Settings/SheetSettings/SheetSettingsForm",
-  component: SheetSettingsForm
+  component: SheetSettingsForm,
 };
 
 type Props = ComponentProps<typeof SheetSettingsForm>;
 
-const SheetSettingsFormStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const SheetSettingsFormStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <SheetSettingsForm {...props} />

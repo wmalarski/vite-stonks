@@ -1,25 +1,25 @@
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import type { Story } from "@ladle/react";
 import { ComponentProps } from "react";
-import { SheetSettings } from "./SheetSettings";
+import { ContentLayout } from "./ContentLayout";
 
 export default {
-  title: "pages/Settings/SheetSettings",
-  component: SheetSettings,
+  title: "components/ContentLayout",
+  component: ContentLayout,
 };
 
-type Props = ComponentProps<typeof SheetSettings>;
+type Props = ComponentProps<typeof ContentLayout>;
 
-const SheetSettingsStory: Story<PropsWithTestWrapper<Props>> = ({
+const ContentLayoutStory: Story<PropsWithTestWrapper<Props>> = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
-      <SheetSettings {...props} />
+      <ContentLayout {...props} />
     </TestWrapper>
   );
 };
 
-export const Playground = SheetSettingsStory.bind({});
+export const Playground = ContentLayoutStory.bind({});
 Playground.args = { wrapperProps: {} };

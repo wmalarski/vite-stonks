@@ -1,38 +1,36 @@
-import { mockSheet } from "@/tests/mocks";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import i18n from "@/utils/i18next";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
 import { ComponentProps } from "react";
-import { SheetSettingsForm } from "./SheetSettingsForm";
+import { ContentLayout } from "./ContentLayout";
 
-type Props = ComponentProps<typeof SheetSettingsForm>;
+type Props = ComponentProps<typeof ContentLayout>;
 
 const renderComponent = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Partial<Props>> = {}) => {
   const defaultProps: Props = {
-    isLoading: false,
-    onFinish: () => void 0,
-    initialValues: mockSheet(),
+    children: "Hello",
+    sidebar: "Sidebar",
   };
 
   return render(
     <TestWrapper {...wrapperProps}>
-      <SheetSettingsForm {...defaultProps} {...props} />
+      <ContentLayout {...defaultProps} {...props} />
     </TestWrapper>
   );
 };
 
-describe("<SheetSettingsForm />", () => {
+describe("<ContentLayout />", () => {
   it("should render", async () => {
     expect.hasAssertions();
 
     renderComponent();
 
-    const header = i18n.t<string>("SheetSettingsForm", { ns: "common" });
+    const header = i18n.t<string>("ContentLayout", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

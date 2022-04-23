@@ -1,16 +1,15 @@
 import { Loading } from "@/components/Loading/Loading";
-import { LocationGenerics } from "@/navigation/location";
 import { useSheetApi } from "@/services/SheetApi";
 import { Button, Result } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
-import { Outlet, useMatch } from "react-location";
 import { useQuery } from "react-query";
+import { Outlet, useParams } from "react-router-dom";
 
 export const Sheet = (): ReactElement => {
   const { t } = useTranslation("common", { keyPrefix: "sheet" });
 
-  const { params } = useMatch<LocationGenerics>();
+  const params = useParams();
 
   const sheetApi = useSheetApi();
   const { data, refetch, isError, isLoading } = useQuery(

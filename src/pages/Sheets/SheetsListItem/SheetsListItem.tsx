@@ -4,7 +4,7 @@ import { paths } from "@/navigation/paths";
 import { Sheet } from "@/services/SheetApi";
 import { List } from "antd";
 import { ReactElement } from "react";
-import { Link } from "react-location";
+import { Link } from "react-router-dom";
 
 type Props = {
   sheet: Sheet;
