@@ -31,7 +31,7 @@ describe("<EditInvoice />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("EditInvoice", { ns: "common" });
+    const header = i18n.t<string>("invoice.edit.button", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

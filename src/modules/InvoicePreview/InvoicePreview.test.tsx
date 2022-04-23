@@ -31,7 +31,7 @@ describe("<InvoicePreview />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("InvoicePreview", { ns: "common" });
+    const header = i18n.t<string>("preview.notes", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

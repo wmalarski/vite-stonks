@@ -30,7 +30,7 @@ describe("<EditSheet />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("EditSheet", { ns: "common" });
+    const header = i18n.t<string>("sheet.edit.button", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

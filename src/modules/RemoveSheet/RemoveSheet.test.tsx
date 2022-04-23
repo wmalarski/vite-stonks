@@ -30,7 +30,7 @@ describe("<RemoveSheet />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("RemoveSheet", { ns: "common" });
+    const header = i18n.t<string>("sheet.remove", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

@@ -30,7 +30,7 @@ describe("<PreviewTable />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("PreviewTable", { ns: "common" });
+    const header = i18n.t<string>("preview.lp", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

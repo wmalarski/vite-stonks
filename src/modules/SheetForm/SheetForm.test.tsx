@@ -34,7 +34,7 @@ describe("<CreateSheetForm />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("CreateSheetForm", { ns: "common" });
+    const header = i18n.t<string>("sheet.form.name", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

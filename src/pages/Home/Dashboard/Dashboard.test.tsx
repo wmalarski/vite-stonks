@@ -27,7 +27,7 @@ describe("<Dashboard />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("Dashboard", { ns: "common" });
+    const header = i18n.t<string>("pageTitle", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

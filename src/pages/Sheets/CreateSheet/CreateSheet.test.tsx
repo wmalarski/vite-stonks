@@ -27,7 +27,7 @@ describe("<CreateSheet />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("CreateSheet", { ns: "common" });
+    const header = i18n.t<string>("sheet.create.button", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

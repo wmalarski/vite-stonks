@@ -1,6 +1,5 @@
 import { mockSheet } from "@/tests/mocks";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import i18n from "@/utils/i18next";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
@@ -28,9 +27,10 @@ describe("<SheetHeader />", () => {
   it("should render", async () => {
     expect.hasAssertions();
 
-    renderComponent();
+    const sheet = mockSheet();
 
-    const header = i18n.t<string>("SheetHeader", { ns: "common" });
-    await expect(screen.findByText(header)).resolves.toBeInTheDocument();
+    renderComponent({ sheet });
+
+    await expect(screen.findByText(sheet.name)).resolves.toBeInTheDocument();
   });
 });

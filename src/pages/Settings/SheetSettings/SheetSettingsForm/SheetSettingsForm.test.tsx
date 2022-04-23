@@ -32,7 +32,7 @@ describe("<SheetSettingsForm />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("SheetSettingsForm", { ns: "common" });
+    const header = i18n.t<string>("settings.form.account", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

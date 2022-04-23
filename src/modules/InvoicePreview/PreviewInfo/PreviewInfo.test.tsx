@@ -31,7 +31,7 @@ describe("<PreviewInfo />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("PreviewInfo", { ns: "common" });
+    const header = i18n.t<string>("preview.payment", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

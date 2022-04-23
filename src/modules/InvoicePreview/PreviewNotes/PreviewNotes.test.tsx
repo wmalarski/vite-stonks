@@ -27,7 +27,7 @@ describe("<PreviewNotes />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("PreviewNotes", { ns: "common" });
+    const header = i18n.t<string>("preview.note", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

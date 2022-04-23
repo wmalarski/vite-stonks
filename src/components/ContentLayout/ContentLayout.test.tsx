@@ -30,7 +30,7 @@ describe("<ContentLayout />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("ContentLayout", { ns: "common" });
+    const header = i18n.t<string>("Hello", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

@@ -32,7 +32,7 @@ describe("<CopyInvoice />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("CopyInvoice", { ns: "common" });
+    const header = i18n.t<string>("invoice.copy.button", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

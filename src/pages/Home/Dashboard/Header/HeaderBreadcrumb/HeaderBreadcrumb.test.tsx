@@ -27,7 +27,7 @@ describe("<HeaderBreadcrumb />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("HeaderBreadcrumb", { ns: "common" });
+    const header = i18n.t<string>("navigation.home", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });
