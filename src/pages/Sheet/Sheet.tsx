@@ -1,3 +1,4 @@
+import { ContentLayout } from "@/components/ContentLayout/ContentLayout";
 import { Loading } from "@/components/Loading/Loading";
 import { useSheetApi } from "@/services/SheetApi";
 import { Button, Result } from "antd";
@@ -5,6 +6,7 @@ import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
 import { Outlet, useParams } from "react-router-dom";
+import { SheetSidebar } from "./SheetSidebar/SheetSidebar";
 
 export const Sheet = (): ReactElement => {
   const { t } = useTranslation("common", { keyPrefix: "sheet" });
@@ -39,5 +41,9 @@ export const Sheet = (): ReactElement => {
     );
   }
 
-  return <Outlet />;
+  return (
+    <ContentLayout sidebar={<SheetSidebar sheetId={data.id} />}>
+      <Outlet />
+    </ContentLayout>
+  );
 };

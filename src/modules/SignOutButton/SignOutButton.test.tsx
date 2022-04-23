@@ -4,9 +4,9 @@ import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
 import { ComponentProps } from "react";
-import { Sidebar } from "./Sidebar";
+import { SignOutButton } from "./SignOutButton";
 
-type Props = ComponentProps<typeof Sidebar>;
+type Props = ComponentProps<typeof SignOutButton>;
 
 const renderComponent = ({
   wrapperProps,
@@ -16,18 +16,18 @@ const renderComponent = ({
 
   return render(
     <TestWrapper {...wrapperProps}>
-      <Sidebar {...defaultProps} {...props} />
+      <SignOutButton {...defaultProps} {...props} />
     </TestWrapper>
   );
 };
 
-describe("<Sidebar />", () => {
+describe("<SignOutButton />", () => {
   it("should render", async () => {
     expect.hasAssertions();
 
     renderComponent();
 
-    const header = i18n.t<string>("Sidebar", { ns: "common" });
+    const header = i18n.t<string>("SignOutButton", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import { CreateSheet } from "./CreateSheet/CreateSheet";
 import * as classes from "./Sheets.css";
 import { SheetsListItem } from "./SheetsListItem/SheetsListItem";
+import { SheetsSidebar } from "./SheetsSidebar/SheetsSidebar";
 
 const PageSize = 10;
 
@@ -23,7 +24,7 @@ export const Sheets = (): ReactElement => {
   );
 
   return (
-    <ContentLayout sidebar={"hello"}>
+    <ContentLayout sidebar={<SheetsSidebar />}>
       <PageHeader
         extra={[<CreateSheet key="create" />]}
         ghost={false}
