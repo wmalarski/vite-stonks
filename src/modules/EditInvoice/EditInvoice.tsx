@@ -48,6 +48,7 @@ export const EditInvoice = ({ invoice, sheet }: Props): ReactElement => {
     <>
       <Button onClick={handleOpenClick}>{t("button")}</Button>
       <Modal
+        cancelText={t("cancel")}
         okButtonProps={{ loading: isLoading }}
         okText={t("save")}
         onCancel={handleCancelClick}

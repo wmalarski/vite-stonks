@@ -47,6 +47,7 @@ export const CreateSheet = (): ReactElement => {
         {t("button")}
       </Button>
       <Modal
+        cancelText={t("cancel")}
         okButtonProps={{ loading: isLoading }}
         okText={t("save")}
         onCancel={handleCancelClick}

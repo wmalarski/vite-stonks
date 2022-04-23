@@ -24,12 +24,14 @@
     "create": {
       "button": "Add spreadsheet",
       "save": "Add",
-      "title": "Add spreadsheet"
+      "title": "Add spreadsheet",
+      "cancel": "Cancel"
     },
     "edit": {
       "button": "Edit",
       "save": "Save",
-      "title": "Edit"
+      "title": "Edit",
+      "cancel": "Cancel"
     }
   },
   "sheets": {
@@ -51,17 +53,20 @@
     "copy": {
       "button": "Copy",
       "save": "Save",
-      "title": "Copy"
+      "title": "Copy",
+      "cancel": "Cancel"
     },
     "edit": {
       "button": "Edit",
       "save": "Save",
-      "title": "Edit"
+      "title": "Edit",
+      "cancel": "Cancel"
     },
     "create": {
       "button": "Add invoice",
       "save": "Add",
-      "title": "Add invoice"
+      "title": "Add invoice",
+      "cancel": "Cancel"
     }
   },
   "form": {
