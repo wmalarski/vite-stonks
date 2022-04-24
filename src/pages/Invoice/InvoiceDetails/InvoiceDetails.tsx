@@ -26,7 +26,7 @@ export const InvoiceDetails = ({ sheet }: Props): ReactElement => {
 
   return (
     <div>
-      <InvoiceHeader invoice={data} sheet={sheet} />
+      <InvoiceHeader index={index} invoice={data} sheet={sheet} />
       <InvoicePreview invoice={data} sheet={sheet} />
     </div>
   );

@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
 
 type Props = {
-  onSuccess: (invoice: Invoice) => void;
+  onSuccess: (index: number) => void;
   sheet: Sheet;
 };
 
@@ -21,9 +21,9 @@ export const CreateInvoice = ({ onSuccess, sheet }: Props): ReactElement => {
   const client = useQueryClient();
 
   const { mutate, isLoading } = useMutation(invoiceApi.create, {
-    onSuccess: (invoice) => {
+    onSuccess: (index) => {
       client.invalidateQueries(invoiceApi.listKey(sheet.sheet_id));
-      onSuccess(invoice);
+      onSuccess(index);
     },
   });
 

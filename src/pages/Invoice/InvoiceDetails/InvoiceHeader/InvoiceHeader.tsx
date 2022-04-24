@@ -9,19 +9,24 @@ import { ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
+  index: number;
   invoice: Invoice;
   sheet: Sheet;
 };
 
-export const InvoiceHeader = ({ invoice, sheet }: Props): ReactElement => {
+export const InvoiceHeader = ({
+  index,
+  invoice,
+  sheet,
+}: Props): ReactElement => {
   const navigate = useNavigate();
 
   const handleRemoveSuccess = () => {
     navigate(paths.sheet(sheet.id));
   };
 
-  const handleCopySuccess = (copy: Invoice) => {
-    navigate(paths.invoice(sheet.id, copy.index));
+  const handleCopySuccess = (copyIndex: number) => {
+    navigate(paths.invoice(sheet.id, copyIndex));
   };
 
   const handleBackClick = () => {
@@ -31,7 +36,12 @@ export const InvoiceHeader = ({ invoice, sheet }: Props): ReactElement => {
   return (
     <PageHeader
       extra={[
-        <EditInvoice key="edit" invoice={invoice} sheet={sheet} />,
+        <EditInvoice
+          key="edit"
+          index={index}
+          invoice={invoice}
+          sheet={sheet}
+        />,
         <CopyInvoice
           invoice={invoice}
           key="copy"
@@ -39,7 +49,7 @@ export const InvoiceHeader = ({ invoice, sheet }: Props): ReactElement => {
           sheet={sheet}
         />,
         <RemoveInvoice
-          invoice={invoice}
+          index={index}
           key="remove"
           onSuccess={handleRemoveSuccess}
           sheet={sheet}

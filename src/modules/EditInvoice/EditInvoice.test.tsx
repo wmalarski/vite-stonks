@@ -15,6 +15,7 @@ const renderComponent = ({
   ...props
 }: PropsWithTestWrapper<Partial<Props>> = {}) => {
   const defaultProps: Props = {
+    index: 0,
     invoice: mockInvoice(),
     sheet: mockSheet(),
   };

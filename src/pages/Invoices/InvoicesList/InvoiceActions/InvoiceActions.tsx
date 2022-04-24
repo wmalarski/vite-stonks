@@ -9,26 +9,31 @@ import { useNavigate } from "react-router-dom";
 import * as classes from "./InvoiceActions.css";
 
 type Props = {
+  index: number;
   invoice: Invoice;
   sheet: Sheet;
 };
 
-export const InvoiceActions = ({ sheet, invoice }: Props): ReactElement => {
+export const InvoiceActions = ({
+  index,
+  invoice,
+  sheet,
+}: Props): ReactElement => {
   const navigate = useNavigate();
 
-  const handleCopySuccess = (copy: Invoice) => {
-    navigate(paths.invoice(sheet.id, copy.index));
+  const handleCopySuccess = () => {
+    navigate(paths.invoice(sheet.id, index));
   };
 
   return (
-    <div key={invoice.index} className={classes.list}>
-      <EditInvoice invoice={invoice} sheet={sheet} />
+    <div className={classes.list}>
+      <EditInvoice index={index} invoice={invoice} sheet={sheet} />
       <CopyInvoice
         invoice={invoice}
         onSuccess={handleCopySuccess}
         sheet={sheet}
       />
-      <RemoveInvoice invoice={invoice} sheet={sheet} />
+      <RemoveInvoice index={index} sheet={sheet} />
     </div>
   );
 };

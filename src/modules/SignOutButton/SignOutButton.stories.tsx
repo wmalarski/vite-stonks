@@ -5,12 +5,15 @@ import { SignOutButton } from "./SignOutButton";
 
 export default {
   title: "modules/SignOutButton",
-  component: SignOutButton
+  component: SignOutButton,
 };
 
 type Props = ComponentProps<typeof SignOutButton>;
 
-const SignOutButtonStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const SignOutButtonStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <SignOutButton {...props} />

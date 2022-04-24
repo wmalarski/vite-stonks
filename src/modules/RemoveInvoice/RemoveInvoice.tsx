@@ -1,4 +1,4 @@
-import { Invoice, useInvoiceApi } from "@/services/InvoiceApi";
+import { useInvoiceApi } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
 import { Button } from "antd";
 import { ReactElement } from "react";
@@ -6,13 +6,13 @@ import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
 
 type Props = {
-  invoice: Invoice;
+  index: number;
   onSuccess?: () => void;
   sheet: Sheet;
 };
 
 export const RemoveInvoice = ({
-  invoice,
+  index,
   onSuccess,
   sheet,
 }: Props): ReactElement => {
@@ -29,7 +29,7 @@ export const RemoveInvoice = ({
   });
 
   const handleRemoveClick = () => {
-    mutate({ id: sheet.sheet_id, index: invoice.index });
+    mutate({ id: sheet.sheet_id, index: index });
   };
 
   return (

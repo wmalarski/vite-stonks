@@ -16,7 +16,6 @@ import {
 type ReportId = number;
 
 export type Report = {
-  index: ReportId;
   date: moment.Moment;
   income: number;
   expenses: number;
@@ -38,6 +37,7 @@ type DeleteInvoiceArgs = {
 };
 
 export type CreateReportArgs = {
+  id: string;
   date: moment.Moment;
 };
 
@@ -45,7 +45,7 @@ type ReportsKey = ["reports", string];
 type ReportKey = ["report", string, ReportId];
 
 export type ReportApiService = {
-  create: (args: CreateReportArgs) => Promise<Report>;
+  create: (args: CreateReportArgs) => Promise<number>;
   delete: (args: DeleteInvoiceArgs) => Promise<void>;
   get: QueryFunction<Report, ReportKey>;
   key: (id: string, index: ReportId) => ReportKey;
@@ -95,7 +95,7 @@ const getReports = (sheets: SpreadSheetData[], drop: number): Report[] => {
   return sheets
     .flatMap((sheet) => sheet.data)
     .flatMap((data) => data.rowData.slice(drop))
-    .flatMap((rowData, index) => {
+    .flatMap((rowData) => {
       const date = rowData.values[0].formattedValue;
       const income = rowData.values[1].formattedValue;
       const expenses = rowData.values[2].formattedValue;
@@ -129,7 +129,6 @@ const getReports = (sheets: SpreadSheetData[], drop: number): Report[] => {
 
       return [
         {
-          index,
           date: parseDate(date),
           income: parseFloat(income),
           expenses: parseFloat(income),
@@ -159,23 +158,8 @@ export const ReportApiProvider = ({ children }: Props): ReactElement => {
     return {
       isInitialized: true,
       api: {
-        create: async (args) => {
-          return Promise.resolve({
-            ...args,
-            accidentPremium: 0,
-            base: 0,
-            disabilityPension: 0,
-            expenses: 0,
-            healthContributions: 0,
-            income: 0,
-            index: 0,
-            pensionContribution: 0,
-            pensionsSummary: 0,
-            proceeds: 0,
-            sicknessContribution: 0,
-            socialSecurity: 0,
-            tax: 0,
-          });
+        create: async () => {
+          return Promise.resolve(0);
         },
         delete: async () => {
           await Promise.resolve();

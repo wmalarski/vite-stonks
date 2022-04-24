@@ -8,7 +8,7 @@ import { InvoiceForm } from "../InvoiceForm/InvoiceForm";
 
 type Props = {
   invoice: Invoice;
-  onSuccess: (invoice: Invoice) => void;
+  onSuccess: (index: number) => void;
   sheet: Sheet;
 };
 
@@ -26,9 +26,9 @@ export const CopyInvoice = ({
   const client = useQueryClient();
 
   const { mutate, isLoading } = useMutation(invoiceApi.create, {
-    onSuccess: (invoice) => {
+    onSuccess: (index) => {
       client.invalidateQueries(invoiceApi.listKey(sheet.sheet_id));
-      onSuccess(invoice);
+      onSuccess(index);
     },
   });
 

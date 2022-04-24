@@ -20,7 +20,6 @@ export type Invoice = {
   company: string;
   date: moment.Moment;
   hours: number;
-  index: number;
   name: string;
   nip: string;
   price: number;
@@ -40,6 +39,7 @@ type DeleteInvoiceArgs = {
 
 type UpdateInvoiceArgs = {
   id: string;
+  index: number;
   update: Invoice;
 };
 
@@ -47,13 +47,13 @@ type InvoicesKey = ["invoices", string];
 type InvoiceKey = ["invoice", string, number];
 
 export type InvoiceApiService = {
-  create: (args: CreateInvoiceArgs) => Promise<Invoice>;
+  create: (args: CreateInvoiceArgs) => Promise<number>;
   delete: (args: DeleteInvoiceArgs) => Promise<void>;
   get: QueryFunction<Invoice, InvoiceKey>;
   key: (id: string, index: number) => InvoiceKey;
   list: QueryFunction<Invoice[], InvoicesKey>;
   listKey: (id: string) => InvoicesKey;
-  update: (args: UpdateInvoiceArgs) => Promise<void>;
+  update: (args: UpdateInvoiceArgs) => Promise<number>;
 };
 
 type InvoiceApiContextValue =
@@ -98,7 +98,7 @@ const getInvoices = (sheets: SpreadSheetData[], drop: number): Invoice[] => {
   return sheets
     .flatMap((sheet) => sheet.data)
     .flatMap((data) => data.rowData.slice(drop))
-    .flatMap((rowData, index) => {
+    .flatMap((rowData) => {
       const id = rowData.values[0].formattedValue;
       const date = rowData.values[1].formattedValue;
       const name = rowData.values[2].formattedValue;
@@ -134,7 +134,6 @@ const getInvoices = (sheets: SpreadSheetData[], drop: number): Invoice[] => {
           date: parseDate(date),
           hours: parseInt(hours),
           id,
-          index,
           name,
           nip,
           price: parseInt(price),
@@ -156,8 +155,8 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
     return {
       isInitialized: true,
       api: {
-        create: async ({ create }) => {
-          return Promise.resolve(create);
+        create: async () => {
+          return Promise.resolve(0);
         },
         delete: async () => {
           return Promise.resolve();
@@ -206,7 +205,7 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
           return ["invoices", id];
         },
         update: () => {
-          return Promise.resolve();
+          return Promise.resolve(0);
         },
       },
     };

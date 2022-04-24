@@ -1,5 +1,6 @@
 import { AuthApiService } from "@/services/AuthApi";
 import { Invoice, InvoiceApiService } from "@/services/InvoiceApi";
+import { Report, ReportApiService } from "@/services/ReportApi";
 import { Sheet, SheetApiService } from "@/services/SheetApi";
 import { User } from "@supabase/supabase-js";
 import moment from "moment";
@@ -31,12 +32,30 @@ export const mockInvoice = (update: Partial<Invoice> = {}): Invoice => {
     company: "Company",
     date: moment(new Date()),
     hours: 160,
-    index: 0,
     name: `Name-${id}`,
     nip: "4567890",
     price: 234,
     summary: 23456,
     title: "Title",
+    ...update,
+  };
+};
+
+export const mockReport = (update: Partial<Report> = {}): Report => {
+  return {
+    accidentPremium: 10,
+    base: 11,
+    date: moment(new Date()),
+    disabilityPension: 12,
+    expenses: 0,
+    healthContributions: 13,
+    income: 14,
+    pensionContribution: 15,
+    pensionsSummary: 16,
+    proceeds: 17,
+    sicknessContribution: 18,
+    socialSecurity: 19,
+    tax: 20,
     ...update,
   };
 };
@@ -117,8 +136,8 @@ export const mockInvoiceApi = (): InvoiceApiService => {
   return {
     create: ({ id, create }) => {
       const invoices = collection[id];
-      invoices.splice(create.index, 0, create);
-      return Promise.resolve(create);
+      invoices.push(create);
+      return Promise.resolve(invoices.length - 1);
     },
     delete: ({ id, index }) => {
       const invoices = collection[id];
@@ -140,10 +159,41 @@ export const mockInvoiceApi = (): InvoiceApiService => {
     listKey: (id) => {
       return ["invoices", id];
     },
-    update: ({ id, update }) => {
+    update: ({ id, index, update }) => {
       const invoices = collection[id];
-      invoices.splice(update.index, 1, update);
+      invoices.splice(index, 1, update);
+      return Promise.resolve(index);
+    },
+  };
+};
+
+export const mockReportApi = (): ReportApiService => {
+  const collection: Record<string, Report[]> = {};
+  return {
+    create: ({ id, date }) => {
+      const reports = collection[id];
+      reports.push(mockReport({ date }));
+      return Promise.resolve(reports.length - 1);
+    },
+    delete: ({ id, index }) => {
+      const reports = collection[id];
+      reports.splice(index, 1);
       return Promise.resolve();
+    },
+    get: ({ queryKey }) => {
+      const reports = collection[queryKey[1]];
+      return Promise.resolve(reports[queryKey[2]]);
+    },
+    key: (id, row) => {
+      return ["report", id, row];
+    },
+    list: ({ queryKey }) => {
+      const reports = collection[queryKey[1]];
+      if (!reports) return Promise.reject();
+      return Promise.resolve(reports);
+    },
+    listKey: (id) => {
+      return ["reports", id];
     },
   };
 };
