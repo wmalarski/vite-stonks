@@ -10,6 +10,7 @@ export const HeaderBreadcrumb = (): ReactElement => {
   const routes: BreadcrumbsRoute<string>[] = [
     { path: "/", breadcrumb: t("home") },
     { path: "/sheet/:sheetId", breadcrumb: t("sheet") },
+    { path: "/sheet/:sheetId/reports", breadcrumb: t("reports") },
     { path: "/sheet/:sheetId/settings", breadcrumb: t("settings") },
     { path: "/sheet/:sheetId/invoice/:invoiceId", breadcrumb: t("invoice") },
   ];

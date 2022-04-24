@@ -76,17 +76,17 @@ export const useReportApi = (): ReportApiService => {
   return context.api;
 };
 
-const reportSpreadSheetName = "Zestawienia";
+const reportSpreadSheetName = "Zestawienie";
 
 const getReportRange = (index: number): string => {
   return `${reportSpreadSheetName}!A${index + 5}:N${index + 5}`;
 };
 
 const getReportRanges = (sheets: SpreadSheetData[]): string => {
-  const invoices = sheets.find(
+  const reports = sheets.find(
     (sheet) => sheet.properties.title === reportSpreadSheetName
   );
-  const rowCount = invoices?.properties.gridProperties.columnCount ?? 0;
+  const rowCount = reports?.properties.gridProperties.columnCount ?? 0;
 
   return `${reportSpreadSheetName}!A1:L${rowCount + 1}`;
 };
@@ -98,22 +98,25 @@ const getReports = (sheets: SpreadSheetData[], drop: number): Report[] => {
     .map(({ values }) =>
       values.flatMap(({ formattedValue: value }) => (value ? [value] : []))
     )
-    .filter((values) => values.length === 13)
-    .map((values) => ({
-      date: parseDate(values[0]),
-      income: parseFloat(values[1]),
-      expenses: parseFloat(values[2]),
-      proceeds: parseFloat(values[3]),
-      pensionContribution: parseFloat(values[4]),
-      disabilityPension: parseFloat(values[5]),
-      sicknessContribution: parseFloat(values[6]),
-      accidentPremium: parseFloat(values[7]),
-      pensionsSummary: parseFloat(values[8]),
-      base: parseFloat(values[9]),
-      tax: parseFloat(values[10]),
-      healthContributions: parseFloat(values[11]),
-      socialSecurity: parseFloat(values[12]),
-    }));
+    .filter((values) => values.length === 12)
+    .map((values) => {
+      console.log({ values });
+      return {
+        date: parseDate(values[0]),
+        income: parseFloat(values[1]),
+        expenses: parseFloat(values[2]),
+        proceeds: parseFloat(values[3]),
+        pensionContribution: parseFloat(values[4]),
+        disabilityPension: parseFloat(values[5]),
+        sicknessContribution: parseFloat(values[6]),
+        accidentPremium: parseFloat(values[7]),
+        pensionsSummary: parseFloat(values[8]),
+        base: parseFloat(values[9]),
+        tax: parseFloat(values[10]),
+        healthContributions: parseFloat(values[11]),
+        socialSecurity: parseFloat(values[12]),
+      };
+    });
 };
 
 type Props = {
@@ -145,11 +148,11 @@ export const ReportApiProvider = ({ children }: Props): ReactElement => {
             }
           );
           const rawReport = await reportResponse.json();
-          const invoices = getReports(rawReport.sheets, 0);
+          const reports = getReports(rawReport.sheets, 0);
 
-          if (invoices.length < 1) throw new Error("Not invoice with index");
+          if (reports.length < 1) throw new Error("Not invoice with index");
 
-          return invoices[0];
+          return reports[0];
         },
         key: (id, index) => {
           return ["report", id, index];
@@ -158,8 +161,8 @@ export const ReportApiProvider = ({ children }: Props): ReactElement => {
           const url = `${googleEndpoint}/${queryKey[1]}`;
           const propertiesResponse = await googleFetch(url, { method: "GET" });
           const properties = await propertiesResponse.json();
-
-          const invoicesResponse = await googleFetch(
+          console.log({ properties });
+          const reportsResponse = await googleFetch(
             url,
             { method: "GET" },
             {
@@ -168,10 +171,11 @@ export const ReportApiProvider = ({ children }: Props): ReactElement => {
               fields: "sheets.data.rowData.values.formattedValue",
             }
           );
-          const rawInvoices = await invoicesResponse.json();
-          const invoices = getReports(rawInvoices.sheets, 2);
-
-          return invoices;
+          const rawInvoices = await reportsResponse.json();
+          console.log({ rawInvoices });
+          const reports = getReports(rawInvoices.sheets, 4);
+          console.log({ reports });
+          return reports;
         },
         listKey: (id) => {
           return ["reports", id];

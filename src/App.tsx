@@ -6,22 +6,25 @@ import { QueryClientProvider } from "react-query";
 import { AuthApiProvider } from "./services/AuthApi";
 import { queryClient } from "./services/client";
 import { InvoiceApiProvider } from "./services/InvoiceApi";
+import { ReportApiProvider } from "./services/ReportApi";
 import { SheetApiProvider } from "./services/SheetApi";
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <SheetApiProvider>
-        <InvoiceApiProvider>
-          <AuthApiProvider>
-            <I18nextProvider i18n={i18next}>
-              <ThemeProvider>
-                <Router />
-              </ThemeProvider>
-            </I18nextProvider>
-          </AuthApiProvider>
-        </InvoiceApiProvider>
-      </SheetApiProvider>
+      <I18nextProvider i18n={i18next}>
+        <AuthApiProvider>
+          <SheetApiProvider>
+            <InvoiceApiProvider>
+              <ReportApiProvider>
+                <ThemeProvider>
+                  <Router />
+                </ThemeProvider>
+              </ReportApiProvider>
+            </InvoiceApiProvider>
+          </SheetApiProvider>
+        </AuthApiProvider>
+      </I18nextProvider>
     </QueryClientProvider>
   );
 }

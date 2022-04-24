@@ -1,17 +1,16 @@
-import { Invoice } from "@/services/InvoiceApi";
+import { Report } from "@/services/ReportApi";
 import { Sheet } from "@/services/SheetApi";
 import { formatDate } from "@/utils/format";
 import { ColumnsType } from "antd/lib/table";
 import { useTranslation } from "react-i18next";
-import { InvoiceActions } from "./InvoiceActions/InvoiceActions";
-import { InvoiceTitle } from "./InvoiceTitle/InvoiceTitle";
+import { ReportActions } from "./ReportActions/ReportActions";
 
 type UseColumnsArgs = {
   sheet: Sheet;
 };
 
-export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Invoice> => {
-  const { t } = useTranslation("common", { keyPrefix: "invoices" });
+export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Report> => {
+  const { t } = useTranslation("common", { keyPrefix: "reports" });
 
   return [
     {
@@ -28,27 +27,13 @@ export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Invoice> => {
       width: 90,
     },
     {
-      title: t("title"),
-      dataIndex: "title",
-      key: "title",
-      width: "100%",
-      render: (_, record, index) => (
-        <InvoiceTitle
-          index={index}
-          invoice={record}
-          key={`title-${index}`}
-          sheetId={sheet.id}
-        />
-      ),
-    },
-    {
       title: t("actions"),
       key: "actions",
       render: (_, record, index) => (
-        <InvoiceActions
+        <ReportActions
           key={`actions-${index}`}
           index={index}
-          invoice={record}
+          report={record}
           sheet={sheet}
         />
       ),

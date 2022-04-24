@@ -1,21 +1,21 @@
-import { useInvoiceApi } from "@/services/InvoiceApi";
+import { useReportApi } from "@/services/ReportApi";
 import { Sheet } from "@/services/SheetApi";
 import { Table } from "antd";
 import { ReactElement } from "react";
 import { useQuery } from "react-query";
-import * as classes from "./InvoicesList.css";
-import { useColumns } from "./InvoicesList.utils";
+import * as classes from "./ReportsTable.css";
+import { useColumns } from "./ReportsTable.utils";
 
 type Props = {
   sheet: Sheet;
 };
 
-export const InvoicesList = ({ sheet }: Props): ReactElement => {
-  const invoiceApi = useInvoiceApi();
+export const ReportsTable = ({ sheet }: Props): ReactElement => {
+  const reportApi = useReportApi();
 
   const { data, isLoading } = useQuery(
-    invoiceApi.listKey(sheet.sheet_id),
-    invoiceApi.list,
+    reportApi.listKey(sheet.sheet_id),
+    reportApi.list,
     { refetchOnWindowFocus: false }
   );
 
@@ -24,7 +24,7 @@ export const InvoicesList = ({ sheet }: Props): ReactElement => {
   return (
     <Table
       bordered
-      rowKey={(invoice) => invoice.name}
+      rowKey={(report) => report.date.toString()}
       className={classes.table}
       columns={columns}
       dataSource={data}

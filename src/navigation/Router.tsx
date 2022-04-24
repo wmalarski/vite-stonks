@@ -1,6 +1,7 @@
 import { Home } from "@/pages/Home/Home";
 import { Invoice } from "@/pages/Invoice/Invoice";
 import { Invoices } from "@/pages/Invoices/Invoices";
+import { Reports } from "@/pages/Reports/Reports";
 import { Settings } from "@/pages/Settings/Settings";
 import { Sheet } from "@/pages/Sheet/Sheet";
 import { Sheets } from "@/pages/Sheets/Sheets";
@@ -16,6 +17,7 @@ export const Router = (): ReactElement => {
           <Route path="sheet">
             <Route path=":sheetId" element={<Sheet />}>
               <Route index element={<Invoices />} />
+              <Route path="reports" element={<Reports />} />
               <Route path="settings" element={<Settings />} />
               <Route path="invoice">
                 <Route path=":invoiceId" element={<Invoice />} />
