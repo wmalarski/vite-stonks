@@ -42,13 +42,10 @@ export type CreateReportArgs = {
 };
 
 type ReportsKey = ["reports", string];
-type ReportKey = ["report", string, ReportId];
 
 export type ReportApiService = {
   create: (args: CreateReportArgs) => Promise<number>;
   delete: (args: DeleteInvoiceArgs) => Promise<void>;
-  get: QueryFunction<Report, ReportKey>;
-  key: (id: string, index: ReportId) => ReportKey;
   list: QueryFunction<Report[], ReportsKey>;
   listKey: (id: string) => ReportsKey;
 };
@@ -78,17 +75,13 @@ export const useReportApi = (): ReportApiService => {
 
 const reportSpreadSheetName = "Zestawienie";
 
-const getReportRange = (index: number): string => {
-  return `${reportSpreadSheetName}!A${index + 5}:N${index + 5}`;
-};
-
 const getReportRanges = (sheets: SpreadSheetData[]): string => {
   const reports = sheets.find(
     (sheet) => sheet.properties.title === reportSpreadSheetName
   );
   const rowCount = reports?.properties.gridProperties.columnCount ?? 0;
 
-  return `${reportSpreadSheetName}!A1:L${rowCount + 1}`;
+  return `${reportSpreadSheetName}!A1:M${rowCount + 1}`;
 };
 
 const getReports = (sheets: SpreadSheetData[], drop: number): Report[] => {
@@ -98,7 +91,7 @@ const getReports = (sheets: SpreadSheetData[], drop: number): Report[] => {
     .map(({ values }) =>
       values.flatMap(({ formattedValue: value }) => (value ? [value] : []))
     )
-    .filter((values) => values.length === 12)
+    .filter((values) => values.length === 13)
     .map((values) => {
       console.log({ values });
       return {
@@ -135,27 +128,6 @@ export const ReportApiProvider = ({ children }: Props): ReactElement => {
         },
         delete: async () => {
           await Promise.resolve();
-        },
-        get: async ({ queryKey }) => {
-          const url = `${googleEndpoint}/${queryKey[1]}`;
-          const reportResponse = await googleFetch(
-            url,
-            { method: "GET" },
-            {
-              ranges: getReportRange(queryKey[2]),
-              includeGridData: "true",
-              fields: "sheets.data.rowData.values.formattedValue",
-            }
-          );
-          const rawReport = await reportResponse.json();
-          const reports = getReports(rawReport.sheets, 0);
-
-          if (reports.length < 1) throw new Error("Not invoice with index");
-
-          return reports[0];
-        },
-        key: (id, index) => {
-          return ["report", id, index];
         },
         list: async ({ queryKey }) => {
           const url = `${googleEndpoint}/${queryKey[1]}`;

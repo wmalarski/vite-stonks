@@ -80,6 +80,21 @@
     "title": "Title",
     "actions": "Actions"
   },
+  "reports": {
+    "date": "Date",
+    "income": "Income",
+    "expenses": "Expenses",
+    "proceeds": "Proceeds",
+    "pensionContribution": "Pension Contribution",
+    "disabilityPension": "Disability Pension",
+    "sicknessContribution": "Sickness Contribution",
+    "accidentPremium": "Accident Premium",
+    "pensionsSummary": "Pensions Summary",
+    "base": "Base",
+    "tax": "Tax",
+    "healthContributions": "Health Contributions",
+    "socialSecurity": "Social Security"
+  },
   "preview": {
     "header": "{{city}}, day {{date}}",
     "recipient": "Recipient",

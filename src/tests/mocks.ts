@@ -180,13 +180,6 @@ export const mockReportApi = (): ReportApiService => {
       reports.splice(index, 1);
       return Promise.resolve();
     },
-    get: ({ queryKey }) => {
-      const reports = collection[queryKey[1]];
-      return Promise.resolve(reports[queryKey[2]]);
-    },
-    key: (id, row) => {
-      return ["report", id, row];
-    },
     list: ({ queryKey }) => {
       const reports = collection[queryKey[1]];
       if (!reports) return Promise.reject();
