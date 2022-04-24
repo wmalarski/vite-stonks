@@ -78,8 +78,8 @@ export const useReportApi = (): ReportApiService => {
 
 const reportSpreadSheetName = "Zestawienia";
 
-const getReportRange = (row: number): string => {
-  return `${reportSpreadSheetName}!A${row + 5}:N${row + 5}`;
+const getReportRange = (index: number): string => {
+  return `${reportSpreadSheetName}!A${index + 5}:N${index + 5}`;
 };
 
 const getReportRanges = (sheets: SpreadSheetData[]): string => {
@@ -95,56 +95,25 @@ const getReports = (sheets: SpreadSheetData[], drop: number): Report[] => {
   return sheets
     .flatMap((sheet) => sheet.data)
     .flatMap((data) => data.rowData.slice(drop))
-    .flatMap((rowData) => {
-      const date = rowData.values[0].formattedValue;
-      const income = rowData.values[1].formattedValue;
-      const expenses = rowData.values[2].formattedValue;
-      const proceeds = rowData.values[3].formattedValue;
-      const pensionContribution = rowData.values[4].formattedValue;
-      const disabilityPension = rowData.values[5].formattedValue;
-      const sicknessContribution = rowData.values[6].formattedValue;
-      const accidentPremium = rowData.values[7].formattedValue;
-      const pensionsSummary = rowData.values[8].formattedValue;
-      const base = rowData.values[9].formattedValue;
-      const tax = rowData.values[10].formattedValue;
-      const healthContributions = rowData.values[11].formattedValue;
-      const socialSecurity = rowData.values[12].formattedValue;
-
-      if (
-        !date ||
-        !income ||
-        !expenses ||
-        !proceeds ||
-        !pensionContribution ||
-        !disabilityPension ||
-        !sicknessContribution ||
-        !accidentPremium ||
-        !pensionsSummary ||
-        !base ||
-        !tax ||
-        !healthContributions ||
-        !socialSecurity
-      )
-        return [];
-
-      return [
-        {
-          date: parseDate(date),
-          income: parseFloat(income),
-          expenses: parseFloat(income),
-          proceeds: parseFloat(income),
-          pensionContribution: parseFloat(income),
-          disabilityPension: parseFloat(income),
-          sicknessContribution: parseFloat(income),
-          accidentPremium: parseFloat(income),
-          pensionsSummary: parseFloat(income),
-          base: parseFloat(income),
-          tax: parseFloat(income),
-          healthContributions: parseFloat(income),
-          socialSecurity: parseFloat(income),
-        },
-      ];
-    });
+    .map(({ values }) =>
+      values.flatMap(({ formattedValue: value }) => (value ? [value] : []))
+    )
+    .filter((values) => values.length === 13)
+    .map((values) => ({
+      date: parseDate(values[0]),
+      income: parseFloat(values[1]),
+      expenses: parseFloat(values[2]),
+      proceeds: parseFloat(values[3]),
+      pensionContribution: parseFloat(values[4]),
+      disabilityPension: parseFloat(values[5]),
+      sicknessContribution: parseFloat(values[6]),
+      accidentPremium: parseFloat(values[7]),
+      pensionsSummary: parseFloat(values[8]),
+      base: parseFloat(values[9]),
+      tax: parseFloat(values[10]),
+      healthContributions: parseFloat(values[11]),
+      socialSecurity: parseFloat(values[12]),
+    }));
 };
 
 type Props = {

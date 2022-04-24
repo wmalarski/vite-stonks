@@ -81,8 +81,8 @@ export const useInvoiceApi = (): InvoiceApiService => {
 
 const invoicesSpreadSheetName = "Rachunki";
 
-const getInvoiceRange = (row: number): string => {
-  return `${invoicesSpreadSheetName}!A${row + 3}:L${row + 3}`;
+const getInvoiceRange = (index: number): string => {
+  return `${invoicesSpreadSheetName}!A${index + 3}:K${index + 3}`;
 };
 
 const getInvoicesRanges = (sheets: SpreadSheetData[]): string => {
@@ -91,57 +91,29 @@ const getInvoicesRanges = (sheets: SpreadSheetData[]): string => {
   );
   const rowCount = invoices?.properties.gridProperties.columnCount ?? 0;
 
-  return `${invoicesSpreadSheetName}!A1:L${rowCount + 1}`;
+  return `${invoicesSpreadSheetName}!A1:K${rowCount + 1}`;
 };
 
 const getInvoices = (sheets: SpreadSheetData[], drop: number): Invoice[] => {
   return sheets
     .flatMap((sheet) => sheet.data)
     .flatMap((data) => data.rowData.slice(drop))
-    .flatMap((rowData) => {
-      const id = rowData.values[0].formattedValue;
-      const date = rowData.values[1].formattedValue;
-      const name = rowData.values[2].formattedValue;
-      const company = rowData.values[3].formattedValue;
-      const address1 = rowData.values[4].formattedValue;
-      const address2 = rowData.values[5].formattedValue;
-      const nip = rowData.values[6].formattedValue;
-      const title = rowData.values[7].formattedValue;
-      const hours = rowData.values[8].formattedValue;
-      const price = rowData.values[9].formattedValue;
-      const summary = rowData.values[10].formattedValue;
-
-      if (
-        !address1 ||
-        !address2 ||
-        !company ||
-        !date ||
-        !hours ||
-        !id ||
-        !name ||
-        !nip ||
-        !price ||
-        !summary ||
-        !title
-      )
-        return [];
-
-      return [
-        {
-          address1,
-          address2,
-          company,
-          date: parseDate(date),
-          hours: parseInt(hours),
-          id,
-          name,
-          nip,
-          price: parseInt(price),
-          summary: parseInt(summary),
-          title,
-        },
-      ];
-    });
+    .map(({ values }) =>
+      values.flatMap(({ formattedValue: value }) => (value ? [value] : []))
+    )
+    .filter((values) => values.length === 10)
+    .map((values) => ({
+      date: parseDate(values[0]),
+      name: values[1],
+      company: values[2],
+      address1: values[3],
+      address2: values[4],
+      nip: values[5],
+      title: values[6],
+      hours: parseInt(values[7]),
+      price: parseInt(values[8]),
+      summary: parseInt(values[9]),
+    }));
 };
 
 type Props = {
