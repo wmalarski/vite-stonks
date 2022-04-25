@@ -5,12 +5,15 @@ import { ReportForm } from "./ReportForm";
 
 export default {
   title: "modules/ReportForm",
-  component: ReportForm
+  component: ReportForm,
 };
 
 type Props = ComponentProps<typeof ReportForm>;
 
-const ReportFormStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const ReportFormStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <ReportForm {...props} />

@@ -5,12 +5,15 @@ import { RemoveReport } from "./RemoveReport";
 
 export default {
   title: "pages/Reports/ReportsTable/ReportActions/RemoveReport",
-  component: RemoveReport
+  component: RemoveReport,
 };
 
 type Props = ComponentProps<typeof RemoveReport>;
 
-const RemoveReportStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const RemoveReportStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <RemoveReport {...props} />
