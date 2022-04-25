@@ -1,4 +1,4 @@
-import { useInvoiceApi } from "@/services/InvoiceApi";
+import { useReportApi } from "@/services/ReportApi";
 import { Sheet } from "@/services/SheetApi";
 import { Button } from "antd";
 import { ReactElement } from "react";
@@ -6,25 +6,19 @@ import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
 
 type Props = {
-  index: number;
-  onSuccess?: () => void;
   sheet: Sheet;
+  index: number;
 };
 
-export const RemoveInvoice = ({
-  index,
-  onSuccess,
-  sheet,
-}: Props): ReactElement => {
-  const { t } = useTranslation("common", { keyPrefix: "invoice" });
+export const RemoveReport = ({ sheet, index }: Props): ReactElement => {
+  const { t } = useTranslation("common", { keyPrefix: "report" });
 
-  const invoiceApi = useInvoiceApi();
+  const invoiceApi = useReportApi();
   const client = useQueryClient();
 
   const { mutate, isLoading } = useMutation(invoiceApi.delete, {
     onSuccess: () => {
       client.invalidateQueries(invoiceApi.listKey(sheet.sheet_id));
-      onSuccess?.();
     },
   });
 

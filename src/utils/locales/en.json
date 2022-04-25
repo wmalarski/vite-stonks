@@ -95,6 +95,16 @@
     "healthContributions": "Health Contributions",
     "socialSecurity": "Social Security"
   },
+  "report": {
+    "remove": "Remove",
+    "form": {
+      "date": "Date",
+      "pensionContribution": "Pension Contribution",
+      "disabilityPension": "Disability Pension",
+      "sicknessContribution": "Sickness Contribution",
+      "accidentPremium": "Accident Premium"
+    }
+  },
   "preview": {
     "header": "{{city}}, day {{date}}",
     "recipient": "Recipient",

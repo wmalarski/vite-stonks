@@ -36,9 +36,18 @@ type DeleteInvoiceArgs = {
   index: ReportId;
 };
 
+export type CreateReportData = Pick<
+  Report,
+  | "date"
+  | "pensionContribution"
+  | "disabilityPension"
+  | "sicknessContribution"
+  | "accidentPremium"
+>;
+
 export type CreateReportArgs = {
   id: string;
-  date: moment.Moment;
+  data: CreateReportData;
 };
 
 type ReportsKey = ["reports", string];
@@ -96,18 +105,18 @@ const getReports = (sheets: SpreadSheetData[], drop: number): Report[] => {
       console.log({ values });
       return {
         date: parseDate(values[0]),
-        income: parseFloat(values[1]),
-        expenses: parseFloat(values[2]),
-        proceeds: parseFloat(values[3]),
-        pensionContribution: parseFloat(values[4]),
-        disabilityPension: parseFloat(values[5]),
-        sicknessContribution: parseFloat(values[6]),
-        accidentPremium: parseFloat(values[7]),
-        pensionsSummary: parseFloat(values[8]),
-        base: parseFloat(values[9]),
-        tax: parseFloat(values[10]),
-        healthContributions: parseFloat(values[11]),
-        socialSecurity: parseFloat(values[12]),
+        income: Number(values[1]),
+        expenses: Number(values[2]),
+        proceeds: Number(values[3]),
+        pensionContribution: Number(values[4]),
+        disabilityPension: Number(values[5]),
+        sicknessContribution: Number(values[6]),
+        accidentPremium: Number(values[7]),
+        pensionsSummary: Number(values[8]),
+        base: Number(values[9]),
+        tax: Number(values[10]),
+        healthContributions: Number(values[11]),
+        socialSecurity: Number(values[12]),
       };
     });
 };
