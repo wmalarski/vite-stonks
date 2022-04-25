@@ -71,13 +71,8 @@ export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Report> => {
     {
       title: t("actions"),
       key: "actions",
-      render: (_, record, index) => (
-        <ReportActions
-          key={`actions-${index}`}
-          index={index}
-          report={record}
-          sheet={sheet}
-        />
+      render: (_, _report, index) => (
+        <ReportActions key={`actions-${index}`} index={index} sheet={sheet} />
       ),
       colSpan: 1,
     },

@@ -97,6 +97,12 @@
   },
   "report": {
     "remove": "Remove",
+    "create": {
+      "button": "Add report",
+      "save": "Add",
+      "title": "Add report",
+      "cancel": "Cancel"
+    },
     "form": {
       "date": "Date",
       "pensionContribution": "Pension Contribution",
