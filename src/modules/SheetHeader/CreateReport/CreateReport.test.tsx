@@ -31,7 +31,7 @@ describe("<CreateReport />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("CreateReport", { ns: "common" });
+    const header = i18n.t<string>("report.create.button", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

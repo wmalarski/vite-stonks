@@ -35,7 +35,7 @@ describe("<ReportForm />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("ReportForm", { ns: "common" });
+    const header = i18n.t<string>("report.form.date", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

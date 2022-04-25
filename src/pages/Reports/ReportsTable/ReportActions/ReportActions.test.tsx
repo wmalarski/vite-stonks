@@ -31,7 +31,7 @@ describe("<ReportActions />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("ReportActions", { ns: "common" });
+    const header = i18n.t<string>("report.remove", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

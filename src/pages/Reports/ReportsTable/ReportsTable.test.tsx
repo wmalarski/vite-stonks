@@ -30,7 +30,7 @@ describe("<ReportsTable />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("ReportsTable", { ns: "common" });
+    const header = i18n.t<string>("reports.date", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

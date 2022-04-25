@@ -30,7 +30,7 @@ describe("<InvoicesList />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("invoices.id", { ns: "common" });
+    const header = i18n.t<string>("invoices.date", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });
