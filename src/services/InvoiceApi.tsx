@@ -11,6 +11,7 @@ import { QueryFunction } from "react-query";
 import {
   googleEndpoint,
   SpreadSheetData,
+  SpreadSheetValue,
   useGoogleFetch,
 } from "./useGoogleFetch";
 
@@ -80,6 +81,7 @@ export const useInvoiceApi = (): InvoiceApiService => {
 };
 
 const invoicesSpreadSheetName = "Rachunki";
+const invoiceInsertRange = `${invoicesSpreadSheetName}!A:K`;
 
 const getInvoiceRange = (index: number): string => {
   return `${invoicesSpreadSheetName}!A${index + 3}:K${index + 3}`;
@@ -116,6 +118,21 @@ const getInvoices = (sheets: SpreadSheetData[], drop: number): Invoice[] => {
     }));
 };
 
+const getValues = (invoice: Invoice): SpreadSheetValue[] => {
+  return [
+    { formattedValue: invoice.date.toISOString() },
+    { formattedValue: invoice.name },
+    { formattedValue: invoice.company },
+    { formattedValue: invoice.address1 },
+    { formattedValue: invoice.address2 },
+    { formattedValue: invoice.nip },
+    { formattedValue: invoice.title },
+    { formattedValue: String(invoice.hours) },
+    { formattedValue: String(invoice.price) },
+    { formattedValue: String(invoice.summary) },
+  ];
+};
+
 type Props = {
   children: ReactNode;
 };
@@ -127,7 +144,31 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
     return {
       isInitialized: true,
       api: {
-        create: async () => {
+        create: async ({ create, id }) => {
+          const url = `${googleEndpoint}/${id}:batchUpdate`;
+          const invoicesResponse = await googleFetch(
+            url,
+            {
+              method: "POST",
+              body: JSON.stringify({
+                requests: [
+                  {
+                    sheetId: 0,
+                    rows: [{ values: getValues(create) }],
+                    fields: "*",
+                  },
+                ],
+                range: invoiceInsertRange,
+                values: getValues(create),
+              }),
+            },
+            {
+              insertDataOption: "INSERT_ROWS",
+            }
+          );
+
+          console.log({ invoicesResponse });
+
           return Promise.resolve(0);
         },
         delete: async () => {

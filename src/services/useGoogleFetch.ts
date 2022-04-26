@@ -23,6 +23,10 @@ export type SpreadSheetData = {
   };
 };
 
+export type SpreadSheetValue = {
+  formattedValue: string;
+};
+
 export const googleEndpoint = "https://sheets.googleapis.com/v4/spreadsheets";
 
 export const useGoogleFetch = (): GoogleFetch => {

@@ -77,7 +77,7 @@ export const AuthApiProvider = ({ children }: Props): ReactElement => {
             },
             {
               scopes:
-                "https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/drive",
+                "https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive",
             }
           );
           console.log({ user, error, rest });
