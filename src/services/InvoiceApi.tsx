@@ -1,4 +1,3 @@
-import { parseDate } from "@/utils/format";
 import moment from "moment";
 import {
   createContext,
@@ -8,12 +7,10 @@ import {
   useMemo,
 } from "react";
 import { QueryFunction } from "react-query";
-import {
-  googleEndpoint,
-  SpreadSheetData,
-  SpreadSheetValue,
-  useGoogleFetch,
-} from "./useGoogleFetch";
+import { SheetId } from "./SheetApi";
+import { supabase } from "./supabase";
+
+export type InvoiceId = number;
 
 export type Invoice = {
   address1: string;
@@ -21,40 +18,38 @@ export type Invoice = {
   company: string;
   date: moment.Moment;
   hours: number;
+  id: InvoiceId;
   name: string;
   nip: string;
   price: number;
+  sheet_id: SheetId;
   summary: number;
   title: string;
 };
 
-type CreateInvoiceArgs = {
-  id: string;
-  create: Invoice;
+export type InvoicePageArgs = {
+  limit: number;
+  offset: number;
 };
 
-type DeleteInvoiceArgs = {
-  id: string;
-  index: number;
+type InvoiceListResult = {
+  sheets: Invoice[];
+  count: number;
 };
 
-type UpdateInvoiceArgs = {
-  id: string;
-  index: number;
-  update: Invoice;
-};
-
-type InvoicesKey = ["invoices", string];
-type InvoiceKey = ["invoice", string, number];
+type InvoicesKey =
+  | ["invoices", SheetId]
+  | ["invoices", SheetId, InvoicePageArgs];
+type InvoiceKey = ["invoice", InvoiceId];
 
 export type InvoiceApiService = {
-  create: (args: CreateInvoiceArgs) => Promise<number>;
-  delete: (args: DeleteInvoiceArgs) => Promise<void>;
+  create: (args: Invoice) => Promise<Invoice>;
+  delete: (args: InvoiceId) => Promise<void>;
   get: QueryFunction<Invoice, InvoiceKey>;
-  key: (id: string, index: number) => InvoiceKey;
-  list: QueryFunction<Invoice[], InvoicesKey>;
-  listKey: (id: string) => InvoicesKey;
-  update: (args: UpdateInvoiceArgs) => Promise<number>;
+  key: (id: InvoiceId) => InvoiceKey;
+  list: QueryFunction<InvoiceListResult, InvoicesKey>;
+  listKey: (id: SheetId, page?: InvoicePageArgs) => InvoicesKey;
+  update: (args: Invoice) => Promise<Invoice>;
 };
 
 type InvoiceApiContextValue =
@@ -80,149 +75,69 @@ export const useInvoiceApi = (): InvoiceApiService => {
   return context.api;
 };
 
-const invoicesSpreadSheetName = "Rachunki";
-const invoiceInsertRange = `${invoicesSpreadSheetName}!A:K`;
-
-const getInvoiceRange = (index: number): string => {
-  return `${invoicesSpreadSheetName}!A${index + 3}:K${index + 3}`;
-};
-
-const getInvoicesRanges = (sheets: SpreadSheetData[]): string => {
-  const invoices = sheets.find(
-    (sheet) => sheet.properties.title === invoicesSpreadSheetName
-  );
-  const rowCount = invoices?.properties.gridProperties.columnCount ?? 0;
-
-  return `${invoicesSpreadSheetName}!A1:K${rowCount + 1}`;
-};
-
-const getInvoices = (sheets: SpreadSheetData[], drop: number): Invoice[] => {
-  return sheets
-    .flatMap((sheet) => sheet.data)
-    .flatMap((data) => data.rowData.slice(drop))
-    .map(({ values }) =>
-      values.flatMap(({ formattedValue: value }) => (value ? [value] : []))
-    )
-    .filter((values) => values.length === 10)
-    .map((values) => ({
-      date: parseDate(values[0]),
-      name: values[1],
-      company: values[2],
-      address1: values[3],
-      address2: values[4],
-      nip: values[5],
-      title: values[6],
-      hours: parseInt(values[7]),
-      price: parseInt(values[8]),
-      summary: parseInt(values[9]),
-    }));
-};
-
-const getValues = (invoice: Invoice): SpreadSheetValue[] => {
-  return [
-    { formattedValue: invoice.date.toISOString() },
-    { formattedValue: invoice.name },
-    { formattedValue: invoice.company },
-    { formattedValue: invoice.address1 },
-    { formattedValue: invoice.address2 },
-    { formattedValue: invoice.nip },
-    { formattedValue: invoice.title },
-    { formattedValue: String(invoice.hours) },
-    { formattedValue: String(invoice.price) },
-    { formattedValue: String(invoice.summary) },
-  ];
-};
+const table = "invoices";
 
 type Props = {
   children: ReactNode;
 };
 
 export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
-  const googleFetch = useGoogleFetch();
-
   const value = useMemo<InvoiceApiContextValue>(() => {
     return {
       isInitialized: true,
       api: {
-        create: async ({ create, id }) => {
-          const url = `${googleEndpoint}/${id}:batchUpdate`;
-          const invoicesResponse = await googleFetch(
-            url,
-            {
-              method: "POST",
-              body: JSON.stringify({
-                requests: [
-                  {
-                    sheetId: 0,
-                    rows: [{ values: getValues(create) }],
-                    fields: "*",
-                  },
-                ],
-                range: invoiceInsertRange,
-                values: getValues(create),
-              }),
-            },
-            {
-              insertDataOption: "INSERT_ROWS",
-            }
-          );
-
-          console.log({ invoicesResponse });
-
-          return Promise.resolve(0);
+        create: async (args) => {
+          const { error, data } = await supabase
+            .from<Invoice>(table)
+            .insert(args)
+            .single();
+          if (error) throw error;
+          return data;
         },
-        delete: async () => {
-          return Promise.resolve();
+        delete: async (id) => {
+          const { error } = await supabase
+            .from<Invoice>(table)
+            .delete()
+            .eq("id", id);
+          if (error) throw error;
         },
         get: async ({ queryKey }) => {
-          const url = `${googleEndpoint}/${queryKey[1]}`;
-          const invoicesResponse = await googleFetch(
-            url,
-            { method: "GET" },
-            {
-              ranges: getInvoiceRange(queryKey[2]),
-              includeGridData: "true",
-              fields: "sheets.data.rowData.values.formattedValue",
-            }
-          );
-          const rawInvoices = await invoicesResponse.json();
-          const invoices = getInvoices(rawInvoices.sheets, 0);
-
-          if (invoices.length < 1) throw new Error("Not invoice with index");
-
-          return invoices[0];
+          const { data, error } = await supabase
+            .from<Invoice>(table)
+            .select("*")
+            .eq("id", queryKey[1])
+            .single();
+          if (error) throw error;
+          return data;
         },
-        key: (id, row) => {
-          return ["invoice", id, row];
+        key: (id) => {
+          return ["invoice", id];
         },
         list: async ({ queryKey }) => {
-          const url = `${googleEndpoint}/${queryKey[1]}`;
-          const propertiesResponse = await googleFetch(url, { method: "GET" });
-          const properties = await propertiesResponse.json();
-
-          const invoicesResponse = await googleFetch(
-            url,
-            { method: "GET" },
-            {
-              ranges: getInvoicesRanges(properties.sheets),
-              includeGridData: "true",
-              fields: "sheets.data.rowData.values.formattedValue",
-            }
-          );
-          const rawInvoices = await invoicesResponse.json();
-          const invoices = getInvoices(rawInvoices.sheets, 2);
-
-          return invoices;
+          const args = queryKey[2] ?? { limit: 50, offset: 0 };
+          const { data, error, count } = await supabase
+            .from<Invoice>(table)
+            .select("*", { count: "estimated" })
+            .eq("id", queryKey[1])
+            .range(args.offset, args.offset + args.limit);
+          if (error) throw error;
+          return { sheets: data, count: count ?? 0 };
         },
-        listKey: (id) => {
-          return ["invoices", id];
+        listKey: (id, page) => {
+          return page ? ["invoices", id, page] : ["invoices", id];
         },
-        update: () => {
-          return Promise.resolve(0);
+        update: async (args) => {
+          const { data, error } = await supabase
+            .from<Invoice>(table)
+            .update(args)
+            .eq("id", args.id)
+            .single();
+          if (error) throw error;
+          return data;
         },
       },
     };
-  }, [googleFetch]);
+  }, []);
 
   if (!value) return <>{children}</>;
 

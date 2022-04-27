@@ -8,7 +8,7 @@ import {
 import { QueryFunction } from "react-query";
 import { supabase } from "./supabase";
 
-type SheetId = number;
+export type SheetId = number;
 
 export type Sheet = {
   account: string;
@@ -80,11 +80,11 @@ export const useSheetApi = (): SheetApiService => {
   return context.api;
 };
 
+const table = "Docs";
+
 type Props = {
   children: ReactNode;
 };
-
-const table = "Docs";
 
 export const SheetApiProvider = ({ children }: Props): ReactElement => {
   const value = useMemo<SheetApiContextValue>(() => {
@@ -127,8 +127,8 @@ export const SheetApiProvider = ({ children }: Props): ReactElement => {
           if (error) throw error;
           return { sheets: data, count: count ?? 0 };
         },
-        listKey: (pagination) => {
-          return pagination ? ["sheets", pagination] : ["sheets"];
+        listKey: (page) => {
+          return page ? ["sheets", page] : ["sheets"];
         },
         update: async (args) => {
           const { data, error } = await supabase

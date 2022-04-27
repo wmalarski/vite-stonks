@@ -32,9 +32,11 @@ export const mockInvoice = (update: Partial<Invoice> = {}): Invoice => {
     company: "Company",
     date: moment(new Date()),
     hours: 160,
+    id,
     name: `Name-${id}`,
     nip: "4567890",
     price: 234,
+    sheet_id: 0,
     summary: 23456,
     title: "Title",
     ...update,
@@ -132,37 +134,43 @@ export const mockSheetApi = ({
 };
 
 export const mockInvoiceApi = (): InvoiceApiService => {
-  const collection: Record<string, Invoice[]> = {};
+  const collection: Invoice[] = [];
   return {
-    create: ({ id, create }) => {
-      const invoices = collection[id];
-      invoices.push(create);
-      return Promise.resolve(invoices.length - 1);
+    create: (args) => {
+      collection.push(args);
+      return Promise.resolve(args);
     },
-    delete: ({ id, index }) => {
-      const invoices = collection[id];
-      invoices.splice(index, 1);
+    delete: (id) => {
+      const index = collection.findIndex((invoice) => invoice.id === id);
+      if (index < 0) return Promise.reject();
+      collection.splice(index, 1);
       return Promise.resolve();
     },
     get: ({ queryKey }) => {
-      const invoices = collection[queryKey[1]];
-      return Promise.resolve(invoices[queryKey[2]]);
+      const data = collection.find((entry) => entry.id == queryKey[1]);
+      if (!data) return Promise.reject();
+      return Promise.resolve(data);
     },
-    key: (id, row) => {
-      return ["invoice", id, row];
+    key: (id) => {
+      return ["invoice", id];
     },
     list: ({ queryKey }) => {
-      const invoices = collection[queryKey[1]];
-      if (!invoices) return Promise.reject();
-      return Promise.resolve(invoices);
+      const key = queryKey[1];
+      const { limit, offset } = queryKey[2] ?? { limit: 50, offset: 0 };
+      const filtered = collection.filter(({ sheet_id }) => sheet_id === key);
+      const sliced = filtered.slice(offset, offset + limit);
+      return Promise.resolve({ sheets: sliced, count: filtered.length });
     },
     listKey: (id) => {
       return ["invoices", id];
     },
-    update: ({ id, index, update }) => {
-      const invoices = collection[id];
-      invoices.splice(index, 1, update);
-      return Promise.resolve(index);
+    update: (args) => {
+      const index = collection.findIndex((entry) => entry.id === args.id);
+      if (index < 0) return Promise.reject();
+      const previous = collection[index];
+      const next = { ...previous, ...args };
+      collection.splice(index, 1, next);
+      return Promise.resolve(next);
     },
   };
 };
@@ -170,9 +178,9 @@ export const mockInvoiceApi = (): InvoiceApiService => {
 export const mockReportApi = (): ReportApiService => {
   const collection: Record<string, Report[]> = {};
   return {
-    create: ({ id, date }) => {
+    create: ({ id, data }) => {
       const reports = collection[id];
-      reports.push(mockReport({ date }));
+      reports.push(mockReport(data));
       return Promise.resolve(reports.length - 1);
     },
     delete: ({ id, index }) => {
