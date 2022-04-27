@@ -44,6 +44,7 @@ export const mockInvoice = (update: Partial<Invoice> = {}): Invoice => {
 };
 
 export const mockReport = (update: Partial<Report> = {}): Report => {
+  const id = Math.floor(Math.random() * 1e10);
   return {
     accidentPremium: 10,
     base: 11,
@@ -51,10 +52,12 @@ export const mockReport = (update: Partial<Report> = {}): Report => {
     disabilityPension: 12,
     expenses: 0,
     healthContributions: 13,
+    id,
     income: 14,
     pensionContribution: 15,
     pensionsSummary: 16,
     proceeds: 17,
+    sheet_id: 0,
     sicknessContribution: 18,
     socialSecurity: 19,
     tax: 20,
@@ -159,7 +162,7 @@ export const mockInvoiceApi = (): InvoiceApiService => {
       const { limit, offset } = queryKey[2] ?? { limit: 50, offset: 0 };
       const filtered = collection.filter(({ sheet_id }) => sheet_id === key);
       const sliced = filtered.slice(offset, offset + limit);
-      return Promise.resolve({ sheets: sliced, count: filtered.length });
+      return Promise.resolve({ invoices: sliced, count: filtered.length });
     },
     listKey: (id) => {
       return ["invoices", id];
@@ -176,25 +179,28 @@ export const mockInvoiceApi = (): InvoiceApiService => {
 };
 
 export const mockReportApi = (): ReportApiService => {
-  const collection: Record<string, Report[]> = {};
+  const collection: Report[] = [];
   return {
-    create: ({ id, data }) => {
-      const reports = collection[id];
-      reports.push(mockReport(data));
-      return Promise.resolve(reports.length - 1);
+    create: (args) => {
+      const report = mockReport(args);
+      collection.push(report);
+      return Promise.resolve(report);
     },
-    delete: ({ id, index }) => {
-      const reports = collection[id];
-      reports.splice(index, 1);
+    delete: (id) => {
+      const index = collection.findIndex((invoice) => invoice.id === id);
+      if (index < 0) return Promise.reject();
+      collection.splice(index, 1);
       return Promise.resolve();
     },
     list: ({ queryKey }) => {
-      const reports = collection[queryKey[1]];
-      if (!reports) return Promise.reject();
-      return Promise.resolve(reports);
+      const key = queryKey[1];
+      const { limit, offset } = queryKey[2] ?? { limit: 50, offset: 0 };
+      const filtered = collection.filter(({ sheet_id }) => sheet_id === key);
+      const sliced = filtered.slice(offset, offset + limit);
+      return Promise.resolve({ reports: sliced, count: filtered.length });
     },
-    listKey: (id) => {
-      return ["reports", id];
+    listKey: (id, page) => {
+      return page ? ["reports", id, page] : ["reports", id];
     },
   };
 };

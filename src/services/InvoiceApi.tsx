@@ -33,7 +33,7 @@ export type InvoicePageArgs = {
 };
 
 type InvoiceListResult = {
-  sheets: Invoice[];
+  invoices: Invoice[];
   count: number;
 };
 
@@ -118,10 +118,10 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
           const { data, error, count } = await supabase
             .from<Invoice>(table)
             .select("*", { count: "estimated" })
-            .eq("id", queryKey[1])
+            .eq("sheet_id", queryKey[1])
             .range(args.offset, args.offset + args.limit);
           if (error) throw error;
-          return { sheets: data, count: count ?? 0 };
+          return { invoices: data, count: count ?? 0 };
         },
         listKey: (id, page) => {
           return page ? ["invoices", id, page] : ["invoices", id];
