@@ -27,13 +27,13 @@ export const InvoiceActions = ({
 
   return (
     <div className={classes.list}>
-      <EditInvoice index={index} invoice={invoice} sheet={sheet} />
+      <EditInvoice invoice={invoice} sheet={sheet} />
       <CopyInvoice
         invoice={invoice}
         onSuccess={handleCopySuccess}
         sheet={sheet}
       />
-      <RemoveInvoice index={index} sheet={sheet} />
+      <RemoveInvoice invoice={invoice} sheet={sheet} />
     </div>
   );
 };

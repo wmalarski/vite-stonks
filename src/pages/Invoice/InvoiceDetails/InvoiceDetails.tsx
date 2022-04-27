@@ -13,11 +13,11 @@ type Props = {
 
 export const InvoiceDetails = ({ sheet }: Props): ReactElement => {
   const params = useParams();
-  const index = Number(params.invoiceId);
+  const invoiceId = Number(params.invoiceId);
 
   const invoiceApi = useInvoiceApi();
   const { data, isLoading } = useQuery(
-    invoiceApi.key(sheet.sheet_id, index),
+    invoiceApi.key(invoiceId),
     invoiceApi.get,
     { refetchOnWindowFocus: false }
   );
@@ -26,7 +26,7 @@ export const InvoiceDetails = ({ sheet }: Props): ReactElement => {
 
   return (
     <div>
-      <InvoiceHeader index={index} invoice={data} sheet={sheet} />
+      <InvoiceHeader invoice={data} sheet={sheet} />
       <InvoicePreview invoice={data} sheet={sheet} />
     </div>
   );

@@ -1,11 +1,10 @@
 import { ContentLayout } from "@/components/ContentLayout/ContentLayout";
 import { useSheetApi } from "@/services/SheetApi";
-import { List, PageHeader, Pagination } from "antd";
+import { List, PageHeader } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
 import { CreateSheet } from "./CreateSheet/CreateSheet";
-import * as classes from "./Sheets.css";
 import { SheetsListItem } from "./SheetsListItem/SheetsListItem";
 import { SheetsSidebar } from "./SheetsSidebar/SheetsSidebar";
 
@@ -36,15 +35,13 @@ export const Sheets = (): ReactElement => {
           dataSource={data?.sheets}
           itemLayout="horizontal"
           renderItem={(item) => <SheetsListItem sheet={item} />}
+          pagination={{
+            current: page,
+            disabled: (data?.count ?? 0) < 1,
+            onChange: setPage,
+            total: data?.count,
+          }}
         />
-        <div className={classes.pagination}>
-          <Pagination
-            current={page}
-            disabled={(data?.count ?? 0) < 1}
-            onChange={setPage}
-            total={data?.count}
-          />
-        </div>
       </PageHeader>
     </ContentLayout>
   );

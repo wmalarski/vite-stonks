@@ -7,12 +7,11 @@ import { useMutation, useQueryClient } from "react-query";
 import { InvoiceForm } from "../InvoiceForm/InvoiceForm";
 
 type Props = {
-  index: number;
   invoice: Invoice;
   sheet: Sheet;
 };
 
-export const EditInvoice = ({ index, invoice, sheet }: Props): ReactElement => {
+export const EditInvoice = ({ invoice, sheet }: Props): ReactElement => {
   const { t } = useTranslation("common", { keyPrefix: "invoice.edit" });
 
   const [isOpen, setIsOpen] = useState(false);
@@ -22,9 +21,9 @@ export const EditInvoice = ({ index, invoice, sheet }: Props): ReactElement => {
   const client = useQueryClient();
 
   const { mutate, isLoading } = useMutation(invoiceApi.update, {
-    onSuccess: () => {
-      client.invalidateQueries(invoiceApi.listKey(sheet.sheet_id));
-      client.invalidateQueries(invoiceApi.key(sheet.sheet_id, index));
+    onSuccess: (update) => {
+      client.invalidateQueries(invoiceApi.listKey(sheet.id));
+      client.invalidateQueries(invoiceApi.key(update.id));
     },
   });
 
@@ -39,7 +38,7 @@ export const EditInvoice = ({ index, invoice, sheet }: Props): ReactElement => {
   const handleOkClick = async () => {
     try {
       const update = await form.validateFields();
-      mutate({ update, id: sheet.sheet_id, index });
+      mutate(update);
     } catch (info) {
       console.error("Validate Failed:", info);
     }

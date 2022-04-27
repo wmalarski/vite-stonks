@@ -1,5 +1,5 @@
 import { ReportForm } from "@/modules/ReportForm/ReportForm";
-import { CreateReportData, useReportApi } from "@/services/ReportApi";
+import { CreateReportArgs, useReportApi } from "@/services/ReportApi";
 import { Sheet } from "@/services/SheetApi";
 import { Button, Form, Modal } from "antd";
 import { ReactElement, useState } from "react";
@@ -15,14 +15,14 @@ export const CreateReport = ({ onSuccess, sheet }: Props): ReactElement => {
   const { t } = useTranslation("common", { keyPrefix: "report.create" });
 
   const [isOpen, setIsOpen] = useState(false);
-  const [form] = Form.useForm<CreateReportData>();
+  const [form] = Form.useForm<CreateReportArgs>();
 
   const client = useQueryClient();
   const reportApi = useReportApi();
 
   const { mutate, isLoading } = useMutation(reportApi.create, {
     onSuccess: () => {
-      client.invalidateQueries(reportApi.listKey(sheet.sheet_id));
+      client.invalidateQueries(reportApi.listKey(sheet.id));
       onSuccess();
     },
   });
@@ -38,7 +38,7 @@ export const CreateReport = ({ onSuccess, sheet }: Props): ReactElement => {
   const handleOkClick = async () => {
     try {
       const create = await form.validateFields();
-      mutate({ data: create, id: sheet.sheet_id });
+      mutate(create);
     } catch (info) {
       console.error("Validate Failed:", info);
     }

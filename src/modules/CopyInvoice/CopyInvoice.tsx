@@ -8,7 +8,7 @@ import { InvoiceForm } from "../InvoiceForm/InvoiceForm";
 
 type Props = {
   invoice: Invoice;
-  onSuccess: (index: number) => void;
+  onSuccess: (invoice: Invoice) => void;
   sheet: Sheet;
 };
 
@@ -26,9 +26,9 @@ export const CopyInvoice = ({
   const client = useQueryClient();
 
   const { mutate, isLoading } = useMutation(invoiceApi.create, {
-    onSuccess: (index) => {
-      client.invalidateQueries(invoiceApi.listKey(sheet.sheet_id));
-      onSuccess(index);
+    onSuccess: (create) => {
+      client.invalidateQueries(invoiceApi.listKey(sheet.id));
+      onSuccess(create);
     },
   });
 
@@ -43,7 +43,7 @@ export const CopyInvoice = ({
   const handleOkClick = async () => {
     try {
       const create = await form.validateFields();
-      mutate({ create, id: sheet.sheet_id });
+      mutate(create);
     } catch (info) {
       console.error("Validate Failed:", info);
     }

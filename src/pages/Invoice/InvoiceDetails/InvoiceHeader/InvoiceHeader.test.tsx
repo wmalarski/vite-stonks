@@ -15,7 +15,6 @@ const renderComponent = ({
   const defaultProps: Props = {
     invoice: mockInvoice(),
     sheet: mockSheet(),
-    index: 0,
   };
 
   return render(
