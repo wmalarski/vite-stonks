@@ -1,3 +1,4 @@
+import { ErrorView } from "@/components/ErrorView/ErrorView";
 import { Loading } from "@/components/Loading/Loading";
 import { InvoicePreview } from "@/modules/InvoicePreview/InvoicePreview";
 import { useInvoiceApi } from "@/services/InvoiceApi";
@@ -16,13 +17,23 @@ export const InvoiceDetails = ({ sheet }: Props): ReactElement => {
   const invoiceId = Number(params.invoiceId);
 
   const invoiceApi = useInvoiceApi();
-  const { data, isLoading } = useQuery(
+  const { data, error, isLoading, refetch } = useQuery(
     invoiceApi.key(invoiceId),
     invoiceApi.get,
     { refetchOnWindowFocus: false }
   );
 
-  if (isLoading || !data) return <Loading />;
+  const handleRefreshClick = () => {
+    refetch();
+  };
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (error || !data) {
+    return <ErrorView onRefreshClick={handleRefreshClick} />;
+  }
 
   return (
     <div>

@@ -1,4 +1,5 @@
 import { ContentLayout } from "@/components/ContentLayout/ContentLayout";
+import { ErrorView } from "@/components/ErrorView/ErrorView";
 import { useSheetApi } from "@/services/SheetApi";
 import { List, PageHeader } from "antd";
 import { ReactElement, useState } from "react";
@@ -17,10 +18,18 @@ export const Sheets = (): ReactElement => {
   const pagination = { offset: (page - 1) * PageSize, limit: PageSize };
 
   const sheetApi = useSheetApi();
-  const { data, isLoading } = useQuery(
+  const { data, isLoading, error, refetch } = useQuery(
     sheetApi.listKey(pagination),
     sheetApi.list
   );
+
+  const handleRefreshClick = () => {
+    refetch();
+  };
+
+  if (error) {
+    return <ErrorView onRefreshClick={handleRefreshClick} />;
+  }
 
   return (
     <ContentLayout sidebar={<SheetsSidebar />}>

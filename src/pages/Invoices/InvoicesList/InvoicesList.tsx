@@ -1,3 +1,4 @@
+import { ErrorView } from "@/components/ErrorView/ErrorView";
 import { useInvoiceApi } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
 import { Table } from "antd";
@@ -18,13 +19,21 @@ export const InvoicesList = ({ sheet }: Props): ReactElement => {
   const [page, setPage] = useState(1);
   const pagination = { offset: (page - 1) * PageSize, limit: PageSize };
 
-  const { data, isLoading } = useQuery(
+  const { data, error, isLoading, refetch } = useQuery(
     invoiceApi.listKey(sheet.id, pagination),
     invoiceApi.list,
     { refetchOnWindowFocus: false }
   );
 
   const columns = useColumns({ sheet });
+
+  const handleRefreshClick = () => {
+    refetch();
+  };
+
+  if (error) {
+    return <ErrorView onRefreshClick={handleRefreshClick} />;
+  }
 
   return (
     <Table

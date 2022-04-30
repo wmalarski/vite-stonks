@@ -1,3 +1,4 @@
+import { ErrorView } from "@/components/ErrorView/ErrorView";
 import { Loading } from "@/components/Loading/Loading";
 import { useSheetApi } from "@/services/SheetApi";
 import { ReactElement } from "react";
@@ -10,9 +11,22 @@ export const Invoice = (): ReactElement => {
   const id = Number(params.sheetId);
 
   const sheetApi = useSheetApi();
-  const { data } = useQuery(sheetApi.key(id), sheetApi.get);
+  const { data, error, isLoading, refetch } = useQuery(
+    sheetApi.key(id),
+    sheetApi.get
+  );
 
-  if (!data) return <Loading />;
+  const handleRefreshClick = () => {
+    refetch();
+  };
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (error || !data) {
+    return <ErrorView onRefreshClick={handleRefreshClick} />;
+  }
 
   return <InvoiceDetails sheet={data} />;
 };

@@ -1,3 +1,4 @@
+import { ErrorView } from "@/components/ErrorView/ErrorView";
 import { useReportApi } from "@/services/ReportApi";
 import { Sheet } from "@/services/SheetApi";
 import { Table } from "antd";
@@ -18,12 +19,20 @@ export const ReportsTable = ({ sheet }: Props): ReactElement => {
   const [page, setPage] = useState(1);
   const pagination = { offset: (page - 1) * PageSize, limit: PageSize };
 
-  const { data, isLoading } = useQuery(
+  const { data, error, isLoading, refetch } = useQuery(
     reportApi.listKey(sheet.id, pagination),
     reportApi.list
   );
 
+  const handleRefreshClick = () => {
+    refetch();
+  };
+
   const columns = useColumns({ sheet });
+
+  if (error) {
+    return <ErrorView onRefreshClick={handleRefreshClick} />;
+  }
 
   return (
     <Table
