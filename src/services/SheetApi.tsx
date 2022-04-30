@@ -21,7 +21,6 @@ export type Sheet = {
   id: SheetId;
   name: string;
   nip: string;
-  sheet_id: string;
   user_id: string;
 };
 
@@ -80,7 +79,7 @@ export const useSheetApi = (): SheetApiService => {
   return context.api;
 };
 
-const table = "Docs";
+const table = "sheets";
 
 type Props = {
   children: ReactNode;

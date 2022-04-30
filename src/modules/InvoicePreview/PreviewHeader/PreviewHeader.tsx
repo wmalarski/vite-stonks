@@ -19,7 +19,7 @@ export const PreviewHeader = ({ invoice, sheet }: Props): ReactElement => {
       <Typography.Text>
         {t("header", {
           city: sheet.city,
-          date: formatDate(invoice.date.toDate()),
+          date: formatDate(invoice.date),
         })}
       </Typography.Text>
     </div>

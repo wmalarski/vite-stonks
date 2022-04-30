@@ -1,4 +1,4 @@
-import { CreateReportArgs } from "@/services/ReportApi";
+import { Report } from "@/services/ReportApi";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import i18n from "@/utils/i18next";
 import "@testing-library/jest-dom";
@@ -14,7 +14,7 @@ const Component = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Partial<Props>>) => {
-  const [form] = Form.useForm<CreateReportArgs>();
+  const [form] = Form.useForm<Report>();
 
   const defaultProps: Props = { form };
 

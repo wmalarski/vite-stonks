@@ -1,7 +1,8 @@
 import { Invoice } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
-import { formatDate } from "@/utils/format";
+import { formatMoment } from "@/utils/format";
 import { Col, Radio, Row, Space, Typography } from "antd";
+import moment from "moment";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import * as classes from "./PreviewInfo.css";
@@ -40,7 +41,7 @@ export const PreviewInfo = ({ invoice, sheet }: Props): ReactElement => {
             </Col>
             <Col span={14}>
               <Typography.Text>
-                {formatDate(invoice.date.clone().add(15, "days").toDate())}
+                {formatMoment(moment(invoice.date).add(15, "days"))}
               </Typography.Text>
             </Col>
           </Row>

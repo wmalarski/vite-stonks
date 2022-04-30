@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 
 export type SheetFormArgs = {
   name: string;
-  sheet_id: string;
 };
 
 type Props = {
@@ -34,9 +33,6 @@ export const SheetForm = ({ form, initialValues }: Props): ReactElement => {
           },
         ]}
       >
-        <Input />
-      </Form.Item>
-      <Form.Item label={t("sheet.form.sheetId")} name="sheet_id">
         <Input />
       </Form.Item>
     </Form>

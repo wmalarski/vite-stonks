@@ -12,7 +12,8 @@ type Props = {
 export const PreviewSummary = ({ invoice }: Props): ReactElement => {
   const { t, i18n } = useTranslation("common", { keyPrefix: "preview" });
 
-  const text = i18n.language === "pl" ? pricePLN(invoice.summary) : "";
+  const summary = invoice.price * invoice.hours;
+  const text = i18n.language === "pl" ? pricePLN(summary) : "";
 
   return (
     <Row>
@@ -20,9 +21,7 @@ export const PreviewSummary = ({ invoice }: Props): ReactElement => {
         <Typography.Text>{t("toPay")}</Typography.Text>
       </Col>
       <Col span={6} className={classes.right}>
-        <Typography.Text>
-          {t("amount", { amount: invoice.summary })}
-        </Typography.Text>
+        <Typography.Text>{t("amount", { amount: summary })}</Typography.Text>
       </Col>
       <Col span={12}>
         <Typography.Text>{text}</Typography.Text>
@@ -38,9 +37,7 @@ export const PreviewSummary = ({ invoice }: Props): ReactElement => {
         <Typography.Text>{t("leftToPay")}</Typography.Text>
       </Col>
       <Col span={6} className={classes.right}>
-        <Typography.Text>
-          {t("amount", { amount: invoice.summary })}
-        </Typography.Text>
+        <Typography.Text>{t("amount", { amount: summary })}</Typography.Text>
       </Col>
     </Row>
   );

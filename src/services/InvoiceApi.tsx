@@ -1,4 +1,3 @@
-import moment from "moment";
 import {
   createContext,
   ReactElement,
@@ -16,14 +15,14 @@ export type Invoice = {
   address1: string;
   address2: string;
   company: string;
-  date: moment.Moment;
+  created_at: string;
+  date: string;
   hours: number;
   id: InvoiceId;
   name: string;
   nip: string;
   price: number;
   sheet_id: SheetId;
-  summary: number;
   title: string;
 };
 

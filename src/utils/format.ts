@@ -5,6 +5,10 @@ export const parseDate = (input: string): moment.Moment => {
   return moment(new Date(Number(year), Number(month) - 1, Number(day)));
 };
 
-export const formatDate = (date: Date): string => {
-  return moment(date).format("MMM Do YY");
+export const formatMoment = (arg: moment.Moment): string => {
+  return arg.format("MMM Do YY");
+};
+
+export const formatDate = (date: string): string => {
+  return formatMoment(moment(date));
 };

@@ -17,7 +17,7 @@ export const PreviewTable = ({ invoice }: Props): ReactElement => {
       <Descriptions.Item label={t("count")}>{invoice.hours}</Descriptions.Item>
       <Descriptions.Item label={t("price")}>{invoice.price}</Descriptions.Item>
       <Descriptions.Item label={t("summary")}>
-        {invoice.summary}
+        {invoice.hours * invoice.price}
       </Descriptions.Item>
     </Descriptions>
   );

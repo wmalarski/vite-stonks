@@ -1,5 +1,5 @@
 import { ReportForm } from "@/modules/ReportForm/ReportForm";
-import { CreateReportArgs, useReportApi } from "@/services/ReportApi";
+import { Report, useReportApi } from "@/services/ReportApi";
 import { Sheet } from "@/services/SheetApi";
 import { Button, Form, Modal } from "antd";
 import { ReactElement, useState } from "react";
@@ -15,7 +15,7 @@ export const CreateReport = ({ onSuccess, sheet }: Props): ReactElement => {
   const { t } = useTranslation("common", { keyPrefix: "report.create" });
 
   const [isOpen, setIsOpen] = useState(false);
-  const [form] = Form.useForm<CreateReportArgs>();
+  const [form] = Form.useForm<Report>();
 
   const client = useQueryClient();
   const reportApi = useReportApi();

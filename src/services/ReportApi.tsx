@@ -12,32 +12,26 @@ import { supabase } from "./supabase";
 type ReportId = number;
 
 export type Report = {
-  accidentPremium: number;
-  base: number;
-  date: moment.Moment;
-  disabilityPension: number;
-  expenses: number;
-  healthContributions: number;
+  accident_premium: number;
+  date: string;
+  disability_pension: number;
+  health_contributions: number;
   id: ReportId;
-  income: number;
-  pensionContribution: number;
-  pensionsSummary: number;
-  proceeds: number;
+  pension_contribution: number;
   sheet_id: SheetId;
-  sicknessContribution: number;
-  socialSecurity: number;
-  tax: number;
+  sickness_contribution: number;
+  social_security: number;
 };
 
-export type CreateReportArgs = Pick<
-  Report,
-  | "accidentPremium"
-  | "date"
-  | "disabilityPension"
-  | "pensionContribution"
-  | "sheet_id"
-  | "sicknessContribution"
->;
+export type ReportView = Report & {
+  base: number;
+  expenses: number;
+  id: ReportId;
+  income: number;
+  pensions_summary: number;
+  proceeds: number;
+  tax: number;
+};
 
 export type ReportPageArgs = {
   limit: number;
@@ -52,10 +46,11 @@ type ReportListResult = {
 type ReportsKey = ["reports", SheetId] | ["reports", SheetId, ReportPageArgs];
 
 export type ReportApiService = {
-  create: (args: CreateReportArgs) => Promise<Report>;
+  create: (args: Report) => Promise<Report>;
   delete: (args: ReportId) => Promise<void>;
   list: QueryFunction<ReportListResult, ReportsKey>;
   listKey: (id: ReportId, page?: ReportPageArgs) => ReportsKey;
+  update: (args: Report) => Promise<Report>;
 };
 
 type ReportApiContextValue =
@@ -111,7 +106,7 @@ export const ReportApiProvider = ({ children }: Props): ReactElement => {
         list: async ({ queryKey }) => {
           const args = queryKey[2] ?? { limit: 50, offset: 0 };
           const { data, error, count } = await supabase
-            .from<Report>(view)
+            .from<ReportView>(view)
             .select("*", { count: "estimated" })
             .eq("sheet_id", queryKey[1])
             .range(args.offset, args.offset + args.limit);
@@ -120,6 +115,15 @@ export const ReportApiProvider = ({ children }: Props): ReactElement => {
         },
         listKey: (id, page) => {
           return page ? ["reports", id, page] : ["reports", id];
+        },
+        update: async (args) => {
+          const { data, error } = await supabase
+            .from<Report>(table)
+            .update(args)
+            .eq("id", args.id)
+            .single();
+          if (error) throw error;
+          return data;
         },
       },
     };

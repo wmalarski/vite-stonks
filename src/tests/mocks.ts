@@ -1,9 +1,8 @@
 import { AuthApiService } from "@/services/AuthApi";
 import { Invoice, InvoiceApiService } from "@/services/InvoiceApi";
-import { Report, ReportApiService } from "@/services/ReportApi";
+import { Report, ReportApiService, ReportView } from "@/services/ReportApi";
 import { Sheet, SheetApiService } from "@/services/SheetApi";
 import { User } from "@supabase/supabase-js";
-import moment from "moment";
 
 export const mockSheet = (update: Partial<Sheet> = {}): Sheet => {
   const id = update.id ?? Math.floor(Math.random() * 1e10);
@@ -11,7 +10,6 @@ export const mockSheet = (update: Partial<Sheet> = {}): Sheet => {
     created_at: new Date().toISOString(),
     id,
     name: `Mocked-${id}`,
-    sheet_id: "1B8yq3arNoNU8izDdA_GDWt-jYhv6GhIBCvIncv8MMz8",
     user_id: "1",
     account: "account",
     address1: "address1",
@@ -30,14 +28,14 @@ export const mockInvoice = (update: Partial<Invoice> = {}): Invoice => {
     address1: "Address",
     address2: "Address2",
     company: "Company",
-    date: moment(new Date()),
+    created_at: new Date().toISOString(),
+    date: new Date().toISOString(),
     hours: 160,
     id,
     name: `Name-${id}`,
     nip: "4567890",
     price: 234,
     sheet_id: 0,
-    summary: 23456,
     title: "Title",
     ...update,
   };
@@ -46,20 +44,38 @@ export const mockInvoice = (update: Partial<Invoice> = {}): Invoice => {
 export const mockReport = (update: Partial<Report> = {}): Report => {
   const id = Math.floor(Math.random() * 1e10);
   return {
-    accidentPremium: 10,
+    accident_premium: 10,
+    date: new Date().toISOString(),
+    disability_pension: 12,
+    health_contributions: 13,
+    id,
+    pension_contribution: 15,
+    sheet_id: 0,
+    sickness_contribution: 18,
+    social_security: 19,
+    ...update,
+  };
+};
+
+export const mockReportView = (
+  update: Partial<ReportView> = {}
+): ReportView => {
+  const id = Math.floor(Math.random() * 1e10);
+  return {
+    accident_premium: 10,
     base: 11,
-    date: moment(new Date()),
-    disabilityPension: 12,
+    date: new Date().toISOString(),
+    disability_pension: 12,
     expenses: 0,
-    healthContributions: 13,
+    health_contributions: 13,
     id,
     income: 14,
-    pensionContribution: 15,
-    pensionsSummary: 16,
+    pension_contribution: 15,
+    pensions_summary: 16,
     proceeds: 17,
     sheet_id: 0,
-    sicknessContribution: 18,
-    socialSecurity: 19,
+    sickness_contribution: 18,
+    social_security: 19,
     tax: 20,
     ...update,
   };
@@ -179,11 +195,11 @@ export const mockInvoiceApi = (): InvoiceApiService => {
 };
 
 export const mockReportApi = (): ReportApiService => {
-  const collection: Report[] = [];
+  const collection: ReportView[] = [];
   return {
     create: (args) => {
       const report = mockReport(args);
-      collection.push(report);
+      collection.push(mockReportView(report));
       return Promise.resolve(report);
     },
     delete: (id) => {
@@ -201,6 +217,14 @@ export const mockReportApi = (): ReportApiService => {
     },
     listKey: (id, page) => {
       return page ? ["reports", id, page] : ["reports", id];
+    },
+    update: (args) => {
+      const index = collection.findIndex((entry) => entry.id === args.id);
+      if (index < 0) return Promise.reject();
+      const previous = collection[index];
+      const next = { ...previous, ...args };
+      collection.splice(index, 1, next);
+      return Promise.resolve(next);
     },
   };
 };

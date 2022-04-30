@@ -1,11 +1,11 @@
-import { CreateReportArgs } from "@/services/ReportApi";
+import { Report } from "@/services/ReportApi";
 import { DatePicker, Form, FormInstance, InputNumber } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 
 type Props = {
-  form: FormInstance<CreateReportArgs>;
-  initialValues?: CreateReportArgs;
+  form: FormInstance<Report>;
+  initialValues?: Report;
 };
 
 export const ReportForm = ({ form, initialValues }: Props): ReactElement => {
