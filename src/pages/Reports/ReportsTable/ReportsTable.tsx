@@ -19,7 +19,7 @@ export const ReportsTable = ({ sheet }: Props): ReactElement => {
   const [page, setPage] = useState(1);
   const pagination = { offset: (page - 1) * PageSize, limit: PageSize };
 
-  const { data, error, isLoading, refetch } = useQuery(
+  const { data, status, isLoading, refetch } = useQuery(
     reportApi.listKey(sheet.id, pagination),
     reportApi.list
   );
@@ -30,7 +30,7 @@ export const ReportsTable = ({ sheet }: Props): ReactElement => {
 
   const columns = useColumns({ sheet });
 
-  if (error) {
+  if (status === "error") {
     return <ErrorView onRefreshClick={handleRefreshClick} />;
   }
 

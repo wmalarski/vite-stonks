@@ -11,7 +11,7 @@ export const Sheet = (): ReactElement => {
   const params = useParams();
 
   const sheetApi = useSheetApi();
-  const { data, refetch, error, isLoading } = useQuery(
+  const { data, refetch, status } = useQuery(
     sheetApi.key(Number(params.sheetId)),
     sheetApi.get
   );
@@ -20,11 +20,11 @@ export const Sheet = (): ReactElement => {
     refetch();
   };
 
-  if (isLoading) {
+  if (status === "loading" || status === "idle") {
     return <Loading />;
   }
 
-  if (error || !data) {
+  if (status === "error") {
     return <ErrorView onRefreshClick={handleRefreshClick} />;
   }
 

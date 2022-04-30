@@ -17,7 +17,7 @@ export const InvoiceDetails = ({ sheet }: Props): ReactElement => {
   const invoiceId = Number(params.invoiceId);
 
   const invoiceApi = useInvoiceApi();
-  const { data, error, isLoading, refetch } = useQuery(
+  const { data, status, refetch } = useQuery(
     invoiceApi.key(invoiceId),
     invoiceApi.get,
     { refetchOnWindowFocus: false }
@@ -27,11 +27,11 @@ export const InvoiceDetails = ({ sheet }: Props): ReactElement => {
     refetch();
   };
 
-  if (isLoading) {
+  if (status === "loading" || status === "idle") {
     return <Loading />;
   }
 
-  if (error || !data) {
+  if (status === "error") {
     return <ErrorView onRefreshClick={handleRefreshClick} />;
   }
 

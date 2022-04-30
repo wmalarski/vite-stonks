@@ -18,7 +18,7 @@ export const Sheets = (): ReactElement => {
   const pagination = { offset: (page - 1) * PageSize, limit: PageSize };
 
   const sheetApi = useSheetApi();
-  const { data, isLoading, error, refetch } = useQuery(
+  const { data, isLoading, status, refetch } = useQuery(
     sheetApi.listKey(pagination),
     sheetApi.list
   );
@@ -27,7 +27,7 @@ export const Sheets = (): ReactElement => {
     refetch();
   };
 
-  if (error) {
+  if (status === "error") {
     return <ErrorView onRefreshClick={handleRefreshClick} />;
   }
 

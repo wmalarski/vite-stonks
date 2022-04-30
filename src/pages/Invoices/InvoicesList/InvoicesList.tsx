@@ -19,7 +19,7 @@ export const InvoicesList = ({ sheet }: Props): ReactElement => {
   const [page, setPage] = useState(1);
   const pagination = { offset: (page - 1) * PageSize, limit: PageSize };
 
-  const { data, error, isLoading, refetch } = useQuery(
+  const { data, status, isLoading, refetch } = useQuery(
     invoiceApi.listKey(sheet.id, pagination),
     invoiceApi.list,
     { refetchOnWindowFocus: false }
@@ -31,7 +31,7 @@ export const InvoicesList = ({ sheet }: Props): ReactElement => {
     refetch();
   };
 
-  if (error) {
+  if (status === "error") {
     return <ErrorView onRefreshClick={handleRefreshClick} />;
   }
 

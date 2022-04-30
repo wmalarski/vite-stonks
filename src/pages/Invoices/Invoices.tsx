@@ -13,24 +13,17 @@ export const Invoices = (): ReactElement | null => {
   const id = Number(params.sheetId);
 
   const sheetApi = useSheetApi();
-  const { data, isLoading, error, refetch, status } = useQuery(
-    sheetApi.key(id),
-    sheetApi.get
-  );
+  const { data, refetch, status } = useQuery(sheetApi.key(id), sheetApi.get);
 
   const handleRefreshClick = () => {
     refetch();
   };
 
-  if (status === "loading") {
+  if (status === "loading" || status === "idle") {
     return <Loading />;
   }
 
   if (status === "error") {
-    return <ErrorView onRefreshClick={handleRefreshClick} />;
-  }
-
-  if (status === "idle") {
     return <ErrorView onRefreshClick={handleRefreshClick} />;
   }
 
