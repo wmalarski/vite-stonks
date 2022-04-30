@@ -7,7 +7,7 @@ type Props = {
 };
 
 export const ErrorView = ({ onRefreshClick }: Props): ReactElement => {
-  const { t } = useTranslation("common", { keyPrefix: "title" });
+  const { t } = useTranslation("common", { keyPrefix: "error" });
 
   return (
     <Result

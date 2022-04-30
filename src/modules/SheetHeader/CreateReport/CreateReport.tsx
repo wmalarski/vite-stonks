@@ -1,6 +1,7 @@
 import { ReportForm } from "@/modules/ReportForm/ReportForm";
 import { Report, useReportApi } from "@/services/ReportApi";
 import { Sheet } from "@/services/SheetApi";
+import { supabase } from "@/services/supabase";
 import { Button, Form, Modal } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -37,8 +38,10 @@ export const CreateReport = ({ onSuccess, sheet }: Props): ReactElement => {
 
   const handleOkClick = async () => {
     try {
+      const user = supabase.auth.user();
+      if (!user) return;
       const create = await form.validateFields();
-      mutate(create);
+      mutate({ ...create, user_id: user.id });
     } catch (info) {
       console.error("Validate Failed:", info);
     }

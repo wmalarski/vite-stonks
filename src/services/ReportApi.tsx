@@ -22,6 +22,7 @@ export type Report = {
   sheet_id: SheetId;
   sickness_contribution: number;
   social_security: number;
+  user_id: string;
 };
 
 export type ReportView = Report & {

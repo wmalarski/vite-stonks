@@ -32,30 +32,11 @@ CREATE TABLE invoices (
   nip TEXT NOT NULL,
   price BIGINT NOT NULL,
   sheet_id BIGINT NOT NULL REFERENCES public.sheets on delete cascade,
-  title TEXT NOT NULL
+  title TEXT NOT NULL,
+  user_id UUID NOT NULL UNIQUE REFERENCES auth.users on delete cascade
 );
 
-CREATE POLICY "Only authors" ON public.invoices FOR ALL USING (
-  exists(
-    select
-      1
-    from
-      public.invoices
-      join sheets on sheets.id = public.invoices.sheet_id
-    where
-      invoices.id = public.invoices.id
-  )
-) WITH CHECK (
-  exists(
-    select
-      1
-    from
-      public.invoices
-      join sheets on sheets.id = public.invoices.sheet_id
-    where
-      invoices.id = public.invoices.id
-  )
-);
+CREATE POLICY "Enable access to authors" ON public.invoices FOR ALL USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
 
 CREATE TABLE reports (
   accident_premium BIGINT NOT NULL,
@@ -66,27 +47,8 @@ CREATE TABLE reports (
   pension_contribution BIGINT NOT NULL,
   sheet_id BIGINT NOT NULL REFERENCES public.sheets on delete cascade,
   sickness_contribution BIGINT NOT NULL,
-  social_security BIGINT NOT NULL
+  social_security BIGINT NOT NULL,
+  user_id UUID NOT NULL UNIQUE REFERENCES auth.users on delete cascade
 );
 
-CREATE POLICY "Only authors" ON public.invoices FOR ALL USING (
-  exists(
-    select
-      1
-    from
-      public.invoices
-      join sheets on sheets.id = public.invoices.sheet_id
-    where
-      invoices.id = public.invoices.id
-  )
-) WITH CHECK (
-  exists(
-    select
-      1
-    from
-      public.invoices
-      join sheets on sheets.id = public.invoices.sheet_id
-    where
-      invoices.id = public.invoices.id
-  )
-);
+CREATE POLICY "Enable access to authors" ON public.reports FOR ALL USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);

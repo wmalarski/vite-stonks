@@ -25,6 +25,7 @@ export type Invoice = {
   price: number;
   sheet_id: SheetId;
   title: string;
+  user_id: string;
 };
 
 type InvoiceListResult = {
