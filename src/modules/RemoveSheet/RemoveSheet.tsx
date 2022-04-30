@@ -1,5 +1,5 @@
 import { Sheet, useSheetApi } from "@/services/SheetApi";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const RemoveSheet = ({ onSuccess, sheet }: Props): ReactElement => {
-  const { t } = useTranslation("common", { keyPrefix: "sheet" });
+  const { t } = useTranslation("common", { keyPrefix: "sheet.remove" });
 
   const sheetApi = useSheetApi();
   const client = useQueryClient();
@@ -20,6 +20,9 @@ export const RemoveSheet = ({ onSuccess, sheet }: Props): ReactElement => {
       client.invalidateQueries(sheetApi.listKey());
       onSuccess?.();
     },
+    onError: () => {
+      message.error(t("error"));
+    },
   });
 
   const handleRemoveClick = () => {
@@ -28,7 +31,7 @@ export const RemoveSheet = ({ onSuccess, sheet }: Props): ReactElement => {
 
   return (
     <Button danger loading={isLoading} onClick={handleRemoveClick}>
-      {t("remove")}
+      {t("button")}
     </Button>
   );
 };

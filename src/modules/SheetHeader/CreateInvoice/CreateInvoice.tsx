@@ -2,7 +2,7 @@ import { InvoiceForm } from "@/modules/InvoiceForm/InvoiceForm";
 import { Invoice, useInvoiceApi } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
 import { supabase } from "@/services/supabase";
-import { Button, Form, Modal } from "antd";
+import { Button, Form, message, Modal } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
@@ -25,6 +25,9 @@ export const CreateInvoice = ({ onSuccess, sheet }: Props): ReactElement => {
     onSuccess: (invoice) => {
       client.invalidateQueries(invoiceApi.listKey(sheet.id));
       onSuccess(invoice);
+    },
+    onError: () => {
+      message.error(t("error"));
     },
   });
 

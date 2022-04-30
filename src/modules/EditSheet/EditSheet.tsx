@@ -1,5 +1,5 @@
 import { Sheet, useSheetApi } from "@/services/SheetApi";
-import { Button, Form, Modal } from "antd";
+import { Button, Form, message, Modal } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
@@ -23,6 +23,9 @@ export const EditSheet = ({ sheet }: Props): ReactElement => {
       client.invalidateQueries(sheetApi.listKey());
       client.invalidateQueries(sheetApi.key(sheet.id));
       setIsOpen(false);
+    },
+    onError: () => {
+      message.error(t("error"));
     },
   });
 

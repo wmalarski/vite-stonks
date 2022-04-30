@@ -1,6 +1,6 @@
 import { useAuthApi } from "@/services/AuthApi";
 import { LogoutOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "react-query";
@@ -10,7 +10,11 @@ export const SignOutButton = (): ReactElement => {
   const { t } = useTranslation("common", { keyPrefix: "navigation" });
 
   const authApi = useAuthApi();
-  const { mutate } = useMutation(authApi.signOut);
+  const { mutate } = useMutation(authApi.signOut, {
+    onError: () => {
+      message.error(t("error"));
+    },
+  });
 
   const handleSignOutClick = () => {
     mutate();

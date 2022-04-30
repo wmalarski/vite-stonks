@@ -1,6 +1,6 @@
 import { Invoice, useInvoiceApi } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
@@ -16,7 +16,7 @@ export const RemoveInvoice = ({
   onSuccess,
   sheet,
 }: Props): ReactElement => {
-  const { t } = useTranslation("common", { keyPrefix: "invoice" });
+  const { t } = useTranslation("common", { keyPrefix: "invoice.error" });
 
   const invoiceApi = useInvoiceApi();
   const client = useQueryClient();
@@ -26,6 +26,9 @@ export const RemoveInvoice = ({
       client.invalidateQueries(invoiceApi.listKey(sheet.id));
       onSuccess?.();
     },
+    onError: () => {
+      message.error(t("error"));
+    },
   });
 
   const handleRemoveClick = () => {
@@ -34,7 +37,7 @@ export const RemoveInvoice = ({
 
   return (
     <Button danger loading={isLoading} onClick={handleRemoveClick}>
-      {t("remove")}
+      {t("button")}
     </Button>
   );
 };

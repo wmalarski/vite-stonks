@@ -1,7 +1,7 @@
 import { SheetForm } from "@/modules/SheetForm/SheetForm";
 import { Sheet, useSheetApi } from "@/services/SheetApi";
 import { supabase } from "@/services/supabase";
-import { Button, Form, Modal } from "antd";
+import { Button, Form, message, Modal } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
@@ -19,6 +19,9 @@ export const CreateSheet = (): ReactElement => {
     onSuccess: () => {
       client.invalidateQueries(sheetApi.listKey());
       setIsOpen(false);
+    },
+    onError: () => {
+      message.error(t("error"));
     },
   });
 

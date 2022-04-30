@@ -1,6 +1,6 @@
 import { Invoice, useInvoiceApi } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
-import { Button, Form, Modal } from "antd";
+import { Button, Form, message, Modal } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
@@ -29,6 +29,9 @@ export const CopyInvoice = ({
     onSuccess: (create) => {
       client.invalidateQueries(invoiceApi.listKey(sheet.id));
       onSuccess(create);
+    },
+    onError: () => {
+      message.error(t("error"));
     },
   });
 

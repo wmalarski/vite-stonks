@@ -1,6 +1,6 @@
 import { SheetForm } from "@/modules/SheetForm/SheetForm";
 import { Sheet, useSheetApi } from "@/services/SheetApi";
-import { Button, Form } from "antd";
+import { Button, Form, message } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
@@ -22,6 +22,9 @@ export const SheetSettings = ({ sheet }: Props): ReactElement => {
     onSuccess: (data) => {
       client.invalidateQueries(sheetApi.listKey());
       client.invalidateQueries(sheetApi.key(data.id));
+    },
+    onError: () => {
+      message.error(t("error"));
     },
   });
 

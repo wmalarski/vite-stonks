@@ -8,13 +8,17 @@
     "settings": "Settings",
     "sheets": "Sheets",
     "sheet": "Sheet",
-    "reports": "Reports"
+    "reports": "Reports",
+    "error": "Error"
   },
   "login": {
     "google": "Login with google"
   },
   "sheet": {
-    "remove": "Remove",
+    "remove": {
+      "button": "Remove",
+      "error": "Error"
+    },
     "subtitle": "Spreadsheet data",
     "reload": "Reload page",
     "form": {
@@ -33,13 +37,15 @@
       "button": "Add spreadsheet",
       "save": "Add",
       "title": "Add spreadsheet",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "error": "Error"
     },
     "edit": {
       "button": "Edit",
       "save": "Save",
       "title": "Edit",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "error": "Error"
     }
   },
   "sheets": {
@@ -47,7 +53,10 @@
     "title": "Sheets"
   },
   "invoice": {
-    "remove": "Remove",
+    "remove": {
+      "button": "Remove",
+      "error": "Error"
+    },
     "form": {
       "address": "Address",
       "company": "Company",
@@ -62,19 +71,22 @@
       "button": "Copy",
       "save": "Save",
       "title": "Copy",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "error": "Error"
     },
     "edit": {
       "button": "Edit",
       "save": "Save",
       "title": "Edit",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "error": "Error"
     },
     "create": {
       "button": "Add invoice",
       "save": "Add",
       "title": "Add invoice",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "error": "Error"
     }
   },
   "form": {
@@ -108,7 +120,8 @@
       "button": "Add report",
       "save": "Add",
       "title": "Add report",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "error": "Error"
     },
     "form": {
       "date": "Date",
@@ -144,7 +157,8 @@
     "note": "Note"
   },
   "settings": {
-    "save": "Save"
+    "save": "Save",
+    "error": "Error"
   },
   "error": {
     "title": "Error",

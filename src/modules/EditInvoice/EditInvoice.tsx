@@ -1,6 +1,6 @@
 import { Invoice, useInvoiceApi } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
-import { Button, Form, Modal } from "antd";
+import { Button, Form, message, Modal } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
@@ -24,6 +24,9 @@ export const EditInvoice = ({ invoice, sheet }: Props): ReactElement => {
     onSuccess: (update) => {
       client.invalidateQueries(invoiceApi.listKey(sheet.id));
       client.invalidateQueries(invoiceApi.key(update.id));
+    },
+    onError: () => {
+      message.error(t("error"));
     },
   });
 

@@ -2,7 +2,7 @@ import { ReportForm } from "@/modules/ReportForm/ReportForm";
 import { Report, useReportApi } from "@/services/ReportApi";
 import { Sheet } from "@/services/SheetApi";
 import { supabase } from "@/services/supabase";
-import { Button, Form, Modal } from "antd";
+import { Button, Form, message, Modal } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
@@ -25,6 +25,9 @@ export const CreateReport = ({ onSuccess, sheet }: Props): ReactElement => {
     onSuccess: () => {
       client.invalidateQueries(reportApi.listKey(sheet.id));
       onSuccess();
+    },
+    onError: () => {
+      message.error(t("error"));
     },
   });
 
