@@ -3,7 +3,7 @@ import { useInvoiceApi } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
 import { Table } from "antd";
 import { ReactElement, useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import * as classes from "./InvoicesList.css";
 import { useColumns } from "./InvoicesList.utils";
 
@@ -14,15 +14,22 @@ type Props = {
 };
 
 export const InvoicesList = ({ sheet }: Props): ReactElement => {
-  const invoiceApi = useInvoiceApi();
-
   const [page, setPage] = useState(1);
   const pagination = { offset: (page - 1) * PageSize, limit: PageSize };
 
+  const client = useQueryClient();
+  const invoiceApi = useInvoiceApi();
   const { data, status, isLoading, refetch } = useQuery(
     invoiceApi.listKey(sheet.id, pagination),
     invoiceApi.list,
-    { refetchOnWindowFocus: false }
+    {
+      refetchOnWindowFocus: false,
+      onSuccess: (result) => {
+        result.invoices.forEach((invoice) => {
+          client.setQueryData(invoiceApi.key(sheet.id), invoice);
+        });
+      },
+    }
   );
 
   const columns = useColumns({ sheet });

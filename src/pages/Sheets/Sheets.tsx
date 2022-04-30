@@ -4,7 +4,7 @@ import { useSheetApi } from "@/services/SheetApi";
 import { List, PageHeader } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { CreateSheet } from "./CreateSheet/CreateSheet";
 import { SheetsListItem } from "./SheetsListItem/SheetsListItem";
 import { SheetsSidebar } from "./SheetsSidebar/SheetsSidebar";
@@ -18,9 +18,18 @@ export const Sheets = (): ReactElement => {
   const pagination = { offset: (page - 1) * PageSize, limit: PageSize };
 
   const sheetApi = useSheetApi();
+  const client = useQueryClient();
   const { data, isLoading, status, refetch } = useQuery(
     sheetApi.listKey(pagination),
-    sheetApi.list
+    sheetApi.list,
+    {
+      refetchOnWindowFocus: false,
+      onSuccess: (result) => {
+        result.sheets.forEach((sheet) => {
+          client.setQueryData(sheetApi.key(sheet.id), sheet);
+        });
+      },
+    }
   );
 
   const handleRefreshClick = () => {
