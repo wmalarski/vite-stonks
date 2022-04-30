@@ -71,16 +71,9 @@ export const AuthApiProvider = ({ children }: Props): ReactElement => {
     return {
       api: {
         signIn: async () => {
-          const { user, error, ...rest } = await supabase.auth.signIn(
-            {
-              provider: "google",
-            },
-            {
-              scopes:
-                "https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive",
-            }
-          );
-          console.log({ user, error, rest });
+          const { user, error } = await supabase.auth.signIn({
+            provider: "google",
+          });
           if (error) throw error;
           return user;
         },

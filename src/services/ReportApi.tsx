@@ -8,6 +8,7 @@ import {
 import { QueryFunction } from "react-query";
 import { SheetId } from "./SheetApi";
 import { supabase } from "./supabase";
+import { PageArgs } from "./types";
 
 type ReportId = number;
 
@@ -33,23 +34,18 @@ export type ReportView = Report & {
   tax: number;
 };
 
-export type ReportPageArgs = {
-  limit: number;
-  offset: number;
-};
-
 type ReportListResult = {
   reports: Report[];
   count: number;
 };
 
-type ReportsKey = ["reports", SheetId] | ["reports", SheetId, ReportPageArgs];
+type ReportsKey = ["reports", SheetId] | ["reports", SheetId, PageArgs];
 
 export type ReportApiService = {
   create: (args: Report) => Promise<Report>;
   delete: (args: ReportId) => Promise<void>;
   list: QueryFunction<ReportListResult, ReportsKey>;
-  listKey: (id: ReportId, page?: ReportPageArgs) => ReportsKey;
+  listKey: (id: ReportId, page?: PageArgs) => ReportsKey;
   update: (args: Report) => Promise<Report>;
 };
 

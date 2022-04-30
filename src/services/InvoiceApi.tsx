@@ -8,6 +8,7 @@ import {
 import { QueryFunction } from "react-query";
 import { SheetId } from "./SheetApi";
 import { supabase } from "./supabase";
+import { PageArgs } from "./types";
 
 export type InvoiceId = number;
 
@@ -26,19 +27,12 @@ export type Invoice = {
   title: string;
 };
 
-export type InvoicePageArgs = {
-  limit: number;
-  offset: number;
-};
-
 type InvoiceListResult = {
   invoices: Invoice[];
   count: number;
 };
 
-type InvoicesKey =
-  | ["invoices", SheetId]
-  | ["invoices", SheetId, InvoicePageArgs];
+type InvoicesKey = ["invoices", SheetId] | ["invoices", SheetId, PageArgs];
 type InvoiceKey = ["invoice", InvoiceId];
 
 export type InvoiceApiService = {
@@ -47,7 +41,7 @@ export type InvoiceApiService = {
   get: QueryFunction<Invoice, InvoiceKey>;
   key: (id: InvoiceId) => InvoiceKey;
   list: QueryFunction<InvoiceListResult, InvoicesKey>;
-  listKey: (id: SheetId, page?: InvoicePageArgs) => InvoicesKey;
+  listKey: (id: SheetId, page?: PageArgs) => InvoicesKey;
   update: (args: Invoice) => Promise<Invoice>;
 };
 

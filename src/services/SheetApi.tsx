@@ -7,6 +7,7 @@ import {
 } from "react";
 import { QueryFunction } from "react-query";
 import { supabase } from "./supabase";
+import { PageArgs } from "./types";
 
 export type SheetId = number;
 
@@ -33,17 +34,12 @@ export type CreateSheetArgs = {
 export type UpdateSheetArgs = Partial<Omit<Sheet, "created_at">> &
   Pick<Sheet, "id">;
 
-export type SheetPageArgs = {
-  limit: number;
-  offset: number;
-};
-
 type SheetListResult = {
   sheets: Sheet[];
   count: number;
 };
 
-type SheetsKey = ["sheets"] | ["sheets", SheetPageArgs];
+type SheetsKey = ["sheets"] | ["sheets", PageArgs];
 type SheetKey = ["sheet", number];
 
 export type SheetApiService = {
@@ -52,7 +48,7 @@ export type SheetApiService = {
   get: QueryFunction<Sheet, SheetKey>;
   key: (id: SheetId) => SheetKey;
   list: QueryFunction<SheetListResult, SheetsKey>;
-  listKey: (pagination?: SheetPageArgs) => SheetsKey;
+  listKey: (pagination?: PageArgs) => SheetsKey;
   update: (args: UpdateSheetArgs) => Promise<Sheet>;
 };
 
