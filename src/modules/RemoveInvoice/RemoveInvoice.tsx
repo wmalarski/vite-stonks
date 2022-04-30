@@ -16,7 +16,7 @@ export const RemoveInvoice = ({
   onSuccess,
   sheet,
 }: Props): ReactElement => {
-  const { t } = useTranslation("common", { keyPrefix: "invoice.error" });
+  const { t } = useTranslation("common", { keyPrefix: "invoice.remove" });
 
   const invoiceApi = useInvoiceApi();
   const client = useQueryClient();

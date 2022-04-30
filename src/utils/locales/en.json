@@ -58,7 +58,8 @@
       "error": "Error"
     },
     "form": {
-      "address": "Address",
+      "address1": "Address1",
+      "address2": "Address2",
       "company": "Company",
       "date": "Date",
       "hours": "Hours",
