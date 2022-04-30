@@ -31,7 +31,7 @@ export const SheetSettings = ({ sheet }: Props): ReactElement => {
   const handleSaveClick = async () => {
     try {
       const values = await form.validateFields();
-      mutate({ ...values, id: sheet.id });
+      mutate({ ...sheet, ...values });
     } catch (info) {
       console.error("Validate Failed:", info);
     }

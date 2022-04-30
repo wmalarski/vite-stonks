@@ -36,7 +36,7 @@ export const EditSheet = ({ sheet }: Props): ReactElement => {
   const handleOkClick = async () => {
     try {
       const values = await form.validateFields();
-      mutate({ ...values, id: sheet.id });
+      mutate({ ...sheet, ...values });
     } catch (info) {
       console.error("Validate Failed:", info);
     }

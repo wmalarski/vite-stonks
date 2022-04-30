@@ -1,5 +1,5 @@
-import { ReportForm } from "@/modules/ReportForm/ReportForm";
-import { Report, useReportApi } from "@/services/ReportApi";
+import { ReportForm, ReportFormArgs } from "@/modules/ReportForm/ReportForm";
+import { useReportApi } from "@/services/ReportApi";
 import { Sheet } from "@/services/SheetApi";
 import { supabase } from "@/services/supabase";
 import { Button, Form, message, Modal } from "antd";
@@ -16,7 +16,7 @@ export const CreateReport = ({ onSuccess, sheet }: Props): ReactElement => {
   const { t } = useTranslation("common", { keyPrefix: "report.create" });
 
   const [isOpen, setIsOpen] = useState(false);
-  const [form] = Form.useForm<Report>();
+  const [form] = Form.useForm<ReportFormArgs>();
 
   const client = useQueryClient();
   const reportApi = useReportApi();
@@ -25,6 +25,7 @@ export const CreateReport = ({ onSuccess, sheet }: Props): ReactElement => {
     onSuccess: () => {
       client.invalidateQueries(reportApi.listKey(sheet.id));
       onSuccess();
+      setIsOpen(false);
     },
     onError: () => {
       message.error(t("error"));

@@ -3,9 +3,11 @@ import { DatePicker, Form, FormInstance, InputNumber } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 
+export type ReportFormArgs = Report & { date: moment.Moment };
+
 type Props = {
-  form: FormInstance<Report>;
-  initialValues?: Report;
+  form: FormInstance<ReportFormArgs>;
+  initialValues?: ReportFormArgs;
 };
 
 export const ReportForm = ({ form, initialValues }: Props): ReactElement => {

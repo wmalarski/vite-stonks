@@ -1,4 +1,3 @@
-import { Report } from "@/services/ReportApi";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import i18n from "@/utils/i18next";
 import "@testing-library/jest-dom";
@@ -6,7 +5,7 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
 import { Form } from "antd";
 import { ComponentProps } from "react";
-import { ReportForm } from "./ReportForm";
+import { ReportForm, ReportFormArgs } from "./ReportForm";
 
 type Props = ComponentProps<typeof ReportForm>;
 
@@ -14,7 +13,7 @@ const Component = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Partial<Props>>) => {
-  const [form] = Form.useForm<Report>();
+  const [form] = Form.useForm<ReportFormArgs>();
 
   const defaultProps: Props = { form };
 

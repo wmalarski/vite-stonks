@@ -3,11 +3,11 @@ import { DatePicker, Form, FormInstance, Input, InputNumber } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 
-// export type Invoice
+export type InvoiceFormArgs = Omit<Invoice, "date"> & { date: moment.Moment };
 
 type Props = {
-  form: FormInstance<Invoice>;
-  initialValues?: Invoice;
+  form: FormInstance<InvoiceFormArgs>;
+  initialValues?: InvoiceFormArgs;
 };
 
 export const InvoiceForm = ({ form, initialValues }: Props): ReactElement => {

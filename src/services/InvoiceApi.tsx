@@ -28,6 +28,8 @@ export type Invoice = {
   user_id: string;
 };
 
+type CreateInvoiceArgs = Partial<Invoice>;
+
 type InvoiceListResult = {
   invoices: Invoice[];
   count: number;
@@ -37,7 +39,7 @@ type InvoicesKey = ["invoices", SheetId] | ["invoices", SheetId, PageArgs];
 type InvoiceKey = ["invoice", InvoiceId];
 
 export type InvoiceApiService = {
-  create: (args: Invoice) => Promise<Invoice>;
+  create: (args: CreateInvoiceArgs) => Promise<Invoice>;
   delete: (args: InvoiceId) => Promise<void>;
   get: QueryFunction<Invoice, InvoiceKey>;
   key: (id: InvoiceId) => InvoiceKey;
@@ -132,8 +134,6 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
       },
     };
   }, []);
-
-  if (!value) return <>{children}</>;
 
   return (
     <InvoiceApiContext.Provider value={value}>

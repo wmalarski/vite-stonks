@@ -1,10 +1,11 @@
 import { Invoice, useInvoiceApi } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
 import { Button, Form, message, Modal } from "antd";
+import moment from "moment";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
-import { InvoiceForm } from "../InvoiceForm/InvoiceForm";
+import { InvoiceForm, InvoiceFormArgs } from "../InvoiceForm/InvoiceForm";
 
 type Props = {
   invoice: Invoice;
@@ -20,7 +21,7 @@ export const CopyInvoice = ({
   const { t } = useTranslation("common", { keyPrefix: "invoice.copy" });
 
   const [isOpen, setIsOpen] = useState(false);
-  const [form] = Form.useForm<Invoice>();
+  const [form] = Form.useForm<InvoiceFormArgs>();
 
   const invoiceApi = useInvoiceApi();
   const client = useQueryClient();
@@ -29,6 +30,7 @@ export const CopyInvoice = ({
     onSuccess: (create) => {
       client.invalidateQueries(invoiceApi.listKey(sheet.id));
       onSuccess(create);
+      setIsOpen(false);
     },
     onError: () => {
       message.error(t("error"));
@@ -46,7 +48,13 @@ export const CopyInvoice = ({
   const handleOkClick = async () => {
     try {
       const create = await form.validateFields();
-      mutate(create);
+      mutate({
+        ...invoice,
+        ...create,
+        created_at: undefined,
+        date: create.date.toISOString(),
+        id: undefined,
+      });
     } catch (info) {
       console.error("Validate Failed:", info);
     }
@@ -64,7 +72,10 @@ export const CopyInvoice = ({
         title={t("title")}
         visible={isOpen}
       >
-        <InvoiceForm form={form} initialValues={invoice} />
+        <InvoiceForm
+          form={form}
+          initialValues={{ ...invoice, date: moment(invoice.date) }}
+        />
       </Modal>
     </>
   );

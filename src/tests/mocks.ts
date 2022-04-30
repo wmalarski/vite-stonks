@@ -159,8 +159,9 @@ export const mockInvoiceApi = (): InvoiceApiService => {
   const collection: Invoice[] = [];
   return {
     create: (args) => {
-      collection.push(args);
-      return Promise.resolve(args);
+      const invoice = mockInvoice(args);
+      collection.push(invoice);
+      return Promise.resolve(invoice);
     },
     delete: (id) => {
       const index = collection.findIndex((invoice) => invoice.id === id);
@@ -201,8 +202,8 @@ export const mockReportApi = (): ReportApiService => {
   const collection: ReportView[] = [];
   return {
     create: (args) => {
-      const report = mockReport(args);
-      collection.push(mockReportView(report));
+      const report = mockReportView(args);
+      collection.push(report);
       return Promise.resolve(report);
     },
     delete: (id) => {
