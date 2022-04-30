@@ -32,11 +32,10 @@ export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Invoice> => {
       dataIndex: "title",
       key: "title",
       width: "100%",
-      render: (_, record, index) => (
+      render: (_, record) => (
         <InvoiceTitle
-          index={index}
           invoice={record}
-          key={`title-${index}`}
+          key={`title-${record.id}`}
           sheetId={sheet.id}
         />
       ),
@@ -44,10 +43,9 @@ export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Invoice> => {
     {
       title: t("actions"),
       key: "actions",
-      render: (_, record, index) => (
+      render: (_, record) => (
         <InvoiceActions
-          key={`actions-${index}`}
-          index={index}
+          key={`actions-${record.id}`}
           invoice={record}
           sheet={sheet}
         />

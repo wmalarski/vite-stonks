@@ -26,7 +26,7 @@ export const InvoicesList = ({ sheet }: Props): ReactElement => {
       refetchOnWindowFocus: false,
       onSuccess: (result) => {
         result.invoices.forEach((invoice) => {
-          client.setQueryData(invoiceApi.key(sheet.id), invoice);
+          client.setQueryData(invoiceApi.key(invoice.id), invoice);
         });
       },
     }

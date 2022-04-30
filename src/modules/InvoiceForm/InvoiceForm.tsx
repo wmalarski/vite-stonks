@@ -3,6 +3,8 @@ import { DatePicker, Form, FormInstance, Input, InputNumber } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 
+// export type Invoice
+
 type Props = {
   form: FormInstance<Invoice>;
   initialValues?: Invoice;
