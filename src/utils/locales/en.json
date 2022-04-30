@@ -19,7 +19,15 @@
     "reload": "Reload page",
     "form": {
       "name": "Name",
-      "sheetId": "SheetId"
+      "sheetId": "SheetId",
+      "account": "Account",
+      "address1": "Address 1",
+      "address2": "Address 2",
+      "bank": "Bank",
+      "city": "City",
+      "company": "Company",
+      "nip": "Nip",
+      "save": "Save"
     },
     "create": {
       "button": "Add spreadsheet",
@@ -136,16 +144,7 @@
     "note": "Note"
   },
   "settings": {
-    "form": {
-      "account": "Account",
-      "address1": "Address 1",
-      "address2": "Address 2",
-      "bank": "Bank",
-      "city": "City",
-      "company": "Company",
-      "nip": "Nip",
-      "save": "Save"
-    }
+    "save": "Save"
   },
   "error": {
     "title": "Error",

@@ -25,12 +25,6 @@ export type Sheet = {
   user_id: string;
 };
 
-export type CreateSheetArgs = {
-  name: string;
-  sheet_id: string;
-  user_id: string;
-};
-
 export type UpdateSheetArgs = Partial<Omit<Sheet, "created_at">> &
   Pick<Sheet, "id">;
 
@@ -43,7 +37,7 @@ type SheetsKey = ["sheets"] | ["sheets", PageArgs];
 type SheetKey = ["sheet", number];
 
 export type SheetApiService = {
-  create: (args: CreateSheetArgs) => Promise<Sheet>;
+  create: (args: Sheet) => Promise<Sheet>;
   delete: (id: SheetId) => Promise<void>;
   get: QueryFunction<Sheet, SheetKey>;
   key: (id: SheetId) => SheetKey;

@@ -1,5 +1,5 @@
 import { SheetForm } from "@/modules/SheetForm/SheetForm";
-import { CreateSheetArgs, useSheetApi } from "@/services/SheetApi";
+import { Sheet, useSheetApi } from "@/services/SheetApi";
 import { supabase } from "@/services/supabase";
 import { Button, Form, Modal } from "antd";
 import { ReactElement, useState } from "react";
@@ -10,7 +10,7 @@ export const CreateSheet = (): ReactElement => {
   const { t } = useTranslation("common", { keyPrefix: "sheet.create" });
 
   const [isOpen, setIsOpen] = useState(false);
-  const [form] = Form.useForm<CreateSheetArgs>();
+  const [form] = Form.useForm<Sheet>();
 
   const sheetApi = useSheetApi();
   const client = useQueryClient();

@@ -1,3 +1,4 @@
+import { Sheet } from "@/services/SheetApi";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import i18n from "@/utils/i18next";
 import "@testing-library/jest-dom";
@@ -5,7 +6,7 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
 import { Form } from "antd";
 import { ComponentProps } from "react";
-import { SheetForm, SheetFormArgs } from "./SheetForm";
+import { SheetForm } from "./SheetForm";
 
 type Props = ComponentProps<typeof SheetForm>;
 
@@ -13,7 +14,7 @@ const Component = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Partial<Props>>) => {
-  const [form] = Form.useForm<SheetFormArgs>();
+  const [form] = Form.useForm<Sheet>();
 
   const defaultProps: Props = { form };
 

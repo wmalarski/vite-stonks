@@ -37,6 +37,7 @@ export const mockInvoice = (update: Partial<Invoice> = {}): Invoice => {
     price: 234,
     sheet_id: 0,
     title: "Title",
+    user_id: "1",
     ...update,
   };
 };
@@ -53,6 +54,7 @@ export const mockReport = (update: Partial<Report> = {}): Report => {
     sheet_id: 0,
     sickness_contribution: 18,
     social_security: 19,
+    user_id: "1",
     ...update,
   };
 };
@@ -77,6 +79,7 @@ export const mockReportView = (
     sickness_contribution: 18,
     social_security: 19,
     tax: 20,
+    user_id: "1",
     ...update,
   };
 };
