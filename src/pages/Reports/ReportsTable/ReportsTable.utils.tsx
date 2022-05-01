@@ -1,6 +1,6 @@
 import { Report } from "@/services/ReportApi";
 import { Sheet } from "@/services/SheetApi";
-import { formatDate } from "@/utils/format";
+import { formatDate, formatPrice } from "@/utils/format";
 import { ColumnsType } from "antd/lib/table";
 import { useTranslation } from "react-i18next";
 import { ReportActions } from "./ReportActions/ReportActions";
@@ -49,12 +49,14 @@ export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Report> => {
       dataIndex: "base",
       key: "base",
       width: 90,
+      render: formatPrice,
     },
     {
       title: t("tax"),
       dataIndex: "tax",
       key: "tax",
       width: 90,
+      render: Math.ceil,
     },
     {
       title: t("healthContributions"),

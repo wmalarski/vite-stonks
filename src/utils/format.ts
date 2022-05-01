@@ -12,3 +12,7 @@ export const formatMoment = (arg: moment.Moment): string => {
 export const formatDate = (date: string): string => {
   return formatMoment(moment(date));
 };
+
+export const formatPrice = (price: number | null): string => {
+  return price ? price.toFixed(2) : "";
+};
