@@ -40,7 +40,7 @@ export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Report> => {
     },
     {
       title: t("pensionsSummary"),
-      dataIndex: "pensionsSummary",
+      dataIndex: "pensions_summary",
       key: "pensionsSummary",
       width: 90,
     },
@@ -58,13 +58,13 @@ export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Report> => {
     },
     {
       title: t("healthContributions"),
-      dataIndex: "healthContributions",
+      dataIndex: "health_contributions",
       key: "healthContributions",
       width: 90,
     },
     {
       title: t("socialSecurity"),
-      dataIndex: "socialSecurity",
+      dataIndex: "social_security",
       key: "socialSecurity",
       width: 90,
     },

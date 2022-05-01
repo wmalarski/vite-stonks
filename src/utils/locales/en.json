@@ -116,7 +116,8 @@
     "base": "Base",
     "tax": "Tax",
     "healthContributions": "Health Contributions",
-    "socialSecurity": "Social Security"
+    "socialSecurity": "Social Security",
+    "actions": "Actions"
   },
   "report": {
     "remove": "Remove",

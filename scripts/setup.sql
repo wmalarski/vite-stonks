@@ -83,7 +83,7 @@ select
   0 as expenses,
   proceeds as income,
   ((proceeds - pensions_summary) * 0.12) as tax,
-  (pensions_summary + health_contributions) as social_security2
+  (pensions_summary + health_contributions) as social_security
 from
   reports
   left join proceeds on reports.id = proceeds.id;
