@@ -1,11 +1,11 @@
 import { ErrorView } from "@/components/ErrorView/ErrorView";
-import { useReportApi } from "@/services/ReportApi";
+import { useCompanyApi } from "@/services/CompanyApi";
 import { Sheet } from "@/services/SheetApi";
 import { Table } from "antd";
 import { ReactElement, useState } from "react";
 import { useQuery } from "react-query";
-import * as classes from "./ReportsTable.css";
-import { useColumns } from "./ReportsTable.utils";
+import * as classes from "./CompaniesTable.ccs";
+import { useColumns } from "./CompaniesTable.utils";
 
 type Props = {
   sheet: Sheet;
@@ -13,14 +13,14 @@ type Props = {
 
 const PageSize = 10;
 
-export const ReportsTable = ({ sheet }: Props): ReactElement => {
+export const CompaniesTable = ({ sheet }: Props): ReactElement => {
   const [page, setPage] = useState(1);
   const pagination = { offset: (page - 1) * PageSize, limit: PageSize };
 
-  const reportApi = useReportApi();
+  const companyApi = useCompanyApi();
   const { data, status, isLoading, refetch } = useQuery(
-    reportApi.listKey(sheet.id, pagination),
-    reportApi.list
+    companyApi.listKey(sheet.id, pagination),
+    companyApi.list
   );
 
   const handleRefreshClick = () => {
@@ -36,10 +36,10 @@ export const ReportsTable = ({ sheet }: Props): ReactElement => {
   return (
     <Table
       bordered
-      rowKey={(report) => report.date.toString()}
+      rowKey={(company) => company.id}
       className={classes.table}
       columns={columns}
-      dataSource={data?.reports}
+      dataSource={data?.companies}
       loading={isLoading}
       size="small"
       pagination={{
