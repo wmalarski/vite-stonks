@@ -1,25 +1,25 @@
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import type { Story } from "@ladle/react";
 import { ComponentProps } from "react";
-import { Companies } from "./Companies";
+import { CompanyForm } from "./CompanyForm";
 
 export default {
-  title: "pages/Companies",
-  component: Companies,
+  title: "modules/CompanyForm",
+  component: CompanyForm,
 };
 
-type Props = ComponentProps<typeof Companies>;
+type Props = ComponentProps<typeof CompanyForm>;
 
-const CompaniesStory: Story<PropsWithTestWrapper<Props>> = ({
+const CompanyFormStory: Story<PropsWithTestWrapper<Props>> = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
-      <Companies {...props} />
+      <CompanyForm {...props} />
     </TestWrapper>
   );
 };
 
-export const Playground = CompaniesStory.bind({});
+export const Playground = CompanyFormStory.bind({});
 Playground.args = { wrapperProps: {} };

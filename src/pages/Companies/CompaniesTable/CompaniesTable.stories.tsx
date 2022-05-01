@@ -5,12 +5,15 @@ import { CompaniesTable } from "./CompaniesTable";
 
 export default {
   title: "pages/Companies/CompaniesTable",
-  component: CompaniesTable
+  component: CompaniesTable,
 };
 
 type Props = ComponentProps<typeof CompaniesTable>;
 
-const CompaniesTableStory: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const CompaniesTableStory: Story<PropsWithTestWrapper<Props>> = ({
+  wrapperProps,
+  ...props
+}: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <CompaniesTable {...props} />

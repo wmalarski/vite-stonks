@@ -158,6 +158,14 @@
     "company": "Company",
     "nip": "Nip"
   },
+  "company": {
+    "form": {
+      "address1": "Address1",
+      "address2": "Address2",
+      "company": "Company",
+      "nip": "Nip"
+    }
+  },
   "preview": {
     "header": "{{city}}, day {{date}}",
     "recipient": "Recipient",
