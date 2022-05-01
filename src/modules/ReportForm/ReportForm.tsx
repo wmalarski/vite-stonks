@@ -3,7 +3,7 @@ import { DatePicker, Form, FormInstance, InputNumber } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 
-export type ReportFormArgs = Report & { date: moment.Moment };
+export type ReportFormArgs = Omit<Report, "date"> & { date: moment.Moment };
 
 type Props = {
   form: FormInstance<ReportFormArgs>;
@@ -14,8 +14,10 @@ export const ReportForm = ({ form, initialValues }: Props): ReactElement => {
   const { t } = useTranslation("common");
   return (
     <Form
+      labelCol={{ span: 12 }}
+      wrapperCol={{ span: 12 }}
       form={form}
-      layout="vertical"
+      layout="horizontal"
       name="sheet_form"
       initialValues={initialValues}
     >
@@ -35,7 +37,7 @@ export const ReportForm = ({ form, initialValues }: Props): ReactElement => {
       </Form.Item>
       <Form.Item
         label={t("report.form.pensionContribution")}
-        name="pensionContribution"
+        name="pension_contribution"
         rules={[
           {
             required: true,
@@ -45,11 +47,11 @@ export const ReportForm = ({ form, initialValues }: Props): ReactElement => {
           },
         ]}
       >
-        <InputNumber min={0} />
+        <InputNumber min={0} step={0.01} />
       </Form.Item>
       <Form.Item
         label={t("report.form.disabilityPension")}
-        name="disabilityPension"
+        name="disability_pension"
         rules={[
           {
             required: true,
@@ -59,11 +61,11 @@ export const ReportForm = ({ form, initialValues }: Props): ReactElement => {
           },
         ]}
       >
-        <InputNumber min={0} />
+        <InputNumber min={0} step={0.01} />
       </Form.Item>
       <Form.Item
         label={t("report.form.sicknessContribution")}
-        name="sicknessContribution"
+        name="sickness_contribution"
         rules={[
           {
             required: true,
@@ -73,11 +75,11 @@ export const ReportForm = ({ form, initialValues }: Props): ReactElement => {
           },
         ]}
       >
-        <InputNumber min={0} />
+        <InputNumber min={0} step={0.01} />
       </Form.Item>
       <Form.Item
         label={t("report.form.accidentPremium")}
-        name="accidentPremium"
+        name="accident_premium"
         rules={[
           {
             required: true,
@@ -87,21 +89,21 @@ export const ReportForm = ({ form, initialValues }: Props): ReactElement => {
           },
         ]}
       >
-        <InputNumber min={0} />
+        <InputNumber min={0} step={0.01} />
       </Form.Item>
       <Form.Item
-        label={t("report.form.accidentPremium")}
-        name="accidentPremium"
+        label={t("report.form.healthContributions")}
+        name="health_contributions"
         rules={[
           {
             required: true,
             message: t("form.fieldRequired", {
-              label: t("report.form.accidentPremium"),
+              label: t("report.form.healthContributions"),
             }),
           },
         ]}
       >
-        <InputNumber min={0} />
+        <InputNumber min={0} step={0.01} />
       </Form.Item>
     </Form>
   );

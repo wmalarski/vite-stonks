@@ -147,7 +147,8 @@
       "pensionContribution": "Pension Contribution",
       "disabilityPension": "Disability Pension",
       "sicknessContribution": "Sickness Contribution",
-      "accidentPremium": "Accident Premium"
+      "accidentPremium": "Accident Premium",
+      "healthContributions": "Health Contributions"
     }
   },
   "preview": {

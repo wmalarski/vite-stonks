@@ -45,7 +45,12 @@ export const CreateReport = ({ onSuccess, sheet }: Props): ReactElement => {
       const user = supabase.auth.user();
       if (!user) return;
       const create = await form.validateFields();
-      mutate({ ...create, user_id: user.id, sheet_id: sheet.id });
+      mutate({
+        ...create,
+        date: create.date.toISOString(),
+        sheet_id: sheet.id,
+        user_id: user.id,
+      });
     } catch (info) {
       console.error("Validate Failed:", info);
     }

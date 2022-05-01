@@ -2,6 +2,7 @@ import { ReportForm, ReportFormArgs } from "@/modules/ReportForm/ReportForm";
 import { Report, useReportApi } from "@/services/ReportApi";
 import { Sheet } from "@/services/SheetApi";
 import { Button, Form, message, Modal } from "antd";
+import moment from "moment";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
@@ -41,7 +42,7 @@ export const EditReport = ({ sheet, report }: Props): ReactElement => {
   const handleOkClick = async () => {
     try {
       const update = await form.validateFields();
-      mutate({ ...report, ...update });
+      mutate({ ...update, date: update.date.toISOString(), id: report.id });
     } catch (info) {
       console.error("Validate Failed:", info);
     }
@@ -59,7 +60,10 @@ export const EditReport = ({ sheet, report }: Props): ReactElement => {
         title={t("title")}
         visible={isOpen}
       >
-        <ReportForm form={form} />
+        <ReportForm
+          form={form}
+          initialValues={{ ...report, date: moment(report.date) }}
+        />
       </Modal>
     </>
   );

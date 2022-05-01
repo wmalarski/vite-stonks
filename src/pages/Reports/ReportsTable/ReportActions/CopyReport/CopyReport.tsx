@@ -2,6 +2,7 @@ import { ReportForm, ReportFormArgs } from "@/modules/ReportForm/ReportForm";
 import { Report, useReportApi } from "@/services/ReportApi";
 import { Sheet } from "@/services/SheetApi";
 import { Button, Form, message, Modal } from "antd";
+import moment from "moment";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
@@ -41,7 +42,13 @@ export const CopyReport = ({ report, sheet }: Props): ReactElement => {
   const handleOkClick = async () => {
     try {
       const create = await form.validateFields();
-      mutate({ ...report, ...create, id: undefined });
+      mutate({
+        ...create,
+        date: create.date.toISOString(),
+        id: undefined,
+        sheet_id: report.sheet_id,
+        user_id: report.user_id,
+      });
     } catch (info) {
       console.error("Validate Failed:", info);
     }
@@ -59,7 +66,10 @@ export const CopyReport = ({ report, sheet }: Props): ReactElement => {
         title={t("title")}
         visible={isOpen}
       >
-        <ReportForm form={form} />
+        <ReportForm
+          form={form}
+          initialValues={{ ...report, date: moment(report.date) }}
+        />
       </Modal>
     </>
   );
