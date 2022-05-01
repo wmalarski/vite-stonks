@@ -45,7 +45,7 @@ export type ReportApiService = {
   create: (args: Partial<Report>) => Promise<Report>;
   delete: (args: ReportId) => Promise<void>;
   list: QueryFunction<ReportListResult, ReportsKey>;
-  listKey: (id: ReportId, page?: PageArgs) => ReportsKey;
+  listKey: (id: SheetId, page?: PageArgs) => ReportsKey;
   update: (args: Report) => Promise<Report>;
 };
 
