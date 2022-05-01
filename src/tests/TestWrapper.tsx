@@ -1,4 +1,5 @@
 import { AuthApiContext, AuthApiService } from "@/services/AuthApi";
+import { CompanyApiContext, CompanyApiService } from "@/services/CompanyApi";
 import { InvoiceApiContext, InvoiceApiService } from "@/services/InvoiceApi";
 import { ReportApiContext, ReportApiService } from "@/services/ReportApi";
 import { SheetApiContext, SheetApiService } from "@/services/SheetApi";
@@ -10,6 +11,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import {
   mockAuthApi,
+  mockCompanyApi,
   mockInvoiceApi,
   mockReportApi,
   mockSheetApi,
@@ -18,6 +20,7 @@ import {
 export type TestWrapperProps = {
   authApi?: AuthApiService;
   children?: ReactNode;
+  companyApi?: CompanyApiService;
   invoiceApi?: InvoiceApiService;
   reportApi?: ReportApiService;
   sheetApi?: SheetApiService;
@@ -31,6 +34,7 @@ export type PropsWithTestWrapper<T = unknown> = T & {
 export const TestWrapper = ({
   authApi,
   children,
+  companyApi,
   invoiceApi,
   reportApi,
   sheetApi,
@@ -47,10 +51,16 @@ export const TestWrapper = ({
         }}
       >
         <SheetApiContext.Provider
-          value={{ isInitialized: true, api: sheetApi ?? mockSheetApi() }}
+          value={{
+            isInitialized: true,
+            api: sheetApi ?? mockSheetApi(),
+          }}
         >
           <InvoiceApiContext.Provider
-            value={{ isInitialized: true, api: invoiceApi ?? mockInvoiceApi() }}
+            value={{
+              isInitialized: true,
+              api: invoiceApi ?? mockInvoiceApi(),
+            }}
           >
             <ReportApiContext.Provider
               value={{
@@ -58,9 +68,16 @@ export const TestWrapper = ({
                 api: reportApi ?? mockReportApi(),
               }}
             >
-              <BrowserRouter>
-                <I18nextProvider i18n={i18next}>{children}</I18nextProvider>
-              </BrowserRouter>
+              <CompanyApiContext.Provider
+                value={{
+                  isInitialized: true,
+                  api: companyApi ?? mockCompanyApi(),
+                }}
+              >
+                <BrowserRouter>
+                  <I18nextProvider i18n={i18next}>{children}</I18nextProvider>
+                </BrowserRouter>
+              </CompanyApiContext.Provider>
             </ReportApiContext.Provider>
           </InvoiceApiContext.Provider>
         </SheetApiContext.Provider>

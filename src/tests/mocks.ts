@@ -1,4 +1,5 @@
 import { AuthApiService } from "@/services/AuthApi";
+import { Company, CompanyApiService } from "@/services/CompanyApi";
 import { Invoice, InvoiceApiService } from "@/services/InvoiceApi";
 import { Report, ReportApiService, ReportView } from "@/services/ReportApi";
 import { Sheet, SheetApiService } from "@/services/SheetApi";
@@ -53,7 +54,6 @@ export const mockReport = (update: Partial<Report> = {}): Report => {
     pension_contribution: 15,
     sheet_id: 0,
     sickness_contribution: 18,
-    social_security: 19,
     user_id: "1",
     ...update,
   };
@@ -80,6 +80,20 @@ export const mockReportView = (
     social_security: 19,
     tax: 20,
     user_id: "1",
+    ...update,
+  };
+};
+
+export const mockCompany = (update: Partial<Company> = {}): Company => {
+  const id = Math.floor(Math.random() * 1e10);
+  return {
+    address1: "Address1",
+    address2: "Address2",
+    company: "Company",
+    created_at: new Date().toISOString(),
+    id,
+    nip: "678767887",
+    sheet_id: 1,
     ...update,
   };
 };
@@ -221,6 +235,41 @@ export const mockReportApi = (): ReportApiService => {
     },
     listKey: (id, page) => {
       return page ? ["reports", id, page] : ["reports", id];
+    },
+    update: (args) => {
+      const index = collection.findIndex((entry) => entry.id === args.id);
+      if (index < 0) return Promise.reject();
+      const previous = collection[index];
+      const next = { ...previous, ...args };
+      collection.splice(index, 1, next);
+      return Promise.resolve(next);
+    },
+  };
+};
+
+export const mockCompanyApi = (): CompanyApiService => {
+  const collection: Company[] = [];
+  return {
+    create: (args) => {
+      const company = mockCompany(args);
+      collection.push(company);
+      return Promise.resolve(company);
+    },
+    delete: (id) => {
+      const index = collection.findIndex((company) => company.id === id);
+      if (index < 0) return Promise.reject();
+      collection.splice(index, 1);
+      return Promise.resolve();
+    },
+    list: ({ queryKey }) => {
+      const key = queryKey[1];
+      const { limit, offset } = queryKey[2] ?? { limit: 50, offset: 0 };
+      const filtered = collection.filter(({ sheet_id }) => sheet_id === key);
+      const sliced = filtered.slice(offset, offset + limit);
+      return Promise.resolve({ companies: sliced, count: filtered.length });
+    },
+    listKey: (id, page) => {
+      return page ? ["companies", id, page] : ["companies", id];
     },
     update: (args) => {
       const index = collection.findIndex((entry) => entry.id === args.id);
