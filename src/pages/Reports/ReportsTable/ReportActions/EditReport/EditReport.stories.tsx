@@ -1,25 +1,25 @@
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import type { Story } from "@ladle/react";
 import { ComponentProps } from "react";
-import { ErrorView } from "./ErrorView";
+import { EditReport } from "./EditReport";
 
 export default {
-  title: "components/ErrorView",
-  component: ErrorView,
+  title: "pages/Reports/ReportsTable/ReportActions/EditReport",
+  component: EditReport,
 };
 
-type Props = ComponentProps<typeof ErrorView>;
+type Props = ComponentProps<typeof EditReport>;
 
-const ErrorViewStory: Story<PropsWithTestWrapper<Props>> = ({
+const EditReportStory: Story<PropsWithTestWrapper<Props>> = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
-      <ErrorView {...props} />
+      <EditReport {...props} />
     </TestWrapper>
   );
 };
 
-export const Playground = ErrorViewStory.bind({});
+export const Playground = EditReportStory.bind({});
 Playground.args = { wrapperProps: {} };

@@ -28,8 +28,6 @@ export type Invoice = {
   user_id: string;
 };
 
-type CreateInvoiceArgs = Partial<Invoice>;
-
 type InvoiceListResult = {
   invoices: Invoice[];
   count: number;
@@ -39,7 +37,7 @@ type InvoicesKey = ["invoices", SheetId] | ["invoices", SheetId, PageArgs];
 type InvoiceKey = ["invoice", InvoiceId];
 
 export type InvoiceApiService = {
-  create: (args: CreateInvoiceArgs) => Promise<Invoice>;
+  create: (args: Partial<Invoice>) => Promise<Invoice>;
   delete: (args: InvoiceId) => Promise<void>;
   get: QueryFunction<Invoice, InvoiceKey>;
   key: (id: InvoiceId) => InvoiceKey;

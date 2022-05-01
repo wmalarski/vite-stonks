@@ -42,7 +42,7 @@ type ReportListResult = {
 type ReportsKey = ["reports", SheetId] | ["reports", SheetId, PageArgs];
 
 export type ReportApiService = {
-  create: (args: Report) => Promise<Report>;
+  create: (args: Partial<Report>) => Promise<Report>;
   delete: (args: ReportId) => Promise<void>;
   list: QueryFunction<ReportListResult, ReportsKey>;
   listKey: (id: ReportId, page?: PageArgs) => ReportsKey;

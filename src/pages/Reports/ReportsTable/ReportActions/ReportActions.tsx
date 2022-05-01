@@ -1,7 +1,9 @@
 import { Report } from "@/services/ReportApi";
 import { Sheet } from "@/services/SheetApi";
 import { ReactElement } from "react";
+import { EditReport } from "./EditReport/EditReport";
 import { RemoveReport } from "./RemoveReport/RemoveReport";
+import * as classes from "./ReportActions.css";
 
 type Props = {
   report: Report;
@@ -9,5 +11,10 @@ type Props = {
 };
 
 export const ReportActions = ({ report, sheet }: Props): ReactElement => {
-  return <RemoveReport report={report} sheet={sheet} />;
+  return (
+    <div className={classes.list}>
+      <EditReport report={report} sheet={sheet} />
+      <RemoveReport report={report} sheet={sheet} />;
+    </div>
+  );
 };
