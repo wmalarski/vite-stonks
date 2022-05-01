@@ -1,5 +1,4 @@
 import { paths } from "@/navigation/paths";
-import { Invoice } from "@/services/InvoiceApi";
 import { Sheet } from "@/services/SheetApi";
 import { PageHeader } from "antd";
 import { ReactElement } from "react";
@@ -27,10 +26,6 @@ export const SheetHeader = ({ sheet }: Props): ReactElement => {
     navigate(paths.home);
   };
 
-  const handleCreateSuccess = (create: Invoice) => {
-    navigate(paths.invoice(sheet.id, create.id));
-  };
-
   const handleReportCreateSuccess = () => {
     navigate(paths.reports(sheet.id));
   };
@@ -43,11 +38,7 @@ export const SheetHeader = ({ sheet }: Props): ReactElement => {
           onSuccess={handleReportCreateSuccess}
           sheet={sheet}
         />,
-        <CreateInvoice
-          key="create"
-          onSuccess={handleCreateSuccess}
-          sheet={sheet}
-        />,
+        <CreateInvoice key="create" sheet={sheet} />,
         <EditSheet key="edit" sheet={sheet} />,
         <RemoveSheet
           key="remove"

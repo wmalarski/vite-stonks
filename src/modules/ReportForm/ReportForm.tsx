@@ -89,6 +89,20 @@ export const ReportForm = ({ form, initialValues }: Props): ReactElement => {
       >
         <InputNumber min={0} />
       </Form.Item>
+      <Form.Item
+        label={t("report.form.accidentPremium")}
+        name="accidentPremium"
+        rules={[
+          {
+            required: true,
+            message: t("form.fieldRequired", {
+              label: t("report.form.accidentPremium"),
+            }),
+          },
+        ]}
+      >
+        <InputNumber min={0} />
+      </Form.Item>
     </Form>
   );
 };

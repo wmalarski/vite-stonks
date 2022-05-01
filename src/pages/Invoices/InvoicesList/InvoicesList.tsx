@@ -45,7 +45,7 @@ export const InvoicesList = ({ sheet }: Props): ReactElement => {
   return (
     <Table
       bordered
-      rowKey={(invoice) => invoice.name}
+      rowKey={(invoice) => invoice.id}
       className={classes.table}
       columns={columns}
       dataSource={data?.invoices}

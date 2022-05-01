@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
 
 type Props = {
-  onSuccess: (invoice: Invoice) => void;
+  onSuccess?: (invoice: Invoice) => void;
   sheet: Sheet;
 };
 
@@ -27,7 +27,7 @@ export const CreateInvoice = ({ onSuccess, sheet }: Props): ReactElement => {
   const { mutate, isLoading } = useMutation(invoiceApi.create, {
     onSuccess: (invoice) => {
       client.invalidateQueries(invoiceApi.listKey(sheet.id));
-      onSuccess(invoice);
+      onSuccess?.(invoice);
       setIsOpen(false);
     },
     onError: () => {

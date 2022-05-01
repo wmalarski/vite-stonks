@@ -98,7 +98,10 @@
     "date": "Date",
     "number": "Number",
     "title": "Title",
-    "actions": "Actions"
+    "actions": "Actions",
+    "hours": "Hours",
+    "price": "Price",
+    "summary": "Summary"
   },
   "reports": {
     "date": "Date",

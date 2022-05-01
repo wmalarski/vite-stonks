@@ -41,6 +41,24 @@ export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Invoice> => {
       ),
     },
     {
+      title: t("hours"),
+      dataIndex: "hours",
+      key: "hours",
+      width: 90,
+    },
+    {
+      title: t("price"),
+      dataIndex: "price",
+      key: "price",
+      width: 90,
+    },
+    {
+      title: t("summary"),
+      key: "summary",
+      width: 90,
+      render: (_, invoice) => invoice.hours * invoice.price,
+    },
+    {
       title: t("actions"),
       key: "actions",
       render: (_, record) => (

@@ -113,7 +113,7 @@ export const InvoiceForm = ({ form, initialValues }: Props): ReactElement => {
           },
         ]}
       >
-        <InputNumber min={0} step={0} />
+        <InputNumber min={0} step={1} />
       </Form.Item>
       <Form.Item
         label={t("invoice.form.hours")}
@@ -127,7 +127,7 @@ export const InvoiceForm = ({ form, initialValues }: Props): ReactElement => {
           },
         ]}
       >
-        <InputNumber min={0} step={0} />
+        <InputNumber min={0} step={1} />
       </Form.Item>
       <Form.Item
         label={t("invoice.form.date")}

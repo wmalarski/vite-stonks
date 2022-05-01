@@ -16,22 +16,21 @@ export type Report = {
   accident_premium: number;
   date: string;
   disability_pension: number;
-  health_contributions: number;
   id: ReportId;
   pension_contribution: number;
   sheet_id: SheetId;
   sickness_contribution: number;
-  social_security: number;
+  health_contributions: number;
   user_id: string;
 };
 
 export type ReportView = Report & {
   base: number;
   expenses: number;
-  id: ReportId;
   income: number;
   pensions_summary: number;
   proceeds: number;
+  social_security: number;
   tax: number;
 };
 
