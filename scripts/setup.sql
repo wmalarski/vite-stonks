@@ -42,38 +42,26 @@ CREATE TABLE invoices (
 );
 
 ALTER POLICY "Only authors" ON public.invoices USING (
-  exists(
-    select
-      1
-    from
-      invoices
-    where
-      sheet_id in (
-        select
-          id
-        from
-          sheets
-        where
-          user_id = auth.uid()
-      )
-      and id = public.invoices.id
+  (
+    sheet_id IN (
+      SELECT
+        sheets.id
+      FROM
+        sheets
+      WHERE
+        (sheets.user_id = uid())
+    )
   )
 ) WITH CHECK (
-  exists(
-    select
-      1
-    from
-      invoices
-    where
-      sheet_id in (
-        select
-          id
-        from
-          sheets
-        where
-          user_id = auth.uid()
-      )
-      and id = public.invoices.id
+  (
+    sheet_id IN (
+      SELECT
+        sheets.id
+      FROM
+        sheets
+      WHERE
+        (sheets.user_id = uid())
+    )
   )
 );
 
@@ -89,38 +77,26 @@ CREATE TABLE reports (
 );
 
 ALTER POLICY "Only authors" ON public.reports USING (
-  exists(
-    select
-      1
-    from
-      reports
-    where
-      sheet_id in (
-        select
-          id
-        from
-          sheets
-        where
-          sheets.user_id = auth.uid()
-      )
-      and id = public.reports.id
+  (
+    sheet_id IN (
+      SELECT
+        sheets.id
+      FROM
+        sheets
+      WHERE
+        (sheets.user_id = uid())
+    )
   )
 ) WITH CHECK (
-  exists(
-    select
-      1
-    from
-      reports
-    where
-      sheet_id in (
-        select
-          id
-        from
-          sheets
-        where
-          sheets.user_id = auth.uid()
-      )
-      and id = public.reports.id
+  (
+    sheet_id IN (
+      SELECT
+        sheets.id
+      FROM
+        sheets
+      WHERE
+        (sheets.user_id = uid())
+    )
   )
 );
 
@@ -135,38 +111,26 @@ CREATE TABLE companies (
 );
 
 ALTER POLICY "Only authors" ON public.companies USING (
-  exists(
-    select
-      1
-    from
-      companies
-    where
-      sheet_id in (
-        select
-          id
-        from
-          sheets
-        where
-          sheets.user_id = auth.uid()
-      )
-      and id = public.companies.id
+  (
+    sheet_id IN (
+      SELECT
+        sheets.id
+      FROM
+        sheets
+      WHERE
+        (sheets.user_id = uid())
+    )
   )
 ) WITH CHECK (
-  exists(
-    select
-      1
-    from
-      companies
-    where
-      sheet_id in (
-        select
-          id
-        from
-          sheets
-        where
-          sheets.user_id = auth.uid()
-      )
-      and id = public.companies.id
+  (
+    sheet_id IN (
+      SELECT
+        sheets.id
+      FROM
+        sheets
+      WHERE
+        (sheets.user_id = uid())
+    )
   )
 );
 

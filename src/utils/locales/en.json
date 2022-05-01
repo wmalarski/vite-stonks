@@ -9,6 +9,7 @@
     "sheets": "Sheets",
     "sheet": "Sheet",
     "reports": "Reports",
+    "companies": "Companies",
     "error": "Error"
   },
   "login": {
@@ -150,6 +151,12 @@
       "accidentPremium": "Accident Premium",
       "healthContributions": "Health Contributions"
     }
+  },
+  "companies": {
+    "address1": "Address1",
+    "address2": "Address2",
+    "company": "Company",
+    "nip": "Nip"
   },
   "preview": {
     "header": "{{city}}, day {{date}}",

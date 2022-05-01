@@ -4,7 +4,7 @@ import { Sheet } from "@/services/SheetApi";
 import { Table } from "antd";
 import { ReactElement, useState } from "react";
 import { useQuery } from "react-query";
-import * as classes from "./CompaniesTable.ccs";
+import * as classes from "./CompaniesTable.css";
 import { useColumns } from "./CompaniesTable.utils";
 
 type Props = {

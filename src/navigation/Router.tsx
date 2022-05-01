@@ -1,3 +1,4 @@
+import { Companies } from "@/pages/Companies/Companies";
 import { Home } from "@/pages/Home/Home";
 import { Invoice } from "@/pages/Invoice/Invoice";
 import { Invoices } from "@/pages/Invoices/Invoices";
@@ -17,6 +18,7 @@ export const Router = (): ReactElement => {
           <Route path="sheet">
             <Route path=":sheetId" element={<Sheet />}>
               <Route index element={<Invoices />} />
+              <Route path="companies" element={<Companies />} />
               <Route path="reports" element={<Reports />} />
               <Route path="settings" element={<Settings />} />
               <Route path="invoice">
