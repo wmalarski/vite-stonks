@@ -153,6 +153,7 @@
     }
   },
   "companies": {
+    "actions": "Actions",
     "address1": "Address1",
     "address2": "Address2",
     "company": "Company",
@@ -175,7 +176,7 @@
     },
     "create": {
       "error": "Error",
-      "button": "Edit",
+      "button": "Add company",
       "cancel": "Cancel",
       "save": "Add",
       "title": "Add company"

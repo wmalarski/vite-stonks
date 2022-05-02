@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { EditSheet } from "../EditSheet/EditSheet";
 import { RemoveSheet } from "../RemoveSheet/RemoveSheet";
+import { CreateCompany } from "./CreateCompany/CreateCompany";
 import { CreateInvoice } from "./CreateInvoice/CreateInvoice";
 import { CreateReport } from "./CreateReport/CreateReport";
 
@@ -30,15 +31,24 @@ export const SheetHeader = ({ sheet }: Props): ReactElement => {
     navigate(paths.reports(sheet.id));
   };
 
+  const handleCompanyCreateSuccess = () => {
+    navigate(paths.companies(sheet.id));
+  };
+
   return (
     <PageHeader
       extra={[
+        <CreateInvoice key="create" sheet={sheet} />,
         <CreateReport
           key="report"
           onSuccess={handleReportCreateSuccess}
           sheet={sheet}
         />,
-        <CreateInvoice key="create" sheet={sheet} />,
+        <CreateCompany
+          key="company"
+          onSuccess={handleCompanyCreateSuccess}
+          sheet={sheet}
+        />,
         <EditSheet key="edit" sheet={sheet} />,
         <RemoveSheet
           key="remove"
