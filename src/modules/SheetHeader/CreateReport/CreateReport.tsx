@@ -49,7 +49,6 @@ export const CreateReport = ({ onSuccess, sheet }: Props): ReactElement => {
         ...create,
         date: create.date.toISOString(),
         sheet_id: sheet.id,
-        user_id: user.id,
       });
     } catch (info) {
       console.error("Validate Failed:", info);

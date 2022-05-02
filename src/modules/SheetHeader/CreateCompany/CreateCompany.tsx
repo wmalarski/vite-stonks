@@ -1,33 +1,29 @@
-import {
-  InvoiceForm,
-  InvoiceFormArgs,
-} from "@/modules/InvoiceForm/InvoiceForm";
-import { Invoice, useInvoiceApi } from "@/services/InvoiceApi";
+import { CompanyForm } from "@/modules/CompanyForm/CompanyForm";
+import { Company, useCompanyApi } from "@/services/CompanyApi";
 import { Sheet } from "@/services/SheetApi";
-import { supabase } from "@/services/supabase";
 import { Button, Form, message, Modal } from "antd";
 import { ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
 
 type Props = {
-  onSuccess?: (invoice: Invoice) => void;
+  onSuccess?: (company: Company) => void;
   sheet: Sheet;
 };
 
-export const CreateInvoice = ({ onSuccess, sheet }: Props): ReactElement => {
-  const { t } = useTranslation("common", { keyPrefix: "invoice.create" });
+export const CreateCompany = ({ onSuccess, sheet }: Props): ReactElement => {
+  const { t } = useTranslation("common", { keyPrefix: "company.create" });
 
   const [isOpen, setIsOpen] = useState(false);
-  const [form] = Form.useForm<InvoiceFormArgs>();
+  const [form] = Form.useForm<Company>();
 
-  const invoiceApi = useInvoiceApi();
+  const companyApi = useCompanyApi();
   const client = useQueryClient();
 
-  const { mutate, isLoading } = useMutation(invoiceApi.create, {
-    onSuccess: (invoice) => {
-      client.invalidateQueries(invoiceApi.listKey(sheet.id));
-      onSuccess?.(invoice);
+  const { mutate, isLoading } = useMutation(companyApi.create, {
+    onSuccess: (company) => {
+      client.invalidateQueries(companyApi.listKey(sheet.id));
+      onSuccess?.(company);
       setIsOpen(false);
     },
     onError: () => {
@@ -45,14 +41,8 @@ export const CreateInvoice = ({ onSuccess, sheet }: Props): ReactElement => {
 
   const handleOkClick = async () => {
     try {
-      const user = supabase.auth.user();
-      if (!user) return;
       const create = await form.validateFields();
-      mutate({
-        ...create,
-        date: create.date.toISOString(),
-        sheet_id: sheet.id,
-      });
+      mutate({ ...create, sheet_id: sheet.id });
     } catch (info) {
       console.error("Validate Failed:", info);
     }
@@ -70,7 +60,7 @@ export const CreateInvoice = ({ onSuccess, sheet }: Props): ReactElement => {
         title={t("title")}
         visible={isOpen}
       >
-        <InvoiceForm form={form} />
+        <CompanyForm form={form} />
       </Modal>
     </>
   );

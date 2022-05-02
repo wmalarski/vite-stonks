@@ -47,7 +47,6 @@ export const CopyReport = ({ report, sheet }: Props): ReactElement => {
         date: create.date.toISOString(),
         id: undefined,
         sheet_id: report.sheet_id,
-        user_id: report.user_id,
       });
     } catch (info) {
       console.error("Validate Failed:", info);

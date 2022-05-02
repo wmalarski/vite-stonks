@@ -172,6 +172,13 @@
       "cancel": "Cancel",
       "save": "Save",
       "title": "Edit company"
+    },
+    "create": {
+      "error": "Error",
+      "button": "Edit",
+      "cancel": "Cancel",
+      "save": "Add",
+      "title": "Add company"
     }
   },
   "preview": {

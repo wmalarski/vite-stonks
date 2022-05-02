@@ -1,3 +1,4 @@
+import { mockCompany, mockSheet } from "@/tests/mocks";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import i18n from "@/utils/i18next";
 import "@testing-library/jest-dom";
@@ -12,7 +13,10 @@ const renderComponent = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Partial<Props>> = {}) => {
-  const defaultProps: Props = {};
+  const defaultProps: Props = {
+    company: mockCompany(),
+    sheet: mockSheet(),
+  };
 
   return render(
     <TestWrapper {...wrapperProps}>
