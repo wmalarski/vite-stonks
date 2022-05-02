@@ -10,7 +10,7 @@ import { SheetId } from "./SheetApi";
 import { supabase } from "./supabase";
 import { PageArgs } from "./types";
 
-type CompanyId = number;
+export type CompanyId = number;
 
 export type Company = {
   address1: string;

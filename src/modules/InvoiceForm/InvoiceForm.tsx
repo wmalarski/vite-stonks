@@ -23,53 +23,13 @@ export const InvoiceForm = ({ form, initialValues }: Props): ReactElement => {
     >
       <Form.Item
         label={t("invoice.form.address1")}
-        name="address1"
+        name="company2.address1"
         rules={[
           {
             required: true,
             message: t("form.fieldRequired", {
               label: t("invoice.form.address1"),
             }),
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label={t("invoice.form.address2")}
-        name="address2"
-        rules={[
-          {
-            required: true,
-            message: t("form.fieldRequired", {
-              label: t("invoice.form.address2"),
-            }),
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label={t("invoice.form.company")}
-        name="company"
-        rules={[
-          {
-            required: true,
-            message: t("form.fieldRequired", {
-              label: t("invoice.form.company"),
-            }),
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label={t("invoice.form.nip")}
-        name="nip"
-        rules={[
-          {
-            required: true,
-            message: t("form.fieldRequired", { label: t("invoice.form.nip") }),
           },
         ]}
       >

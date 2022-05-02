@@ -6,6 +6,7 @@ import {
   useMemo,
 } from "react";
 import { QueryFunction } from "react-query";
+import { Company, CompanyId } from "./CompanyApi";
 import { SheetId } from "./SheetApi";
 import { supabase } from "./supabase";
 import { PageArgs } from "./types";
@@ -13,15 +14,13 @@ import { PageArgs } from "./types";
 export type InvoiceId = number;
 
 export type Invoice = {
-  address1: string;
-  address2: string;
-  company: string;
+  company: Company;
+  company_id: CompanyId;
   created_at: string;
   date: string;
   hours: number;
   id: InvoiceId;
   name: string;
-  nip: string;
   price: number;
   sheet_id: SheetId;
   title: string;
@@ -97,7 +96,7 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
         get: async ({ queryKey }) => {
           const { data, error } = await supabase
             .from<Invoice>(table)
-            .select("*")
+            .select("*, company2:company_id ( * )")
             .eq("id", queryKey[1])
             .single();
           if (error) throw error;
@@ -110,7 +109,7 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
           const args = queryKey[2] ?? { limit: 50, offset: 0 };
           const { data, error, count } = await supabase
             .from<Invoice>(table)
-            .select("*", { count: "estimated" })
+            .select("*, company2:company_id ( * )", { count: "estimated" })
             .eq("sheet_id", queryKey[1])
             .range(args.offset, args.offset + args.limit);
           if (error) throw error;

@@ -12,10 +12,10 @@ export const PreviewCompanyInfo = ({ invoice }: Props): ReactElement => {
   return (
     <div>
       <Typography.Title level={5}>{t("recipient")}</Typography.Title>
-      <Typography.Paragraph>{invoice.company}</Typography.Paragraph>
-      <Typography.Paragraph>{invoice.address1}</Typography.Paragraph>
-      <Typography.Paragraph>{invoice.address2}</Typography.Paragraph>
-      <Typography.Paragraph>{invoice.nip}</Typography.Paragraph>
+      <Typography.Paragraph>{invoice.company.company}</Typography.Paragraph>
+      <Typography.Paragraph>{invoice.company.address1}</Typography.Paragraph>
+      <Typography.Paragraph>{invoice.company.address2}</Typography.Paragraph>
+      <Typography.Paragraph>{invoice.company.nip}</Typography.Paragraph>
     </div>
   );
 };

@@ -26,15 +26,13 @@ export const mockSheet = (update: Partial<Sheet> = {}): Sheet => {
 export const mockInvoice = (update: Partial<Invoice> = {}): Invoice => {
   const id = Math.floor(Math.random() * 1e10);
   return {
-    address1: "Address",
-    address2: "Address2",
-    company: "Company",
+    company: mockCompany(),
+    company_id: 1,
     created_at: new Date().toISOString(),
     date: new Date().toISOString(),
     hours: 160,
     id,
     name: `Name-${id}`,
-    nip: "4567890",
     price: 234,
     sheet_id: 0,
     title: "Title",
