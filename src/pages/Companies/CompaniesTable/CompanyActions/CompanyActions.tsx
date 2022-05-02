@@ -1,19 +1,20 @@
 import { Company } from "@/services/CompanyApi";
 import { Sheet } from "@/services/SheetApi";
 import { ReactElement } from "react";
-import { useTranslation } from "react-i18next";
+import * as classes from "./CompanyActions.css";
+import { EditCompany } from "./EditCompany/EditCompany";
+import { RemoveCompany } from "./RemoveCompany/RemoveCompany";
 
 type Props = {
   company: Company;
   sheet: Sheet;
 };
 
-export const CompanyActions = ({ company }: Props): ReactElement => {
-  const { t } = useTranslation("common");
+export const CompanyActions = ({ company, sheet }: Props): ReactElement => {
   return (
-    <div>
-      <p>{t("CompanyActions")}</p>
-      <div>{company.address1}</div>
+    <div className={classes.list}>
+      <EditCompany company={company} sheet={sheet} />
+      <RemoveCompany company={company} sheet={sheet} />
     </div>
   );
 };

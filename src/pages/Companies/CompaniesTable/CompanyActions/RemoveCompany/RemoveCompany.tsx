@@ -1,4 +1,4 @@
-import { Report, useReportApi } from "@/services/ReportApi";
+import { Company, useCompanyApi } from "@/services/CompanyApi";
 import { Sheet } from "@/services/SheetApi";
 import { Button } from "antd";
 import { ReactElement } from "react";
@@ -6,24 +6,23 @@ import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
 
 type Props = {
+  company: Company;
   sheet: Sheet;
-  report: Report;
 };
 
-export const RemoveReport = ({ sheet, report }: Props): ReactElement => {
-  const { t } = useTranslation("common", { keyPrefix: "report" });
+export const RemoveCompany = ({ company, sheet }: Props): ReactElement => {
+  const { t } = useTranslation("common", { keyPrefix: "company" });
 
-  const reportApi = useReportApi();
+  const companyApi = useCompanyApi();
   const client = useQueryClient();
-
-  const { mutate, isLoading } = useMutation(reportApi.delete, {
+  const { mutate, isLoading } = useMutation(companyApi.delete, {
     onSuccess: () => {
-      client.invalidateQueries(reportApi.listKey(sheet.id));
+      client.invalidateQueries(companyApi.listKey(sheet.id));
     },
   });
 
   const handleRemoveClick = () => {
-    mutate(report.id);
+    mutate(company.id);
   };
 
   return (

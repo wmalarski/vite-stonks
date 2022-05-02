@@ -159,11 +159,19 @@
     "nip": "Nip"
   },
   "company": {
+    "remove": "Remove",
     "form": {
       "address1": "Address1",
       "address2": "Address2",
       "company": "Company",
       "nip": "Nip"
+    },
+    "edit": {
+      "error": "Error",
+      "button": "Edit",
+      "cancel": "Cancel",
+      "save": "Save",
+      "title": "Edit company"
     }
   },
   "preview": {
