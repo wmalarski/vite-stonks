@@ -31,7 +31,7 @@ describe("<CompanyActions />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("CompanyActions", { ns: "common" });
+    const header = i18n.t<string>("company.edit.button", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

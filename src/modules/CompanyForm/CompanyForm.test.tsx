@@ -35,7 +35,7 @@ describe("<CompanyForm />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("CompanyForm", { ns: "common" });
+    const header = i18n.t<string>("company.form.address1", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

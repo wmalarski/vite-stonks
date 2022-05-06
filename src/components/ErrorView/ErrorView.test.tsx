@@ -27,7 +27,7 @@ describe("<ErrorView />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("ErrorView", { ns: "common" });
+    const header = i18n.t<string>("error.title", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

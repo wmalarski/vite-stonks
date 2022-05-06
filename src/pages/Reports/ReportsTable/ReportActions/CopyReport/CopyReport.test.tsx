@@ -31,7 +31,7 @@ describe("<CopyReport />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("CopyReport", { ns: "common" });
+    const header = i18n.t<string>("report.copy.button", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

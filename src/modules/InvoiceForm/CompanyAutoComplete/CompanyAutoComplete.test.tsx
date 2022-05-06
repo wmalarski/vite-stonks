@@ -1,6 +1,5 @@
 import { mockSheet } from "@/tests/mocks";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import i18n from "@/utils/i18next";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
@@ -38,7 +37,6 @@ describe("<CompanyAutoComplete />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("CompanyAutoComplete", { ns: "common" });
-    await expect(screen.findByText(header)).resolves.toBeInTheDocument();
+    await expect(screen.findByRole("combobox")).resolves.toBeInTheDocument();
   });
 });

@@ -35,7 +35,7 @@ describe("<InvoiceForm />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("invoice.form.address", { ns: "common" });
+    const header = i18n.t<string>("invoice.form.name", { ns: "common" });
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });
