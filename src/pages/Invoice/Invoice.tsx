@@ -17,7 +17,7 @@ export const Invoice = (): ReactElement => {
     refetch();
   };
 
-  if (status === "loading" || status === "idle") {
+  if (status === "loading") {
     return <Loading />;
   }
 

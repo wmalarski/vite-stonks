@@ -274,5 +274,14 @@ export const mockCompanyApi = (): CompanyApiService => {
       collection.splice(index, 1, next);
       return Promise.resolve(next);
     },
+    search: ({ queryKey }) => {
+      const key = queryKey[1];
+      const filtered = collection.filter(({ sheet_id }) => sheet_id === key);
+      const sliced = filtered.slice(0, 5);
+      return Promise.resolve({ companies: sliced, count: filtered.length });
+    },
+    searchKey: (id, query) => {
+      return ["companiesSearch", id, query];
+    },
   };
 };

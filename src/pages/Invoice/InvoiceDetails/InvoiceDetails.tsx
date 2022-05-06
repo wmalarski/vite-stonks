@@ -27,7 +27,7 @@ export const InvoiceDetails = ({ sheet }: Props): ReactElement => {
     refetch();
   };
 
-  if (status === "loading" || status === "idle") {
+  if (status === "loading") {
     return <Loading />;
   }
 

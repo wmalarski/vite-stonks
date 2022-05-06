@@ -18,7 +18,7 @@ export const Settings = (): ReactElement | null => {
     refetch();
   };
 
-  if (status === "loading" || status === "idle") {
+  if (status === "loading") {
     return <Loading />;
   }
 
