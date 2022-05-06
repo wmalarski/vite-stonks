@@ -29,12 +29,16 @@ type CompanyListResult = {
 
 type CompaniesKey = ["companies", SheetId] | ["companies", SheetId, PageArgs];
 
+type SearchCompaniesKey = ["companiesSearch", SheetId, string];
+
 export type CompanyApiService = {
   create: (args: Partial<Company>) => Promise<Company>;
   delete: (id: CompanyId) => Promise<void>;
   list: QueryFunction<CompanyListResult, CompaniesKey>;
   listKey: (id: SheetId, page?: PageArgs) => CompaniesKey;
   update: (args: Company) => Promise<Company>;
+  search: QueryFunction<CompanyListResult, SearchCompaniesKey>;
+  searchKey: (id: SheetId, query: string) => SearchCompaniesKey;
 };
 
 type CompanyApiContextValue =
@@ -107,6 +111,19 @@ export const CompanyApiProvider = ({ children }: Props): ReactElement => {
             .single();
           if (error) throw error;
           return data;
+        },
+        search: async ({ queryKey }) => {
+          const { data, error, count } = await supabase
+            .from<Company>(table)
+            .select("*", { count: "estimated" })
+            .eq("sheet_id", queryKey[1])
+            .ilike("company", `%${queryKey[2]}%`)
+            .range(0, 5);
+          if (error) throw error;
+          return { companies: data, count: count ?? 0 };
+        },
+        searchKey: (id, query) => {
+          return ["companiesSearch", id, query];
         },
       },
     };

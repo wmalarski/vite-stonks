@@ -75,6 +75,7 @@ export const CopyInvoice = ({
         <InvoiceForm
           form={form}
           initialValues={{ ...invoice, date: moment(invoice.date) }}
+          sheet={sheet}
         />
       </Modal>
     </>

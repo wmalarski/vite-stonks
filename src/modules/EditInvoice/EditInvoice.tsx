@@ -64,6 +64,7 @@ export const EditInvoice = ({ invoice, sheet }: Props): ReactElement => {
         <InvoiceForm
           form={form}
           initialValues={{ ...invoice, date: moment(invoice.date) }}
+          sheet={sheet}
         />
       </Modal>
     </>

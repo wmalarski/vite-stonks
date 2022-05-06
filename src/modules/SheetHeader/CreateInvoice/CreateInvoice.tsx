@@ -48,6 +48,7 @@ export const CreateInvoice = ({ onSuccess, sheet }: Props): ReactElement => {
       const user = supabase.auth.user();
       if (!user) return;
       const create = await form.validateFields();
+
       mutate({
         ...create,
         date: create.date.toISOString(),
@@ -70,7 +71,7 @@ export const CreateInvoice = ({ onSuccess, sheet }: Props): ReactElement => {
         title={t("title")}
         visible={isOpen}
       >
-        <InvoiceForm form={form} />
+        <InvoiceForm form={form} sheet={sheet} />
       </Modal>
     </>
   );

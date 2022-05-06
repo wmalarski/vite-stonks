@@ -96,7 +96,7 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
         get: async ({ queryKey }) => {
           const { data, error } = await supabase
             .from<Invoice>(table)
-            .select("*, company2:company_id ( * )")
+            .select("*, company:company_id ( * )")
             .eq("id", queryKey[1])
             .single();
           if (error) throw error;
@@ -109,7 +109,7 @@ export const InvoiceApiProvider = ({ children }: Props): ReactElement => {
           const args = queryKey[2] ?? { limit: 50, offset: 0 };
           const { data, error, count } = await supabase
             .from<Invoice>(table)
-            .select("*, company2:company_id ( * )", { count: "estimated" })
+            .select("*, company:company_id ( * )", { count: "estimated" })
             .eq("sheet_id", queryKey[1])
             .range(args.offset, args.offset + args.limit);
           if (error) throw error;

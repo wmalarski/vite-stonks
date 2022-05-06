@@ -1,16 +1,23 @@
 import { Invoice } from "@/services/InvoiceApi";
+import { Sheet } from "@/services/SheetApi";
 import { DatePicker, Form, FormInstance, Input, InputNumber } from "antd";
 import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
+import { CompanyAutoComplete } from "./CompanyAutoComplete/CompanyAutoComplete";
 
 export type InvoiceFormArgs = Omit<Invoice, "date"> & { date: moment.Moment };
 
 type Props = {
   form: FormInstance<InvoiceFormArgs>;
   initialValues?: InvoiceFormArgs;
+  sheet: Sheet;
 };
 
-export const InvoiceForm = ({ form, initialValues }: Props): ReactElement => {
+export const InvoiceForm = ({
+  form,
+  initialValues,
+  sheet,
+}: Props): ReactElement => {
   const { t } = useTranslation("common");
   return (
     <Form
@@ -22,18 +29,18 @@ export const InvoiceForm = ({ form, initialValues }: Props): ReactElement => {
       initialValues={initialValues}
     >
       <Form.Item
-        label={t("invoice.form.address1")}
-        name="company2.address1"
+        label={t("invoice.form.company")}
+        name="company_id"
         rules={[
           {
             required: true,
             message: t("form.fieldRequired", {
-              label: t("invoice.form.address1"),
+              label: t("invoice.form.company"),
             }),
           },
         ]}
       >
-        <Input />
+        <CompanyAutoComplete form={form} sheet={sheet} />
       </Form.Item>
       <Form.Item
         label={t("invoice.form.name")}
