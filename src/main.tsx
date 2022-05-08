@@ -3,10 +3,10 @@ import ReactDOM from "react-dom";
 import App from "./App";
 
 const prepare = async () => {
-  if (import.meta.env.VITE_MOCKS) {
-    const { worker } = await import("./tests/browser");
-    worker.start();
-  }
+  // if (import.meta.env.VITE_MOCKS) {
+  //   const { worker } = await import("./tests/browser");
+  //   worker.start();
+  // }
 };
 
 prepare()

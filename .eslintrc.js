@@ -20,12 +20,35 @@ module.exports = {
       jsx: true,
     },
     ecmaVersion: 12,
+    project: ["tsconfig.json"],
     sourceType: "module",
   },
   plugins: [],
   rules: {
     "prettier/prettier": "error",
     "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        selector: "default",
+        format: ["camelCase", "PascalCase", "snake_case"],
+        leadingUnderscore: "allow",
+      },
+      {
+        selector: "variable",
+        types: ["boolean"],
+        format: ["PascalCase"],
+        prefix: ["is", "should", "has", "can", "did", "will"],
+      },
+      {
+        selector: "typeLike",
+        format: ["PascalCase"],
+        custom: {
+          regex: "^(I|T|E)[A-Z]",
+          match: false,
+        },
+      },
+    ],
   },
   settings: {
     react: {

@@ -4,6 +4,7 @@
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 import react from "@vitejs/plugin-react";
 import * as path from "path";
+import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import { AntdResolve, createStyleImportPlugin } from "vite-plugin-style-import";
 
@@ -13,6 +14,7 @@ export default defineConfig({
     react(),
     vanillaExtractPlugin(),
     createStyleImportPlugin({ resolves: [AntdResolve()] }),
+    visualizer(),
   ],
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
