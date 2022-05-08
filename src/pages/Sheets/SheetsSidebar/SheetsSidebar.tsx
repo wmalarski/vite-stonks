@@ -14,11 +14,18 @@ export const SheetsSidebar = (): ReactElement => {
 
   return (
     <div className={classes.container}>
-      <Menu mode="vertical" selectedKeys={[location.pathname]} theme="light">
-        <Menu.Item key={paths.home} icon={<BankOutlined />}>
-          <Link to={paths.home}>{t("sheets")}</Link>
-        </Menu.Item>
-      </Menu>
+      <Menu
+        mode="vertical"
+        selectedKeys={[location.pathname]}
+        theme="light"
+        items={[
+          {
+            key: paths.home,
+            icon: <BankOutlined />,
+            label: <Link to={paths.home}>{t("sheets")}</Link>,
+          },
+        ]}
+      />
       <SignOutButton />
     </div>
   );

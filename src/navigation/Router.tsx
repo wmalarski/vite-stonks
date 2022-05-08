@@ -1,8 +1,8 @@
 import { Loading } from "@/components/Loading/Loading";
+import { Home } from "@/pages/Home/Home";
 import { lazy, ReactElement, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-const Home = lazy(() => import("@/pages/Home/Home"));
 const Companies = lazy(() => import("@/pages/Companies/Companies"));
 const Invoice = lazy(() => import("@/pages/Invoice/Invoice"));
 const Invoices = lazy(() => import("@/pages/Invoices/Invoices"));

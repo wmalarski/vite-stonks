@@ -18,20 +18,33 @@ export const SheetSidebar = ({ sheetId }: Props): ReactElement => {
 
   return (
     <div className={classes.container}>
-      <Menu mode="vertical" selectedKeys={[location.pathname]} theme="light">
-        <Menu.Item key={paths.sheet(sheetId)} icon={<BarsOutlined />}>
-          <Link to={paths.sheet(sheetId)}>{t("details")}</Link>
-        </Menu.Item>
-        <Menu.Item key={paths.reports(sheetId)} icon={<SettingOutlined />}>
-          <Link to={paths.reports(sheetId)}>{t("reports")}</Link>
-        </Menu.Item>
-        <Menu.Item key={paths.companies(sheetId)} icon={<SettingOutlined />}>
-          <Link to={paths.companies(sheetId)}>{t("companies")}</Link>
-        </Menu.Item>
-        <Menu.Item key={paths.settings(sheetId)} icon={<SettingOutlined />}>
-          <Link to={paths.settings(sheetId)}>{t("settings")}</Link>
-        </Menu.Item>
-      </Menu>
+      <Menu
+        mode="vertical"
+        selectedKeys={[location.pathname]}
+        theme="light"
+        items={[
+          {
+            key: paths.sheet(sheetId),
+            icon: <BarsOutlined />,
+            label: <Link to={paths.sheet(sheetId)}>{t("details")}</Link>,
+          },
+          {
+            key: paths.reports(sheetId),
+            icon: <SettingOutlined />,
+            label: <Link to={paths.reports(sheetId)}>{t("reports")}</Link>,
+          },
+          {
+            key: paths.companies(sheetId),
+            icon: <SettingOutlined />,
+            label: <Link to={paths.companies(sheetId)}>{t("companies")}</Link>,
+          },
+          {
+            key: paths.settings(sheetId),
+            icon: <SettingOutlined />,
+            label: <Link to={paths.settings(sheetId)}>{t("settings")}</Link>,
+          },
+        ]}
+      />
       <SignOutButton />
     </div>
   );
