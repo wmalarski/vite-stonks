@@ -36,3 +36,5 @@ export const Reports = (): ReactElement => {
     </div>
   );
 };
+
+export default Reports;

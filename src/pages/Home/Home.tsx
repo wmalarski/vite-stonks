@@ -12,3 +12,5 @@ export const Home = (): ReactElement => {
 
   return <Login />;
 };
+
+export default Home;

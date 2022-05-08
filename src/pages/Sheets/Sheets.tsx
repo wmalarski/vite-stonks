@@ -64,3 +64,5 @@ export const Sheets = (): ReactElement => {
     </ContentLayout>
   );
 };
+
+export default Sheets;

@@ -33,3 +33,5 @@ export const Settings = (): ReactElement | null => {
     </div>
   );
 };
+
+export default Settings;

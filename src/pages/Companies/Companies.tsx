@@ -36,3 +36,5 @@ export const Companies = (): ReactElement => {
     </div>
   );
 };
+
+export default Companies;

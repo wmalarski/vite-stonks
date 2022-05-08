@@ -27,3 +27,5 @@ export const Invoice = (): ReactElement => {
 
   return <InvoiceDetails sheet={data} />;
 };
+
+export default Invoice;

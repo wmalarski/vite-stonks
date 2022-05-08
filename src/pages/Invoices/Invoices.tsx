@@ -36,3 +36,5 @@ export const Invoices = (): ReactElement | null => {
     </div>
   );
 };
+
+export default Invoices;

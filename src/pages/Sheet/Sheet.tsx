@@ -36,3 +36,5 @@ export const Sheet = (): ReactElement => {
     </ContentLayout>
   );
 };
+
+export default Sheet;
