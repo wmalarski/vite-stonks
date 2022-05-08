@@ -1,17 +1,22 @@
 import { AnyObject } from "@mswjs/data/lib/glossary";
 import { QuerySelectorWhere } from "@mswjs/data/lib/query/queryTypes";
 
+type ParseQueryParamsArgs = {
+  searchParams: URLSearchParams;
+  map?: Record<string, typeof Number | typeof String>;
+};
+
 type ParseQueryParamsResult<EntityType extends AnyObject> = {
   skip: number;
   take: number;
   where: QuerySelectorWhere<EntityType>;
 };
 
-export const parseQueryParams = <EntityType extends AnyObject = AnyObject>(
-  searchParams: URLSearchParams,
-  excludeKeys: string[] = []
-): ParseQueryParamsResult<EntityType> => {
-  const paginationKeys = ["offset", "limit", "select"];
+export const parseQueryParams = <EntityType extends AnyObject = AnyObject>({
+  searchParams,
+  map = {},
+}: ParseQueryParamsArgs): ParseQueryParamsResult<EntityType> => {
+  const paginationKeys = ["offset", "limit"];
   const rawOffset = searchParams.get("offset");
   const rawLimit = searchParams.get("limit");
 
@@ -21,8 +26,9 @@ export const parseQueryParams = <EntityType extends AnyObject = AnyObject>(
   const take = rawLimit == null ? 100 : parseInt(rawLimit, 10);
 
   searchParams.forEach((value, key) => {
-    if (paginationKeys.includes(key) || excludeKeys.includes(key)) return;
-    where[key] = { equals: value };
+    if (paginationKeys.includes(key) || !(key in map)) return;
+    const [, equals] = value.split(".");
+    where[key] = { equals: map[key](equals) };
   });
 
   return { skip, take, where };
