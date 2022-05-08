@@ -31,3 +31,4 @@ npm-debug.log.*
 .eslintrc.js
 dist
 vite.config.ts
+plopfile.js
