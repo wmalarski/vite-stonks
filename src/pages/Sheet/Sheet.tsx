@@ -16,6 +16,8 @@ export const Sheet = (): ReactElement => {
     sheetApi.get
   );
 
+  console.log({ data });
+
   const handleRefreshClick = () => {
     refetch();
   };

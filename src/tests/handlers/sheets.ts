@@ -16,6 +16,10 @@ export const sheetsHandlers = [
     const count = db.sheet.count({ where });
     const models = db.sheet.findMany({ where, skip, take });
 
+    if ("id" in where) {
+      return res(ctx.status(200), ctx.json<Sheet>(models[0]));
+    }
+
     return res(
       ctx.status(200),
       ctx.json<Sheet[]>(models),
