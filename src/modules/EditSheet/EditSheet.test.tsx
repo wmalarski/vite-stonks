@@ -1,6 +1,6 @@
+import { i18text } from "@/tests/i18text";
 import { mockSheet } from "@/tests/mocks";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import i18n from "@/utils/i18next";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
@@ -31,7 +31,7 @@ describe("<EditSheet />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("sheet.edit.button", { ns: "common" });
+    const header = i18text("sheet.edit.button");
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 
@@ -40,9 +40,9 @@ describe("<EditSheet />", () => {
 
     renderComponent();
 
-    const open = i18n.t<string>("sheet.edit.button", { ns: "common" });
-    const cancel = i18n.t<string>("sheet.edit.cancel", { ns: "common" });
-    const save = i18n.t<string>("sheet.edit.save", { ns: "common" });
+    const open = i18text("sheet.edit.button");
+    const cancel = i18text("sheet.edit.cancel");
+    const save = i18text("sheet.edit.save");
 
     userEvent.click(await screen.findByText(open));
 

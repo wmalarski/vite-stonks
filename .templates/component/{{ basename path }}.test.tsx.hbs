@@ -1,4 +1,5 @@
-import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
+import { i18text } from "@/tests/i18text";
+import { i18text } from "@/tests/i18text"; import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import i18n from "@/utils/i18next";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
@@ -27,7 +28,7 @@ describe("<{{ basename path }} />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("{{ basename path }}", { ns: "common" });
+    const header = i18text("{{ basename path }}");
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

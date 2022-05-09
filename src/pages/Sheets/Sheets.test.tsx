@@ -1,5 +1,5 @@
+import { i18text } from "@/tests/i18text";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import i18n from "@/utils/i18next";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
@@ -27,7 +27,7 @@ describe("<Sheets />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("sheet.create.button", { ns: "common" });
+    const header = i18text("sheet.create.button");
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

@@ -1,6 +1,6 @@
+import { i18text } from "@/tests/i18text";
 import { mockCompany, mockSheet } from "@/tests/mocks";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import i18n from "@/utils/i18next";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
@@ -31,7 +31,7 @@ describe("<EditCompany />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("company.edit.button", { ns: "common" });
+    const header = i18text("company.edit.button");
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

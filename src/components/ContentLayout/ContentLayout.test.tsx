@@ -1,5 +1,5 @@
+import { i18text } from "@/tests/i18text";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import i18n from "@/utils/i18next";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
@@ -30,7 +30,7 @@ describe("<ContentLayout />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("Hello", { ns: "common" });
+    const header = i18text("Hello");
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 });

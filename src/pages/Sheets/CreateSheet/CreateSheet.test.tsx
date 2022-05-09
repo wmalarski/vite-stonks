@@ -1,5 +1,5 @@
+import { i18text } from "@/tests/i18text";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import i18n from "@/utils/i18next";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
@@ -28,7 +28,7 @@ describe("<CreateSheet />", () => {
 
     renderComponent();
 
-    const header = i18n.t<string>("sheet.create.button", { ns: "common" });
+    const header = i18text("sheet.create.button");
     await expect(screen.findByText(header)).resolves.toBeInTheDocument();
   });
 
@@ -37,9 +37,9 @@ describe("<CreateSheet />", () => {
 
     renderComponent();
 
-    const open = i18n.t<string>("sheet.create.button", { ns: "common" });
-    const cancel = i18n.t<string>("sheet.create.cancel", { ns: "common" });
-    const save = i18n.t<string>("sheet.create.save", { ns: "common" });
+    const open = i18text("sheet.create.button");
+    const cancel = i18text("sheet.create.cancel");
+    const save = i18text("sheet.create.save");
 
     userEvent.click(await screen.findByText(open));
 
