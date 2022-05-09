@@ -10,7 +10,7 @@ import {
 } from "react";
 import { supabase } from "./supabase";
 
-export type AuthApiService = {
+type AuthApiService = {
   signIn: () => Promise<User | null>;
   signOut: () => Promise<void>;
 };
@@ -25,7 +25,7 @@ type AuthApiContextValue =
       api: AuthApiService;
     };
 
-export const AuthApiContext = createContext<AuthApiContextValue>({
+const AuthApiContext = createContext<AuthApiContextValue>({
   isInitialized: false,
 });
 

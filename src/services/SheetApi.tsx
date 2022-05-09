@@ -25,8 +25,7 @@ export type Sheet = {
   user_id: string;
 };
 
-export type UpdateSheetArgs = Partial<Omit<Sheet, "created_at">> &
-  Pick<Sheet, "id">;
+type UpdateSheetArgs = Partial<Omit<Sheet, "created_at">> & Pick<Sheet, "id">;
 
 type SheetListResult = {
   sheets: Sheet[];
@@ -36,7 +35,7 @@ type SheetListResult = {
 type SheetsKey = ["sheets"] | ["sheets", PageArgs];
 type SheetKey = ["sheet", number];
 
-export type SheetApiService = {
+type SheetApiService = {
   create: (args: Sheet) => Promise<Sheet>;
   delete: (id: SheetId) => Promise<void>;
   get: QueryFunction<Sheet, SheetKey>;
@@ -55,7 +54,7 @@ type SheetApiContextValue =
       api: SheetApiService;
     };
 
-export const SheetApiContext = createContext<SheetApiContextValue>({
+const SheetApiContext = createContext<SheetApiContextValue>({
   isInitialized: false,
 });
 

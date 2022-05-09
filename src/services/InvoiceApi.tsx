@@ -34,7 +34,7 @@ type InvoiceListResult = {
 type InvoicesKey = ["invoices", SheetId] | ["invoices", SheetId, PageArgs];
 type InvoiceKey = ["invoice", InvoiceId];
 
-export type InvoiceApiService = {
+type InvoiceApiService = {
   create: (args: Partial<Invoice>) => Promise<Invoice>;
   delete: (args: InvoiceId) => Promise<void>;
   get: QueryFunction<Invoice, InvoiceKey>;
@@ -53,7 +53,7 @@ type InvoiceApiContextValue =
       api: InvoiceApiService;
     };
 
-export const InvoiceApiContext = createContext<InvoiceApiContextValue>({
+const InvoiceApiContext = createContext<InvoiceApiContextValue>({
   isInitialized: false,
 });
 

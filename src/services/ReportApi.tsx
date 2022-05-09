@@ -40,7 +40,7 @@ type ReportListResult = {
 
 type ReportsKey = ["reports", SheetId] | ["reports", SheetId, PageArgs];
 
-export type ReportApiService = {
+type ReportApiService = {
   create: (args: Partial<Report>) => Promise<Report>;
   delete: (args: ReportId) => Promise<void>;
   list: QueryFunction<ReportListResult, ReportsKey>;
@@ -57,7 +57,7 @@ type ReportApiContextValue =
       api: ReportApiService;
     };
 
-export const ReportApiContext = createContext<ReportApiContextValue>({
+const ReportApiContext = createContext<ReportApiContextValue>({
   isInitialized: false,
 });
 

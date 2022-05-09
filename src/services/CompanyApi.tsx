@@ -31,7 +31,7 @@ type CompaniesKey = ["companies", SheetId] | ["companies", SheetId, PageArgs];
 
 type SearchCompaniesKey = ["companiesSearch", SheetId, string];
 
-export type CompanyApiService = {
+type CompanyApiService = {
   create: (args: Partial<Company>) => Promise<Company>;
   delete: (id: CompanyId) => Promise<void>;
   list: QueryFunction<CompanyListResult, CompaniesKey>;
@@ -50,7 +50,7 @@ type CompanyApiContextValue =
       api: CompanyApiService;
     };
 
-export const CompanyApiContext = createContext<CompanyApiContextValue>({
+const CompanyApiContext = createContext<CompanyApiContextValue>({
   isInitialized: false,
 });
 
