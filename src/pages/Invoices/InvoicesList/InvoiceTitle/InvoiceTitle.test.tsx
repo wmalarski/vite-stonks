@@ -13,7 +13,6 @@ const renderComponent = ({
   ...props
 }: PropsWithTestWrapper<Partial<Props>> = {}) => {
   const defaultProps: Props = {
-    sheetId: 1,
     invoice: mockInvoice(),
   };
 

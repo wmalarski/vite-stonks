@@ -1,3 +1,4 @@
+import { mockInvoice } from "@/tests/mocks";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
@@ -23,4 +24,4 @@ const InvoiceTitleStory = ({
 
 const Story: ComponentStory<typeof InvoiceTitleStory> = InvoiceTitleStory;
 export const Playground = Story.bind({});
-Playground.args = { wrapperProps: {} };
+Playground.args = { wrapperProps: {}, invoice: mockInvoice() };

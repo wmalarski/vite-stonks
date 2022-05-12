@@ -14,13 +14,12 @@
     "=== CODEGEN ===": "",
     "plop": "plop",
     "=== STORIES ===": "",
-    "stories": "ladle serve",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
     "=== LINTERS ===": "",
     "lint": "eslint src --fix --ext .tsx,.ts",
     "prettier": "prettier 'src/**/*.(ts|tsx)' --write",
-    "tsc": "tsc --noEmit",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -46,6 +45,7 @@
     "@storybook/addon-interactions": "^6.4.22",
     "@storybook/addon-links": "^6.4.22",
     "@storybook/builder-vite": "^0.1.33",
+    "@storybook/preset-ant-design": "^0.0.2",
     "@storybook/react": "^6.4.22",
     "@storybook/testing-library": "^0.0.11",
     "@testing-library/dom": "^8.13.0",

@@ -33,11 +33,7 @@ export const useColumns = ({ sheet }: UseColumnsArgs): ColumnsType<Invoice> => {
       key: "title",
       width: "100%",
       render: (_, record) => (
-        <InvoiceTitle
-          invoice={record}
-          key={`title-${record.id}`}
-          sheetId={sheet.id}
-        />
+        <InvoiceTitle invoice={record} key={`title-${record.id}`} />
       ),
     },
     {

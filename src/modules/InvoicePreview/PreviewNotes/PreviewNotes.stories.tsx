@@ -23,4 +23,6 @@ const PreviewNotesStory = ({
 
 const Story: ComponentStory<typeof PreviewNotesStory> = PreviewNotesStory;
 export const Playground = Story.bind({});
-Playground.args = { wrapperProps: {} };
+Playground.args = {
+  wrapperProps: {},
+};

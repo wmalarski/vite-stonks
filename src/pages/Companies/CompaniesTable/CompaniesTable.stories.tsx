@@ -1,3 +1,4 @@
+import { mockSheet } from "@/tests/mocks";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
@@ -23,4 +24,4 @@ const CompaniesTableStory = ({
 
 const Story: ComponentStory<typeof CompaniesTableStory> = CompaniesTableStory;
 export const Playground = Story.bind({});
-Playground.args = { wrapperProps: {} };
+Playground.args = { wrapperProps: {}, sheet: mockSheet() };

@@ -4,13 +4,15 @@ import { ReactElement } from "react";
 import { Link } from "react-router-dom";
 
 type Props = {
-  sheetId: number;
   invoice: Invoice;
 };
 
-export const InvoiceTitle = ({ sheetId, invoice }: Props): ReactElement => {
+export const InvoiceTitle = ({ invoice }: Props): ReactElement => {
   return (
-    <Link key={`title-${invoice.id}`} to={paths.invoice(sheetId, invoice.id)}>
+    <Link
+      key={`title-${invoice.id}`}
+      to={paths.invoice(invoice.sheet_id, invoice.id)}
+    >
       {invoice.title}
     </Link>
   );

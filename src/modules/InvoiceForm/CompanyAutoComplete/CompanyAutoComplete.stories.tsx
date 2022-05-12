@@ -1,10 +1,11 @@
+import { mockSheet } from "@/tests/mocks";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
 import { CompanyAutoComplete } from "./CompanyAutoComplete";
 
 export default {
-  title: "components/InvoiceForm/CompanyAutoComplete",
+  title: "modules/InvoiceForm/CompanyAutoComplete",
   component: CompanyAutoComplete,
 } as ComponentMeta<typeof CompanyAutoComplete>;
 
@@ -24,4 +25,4 @@ const CompanyAutoCompleteStory = ({
 const Story: ComponentStory<typeof CompanyAutoCompleteStory> =
   CompanyAutoCompleteStory;
 export const Playground = Story.bind({});
-Playground.args = { wrapperProps: {} };
+Playground.args = { wrapperProps: {}, sheet: mockSheet() };
