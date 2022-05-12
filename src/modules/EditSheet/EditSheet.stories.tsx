@@ -1,17 +1,17 @@
 import { mockSheet } from "@/tests/mocks";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import type { Story } from "@ladle/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
 import { EditSheet } from "./EditSheet";
 
 export default {
   title: "modules/EditSheet",
   component: EditSheet,
-};
+} as ComponentMeta<typeof EditSheet>;
 
 type Props = ComponentProps<typeof EditSheet>;
 
-const EditSheetStory: Story<PropsWithTestWrapper<Props>> = ({
+const EditSheetStory = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Props>) => {
@@ -22,5 +22,6 @@ const EditSheetStory: Story<PropsWithTestWrapper<Props>> = ({
   );
 };
 
-export const Playground = EditSheetStory.bind({});
+const Story: ComponentStory<typeof EditSheetStory> = EditSheetStory;
+export const Playground = Story.bind({});
 Playground.args = { wrapperProps: {}, sheet: mockSheet() };

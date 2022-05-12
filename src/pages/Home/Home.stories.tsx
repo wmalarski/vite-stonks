@@ -1,19 +1,16 @@
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import type { Story } from "@ladle/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
 import { Home } from "./Home";
 
 export default {
   title: "pages/Home",
   component: Home,
-};
+} as ComponentMeta<typeof Home>;
 
 type Props = ComponentProps<typeof Home>;
 
-const HomeStory: Story<PropsWithTestWrapper<Props>> = ({
-  wrapperProps,
-  ...props
-}: PropsWithTestWrapper<Props>) => {
+const HomeStory = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <Home {...props} />
@@ -21,5 +18,6 @@ const HomeStory: Story<PropsWithTestWrapper<Props>> = ({
   );
 };
 
-export const Playground = HomeStory.bind({});
+const Story: ComponentStory<typeof HomeStory> = HomeStory;
+export const Playground = Story.bind({});
 Playground.args = { wrapperProps: {} };

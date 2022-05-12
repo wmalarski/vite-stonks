@@ -1,16 +1,16 @@
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import type { Story } from "@ladle/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
 import { ErrorView } from "./ErrorView";
 
 export default {
   title: "components/ErrorView",
   component: ErrorView,
-};
+} as ComponentMeta<typeof ErrorView>;
 
 type Props = ComponentProps<typeof ErrorView>;
 
-const ErrorViewStory: Story<PropsWithTestWrapper<Props>> = ({
+const ErrorViewStory = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Props>) => {
@@ -21,5 +21,6 @@ const ErrorViewStory: Story<PropsWithTestWrapper<Props>> = ({
   );
 };
 
-export const Playground = ErrorViewStory.bind({});
+const Story: ComponentStory<typeof ErrorViewStory> = ErrorViewStory;
+export const Playground = Story.bind({});
 Playground.args = { wrapperProps: {} };

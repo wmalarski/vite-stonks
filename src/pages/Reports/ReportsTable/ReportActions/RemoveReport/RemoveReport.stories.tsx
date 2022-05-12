@@ -1,16 +1,16 @@
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import type { Story } from "@ladle/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
 import { RemoveReport } from "./RemoveReport";
 
 export default {
   title: "pages/Reports/ReportsTable/ReportActions/RemoveReport",
   component: RemoveReport,
-};
+} as ComponentMeta<typeof RemoveReport>;
 
 type Props = ComponentProps<typeof RemoveReport>;
 
-const RemoveReportStory: Story<PropsWithTestWrapper<Props>> = ({
+const RemoveReportStory = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Props>) => {
@@ -21,5 +21,6 @@ const RemoveReportStory: Story<PropsWithTestWrapper<Props>> = ({
   );
 };
 
-export const Playground = RemoveReportStory.bind({});
+const Story: ComponentStory<typeof RemoveReportStory> = RemoveReportStory;
+export const Playground = Story.bind({});
 Playground.args = { wrapperProps: {} };

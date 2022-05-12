@@ -1,16 +1,16 @@
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import type { Story } from "@ladle/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
 import { CopyReport } from "./CopyReport";
 
 export default {
   title: "pages/Reports/ReportsTable/ReportActions/CopyReport",
   component: CopyReport,
-};
+} as ComponentMeta<typeof CopyReport>;
 
 type Props = ComponentProps<typeof CopyReport>;
 
-const CopyReportStory: Story<PropsWithTestWrapper<Props>> = ({
+const CopyReportStory = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Props>) => {
@@ -21,5 +21,6 @@ const CopyReportStory: Story<PropsWithTestWrapper<Props>> = ({
   );
 };
 
-export const Playground = CopyReportStory.bind({});
+const Story: ComponentStory<typeof CopyReportStory> = CopyReportStory;
+export const Playground = Story.bind({});
 Playground.args = { wrapperProps: {} };

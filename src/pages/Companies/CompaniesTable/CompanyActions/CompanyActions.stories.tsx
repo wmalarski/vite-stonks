@@ -1,16 +1,16 @@
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import type { Story } from "@ladle/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
 import { CompanyActions } from "./CompanyActions";
 
 export default {
   title: "pages/Companies/CompaniesTable/CompanyActions",
   component: CompanyActions,
-};
+} as ComponentMeta<typeof CompanyActions>;
 
 type Props = ComponentProps<typeof CompanyActions>;
 
-const CompanyActionsStory: Story<PropsWithTestWrapper<Props>> = ({
+const CompanyActionsStory = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Props>) => {
@@ -21,5 +21,6 @@ const CompanyActionsStory: Story<PropsWithTestWrapper<Props>> = ({
   );
 };
 
-export const Playground = CompanyActionsStory.bind({});
+const Story: ComponentStory<typeof CompanyActionsStory> = CompanyActionsStory;
+export const Playground = Story.bind({});
 Playground.args = { wrapperProps: {} };

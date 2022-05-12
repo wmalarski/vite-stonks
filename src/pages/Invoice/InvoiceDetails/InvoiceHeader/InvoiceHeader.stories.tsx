@@ -1,17 +1,17 @@
 import { mockInvoice } from "@/tests/mocks";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import type { Story } from "@ladle/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
 import { InvoiceHeader } from "./InvoiceHeader";
 
 export default {
   title: "pages/Invoice/InvoiceDetails/InvoiceHeader",
   component: InvoiceHeader,
-};
+} as ComponentMeta<typeof InvoiceHeader>;
 
 type Props = ComponentProps<typeof InvoiceHeader>;
 
-const InvoiceHeaderStory: Story<PropsWithTestWrapper<Props>> = ({
+const InvoiceHeaderStory = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Props>) => {
@@ -22,5 +22,6 @@ const InvoiceHeaderStory: Story<PropsWithTestWrapper<Props>> = ({
   );
 };
 
-export const Playground = InvoiceHeaderStory.bind({});
+const Story: ComponentStory<typeof InvoiceHeaderStory> = InvoiceHeaderStory;
+export const Playground = Story.bind({});
 Playground.args = { wrapperProps: {}, invoice: mockInvoice() };

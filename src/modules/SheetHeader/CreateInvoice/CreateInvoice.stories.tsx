@@ -1,16 +1,16 @@
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import type { Story } from "@ladle/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
 import { CreateInvoice } from "./CreateInvoice";
 
 export default {
   title: "modules/SheetHeader/CreateInvoice",
   component: CreateInvoice,
-};
+} as ComponentMeta<typeof CreateInvoice>;
 
 type Props = ComponentProps<typeof CreateInvoice>;
 
-const CreateInvoiceStory: Story<PropsWithTestWrapper<Props>> = ({
+const CreateInvoiceStory = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Props>) => {
@@ -21,5 +21,6 @@ const CreateInvoiceStory: Story<PropsWithTestWrapper<Props>> = ({
   );
 };
 
-export const Playground = CreateInvoiceStory.bind({});
+const Story: ComponentStory<typeof CreateInvoiceStory> = CreateInvoiceStory;
+export const Playground = Story.bind({});
 Playground.args = { wrapperProps: {} };

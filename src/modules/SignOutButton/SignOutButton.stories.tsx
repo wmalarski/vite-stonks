@@ -1,16 +1,16 @@
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import type { Story } from "@ladle/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
 import { SignOutButton } from "./SignOutButton";
 
 export default {
   title: "modules/SignOutButton",
   component: SignOutButton,
-};
+} as ComponentMeta<typeof SignOutButton>;
 
 type Props = ComponentProps<typeof SignOutButton>;
 
-const SignOutButtonStory: Story<PropsWithTestWrapper<Props>> = ({
+const SignOutButtonStory = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Props>) => {
@@ -21,5 +21,6 @@ const SignOutButtonStory: Story<PropsWithTestWrapper<Props>> = ({
   );
 };
 
-export const Playground = SignOutButtonStory.bind({});
+const Story: ComponentStory<typeof SignOutButtonStory> = SignOutButtonStory;
+export const Playground = Story.bind({});
 Playground.args = { wrapperProps: {} };

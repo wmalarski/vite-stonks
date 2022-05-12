@@ -1,16 +1,16 @@
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import type { Story } from "@ladle/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
 import { EditReport } from "./EditReport";
 
 export default {
   title: "pages/Reports/ReportsTable/ReportActions/EditReport",
   component: EditReport,
-};
+} as ComponentMeta<typeof EditReport>;
 
 type Props = ComponentProps<typeof EditReport>;
 
-const EditReportStory: Story<PropsWithTestWrapper<Props>> = ({
+const EditReportStory = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Props>) => {
@@ -21,5 +21,6 @@ const EditReportStory: Story<PropsWithTestWrapper<Props>> = ({
   );
 };
 
-export const Playground = EditReportStory.bind({});
+const Story: ComponentStory<typeof EditReportStory> = EditReportStory;
+export const Playground = Story.bind({});
 Playground.args = { wrapperProps: {} };

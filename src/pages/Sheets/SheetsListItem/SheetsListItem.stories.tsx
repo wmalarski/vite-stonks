@@ -1,17 +1,17 @@
 import { mockSheet } from "@/tests/mocks";
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import type { Story } from "@ladle/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
 import { SheetsListItem } from "./SheetsListItem";
 
 export default {
   title: "pages/Sheets/SheetsListItem",
   component: SheetsListItem,
-};
+} as ComponentMeta<typeof SheetsListItem>;
 
 type Props = ComponentProps<typeof SheetsListItem>;
 
-const SheetsListItemStory: Story<PropsWithTestWrapper<Props>> = ({
+const SheetsListItemStory = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Props>) => {
@@ -22,5 +22,6 @@ const SheetsListItemStory: Story<PropsWithTestWrapper<Props>> = ({
   );
 };
 
-export const Playground = SheetsListItemStory.bind({});
+const Story: ComponentStory<typeof SheetsListItemStory> = SheetsListItemStory;
+export const Playground = Story.bind({});
 Playground.args = { wrapperProps: {}, sheet: mockSheet() };

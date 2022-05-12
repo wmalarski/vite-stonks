@@ -1,16 +1,16 @@
-import { i18text } from "@/tests/i18text"; import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import type { Story } from "@ladle/react";
+import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ComponentProps } from "react";
 import { {{ basename path }} } from "./{{ basename path }}";
 
 export default {
   title: "{{ path }}",
   component: {{ basename path }}
-};
+} as ComponentMeta<typeof {{ basename path }}>;
 
 type Props = ComponentProps<typeof {{ basename path }}>;
 
-const {{ basename path }}Story: Story<PropsWithTestWrapper<Props>> = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
+const {{ basename path }}Story = ({ wrapperProps, ...props }: PropsWithTestWrapper<Props>) => {
   return (
     <TestWrapper {...wrapperProps}>
       <{{ basename path }} {...props} />
@@ -18,5 +18,6 @@ const {{ basename path }}Story: Story<PropsWithTestWrapper<Props>> = ({ wrapperP
   );
 };
 
-export const Playground = {{ basename path }}Story.bind({});
+const Story: ComponentStory<typeof {{ basename path }}Story> = {{ basename path }}Story;
+export const Playground = Story.bind({});
 Playground.args = { wrapperProps: {} };

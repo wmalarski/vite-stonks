@@ -1,16 +1,16 @@
 import { PropsWithTestWrapper, TestWrapper } from "@/tests/TestWrapper";
-import type { Story } from "@ladle/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
 import { PreviewMyInfo } from "./PreviewMyInfo";
 
 export default {
   title: "modules/InvoicePreview/PreviewMyInfo",
   component: PreviewMyInfo,
-};
+} as ComponentMeta<typeof PreviewMyInfo>;
 
 type Props = ComponentProps<typeof PreviewMyInfo>;
 
-const PreviewMyInfoStory: Story<PropsWithTestWrapper<Props>> = ({
+const PreviewMyInfoStory = ({
   wrapperProps,
   ...props
 }: PropsWithTestWrapper<Props>) => {
@@ -21,5 +21,6 @@ const PreviewMyInfoStory: Story<PropsWithTestWrapper<Props>> = ({
   );
 };
 
-export const Playground = PreviewMyInfoStory.bind({});
+const Story: ComponentStory<typeof PreviewMyInfoStory> = PreviewMyInfoStory;
+export const Playground = Story.bind({});
 Playground.args = { wrapperProps: {} };
