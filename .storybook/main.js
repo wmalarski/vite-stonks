@@ -19,7 +19,8 @@ module.exports = {
   },
   viteFinal: async (config) => {
     config.plugins.push(vanillaExtractPlugin());
-    // config.plugins.push(createStyleImportPlugin({ resolves: [AntdResolve()] }));
+    config.plugins.push(createStyleImportPlugin({ resolves: [AntdResolve()] }));
+    config.css = { preprocessorOptions: { less: { javascriptEnabled: true } } };
 
     config.resolve.alias = [
       ...(config.resolve.alias ?? []),
