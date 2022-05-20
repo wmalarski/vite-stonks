@@ -21,8 +21,6 @@ export const Login = (): ReactElement => {
     mutate();
   };
 
-  console.log(Image);
-
   return (
     <div className={classes.container}>
       <div className={classes.box}>
