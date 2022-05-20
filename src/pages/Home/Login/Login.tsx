@@ -5,6 +5,7 @@ import { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "react-query";
 import * as classes from "./Login.css";
+import Image from "./stonks.png";
 
 export const Login = (): ReactElement => {
   const { t } = useTranslation("common");
@@ -20,9 +21,12 @@ export const Login = (): ReactElement => {
     mutate();
   };
 
+  console.log(Image);
+
   return (
     <div className={classes.container}>
       <div className={classes.box}>
+        <img src={Image} alt="" height={100} width={200} />
         <Typography.Title>{t("pageTitle")}</Typography.Title>
         <Divider style={{ marginTop: 0 }} />
         <Button icon={<GoogleOutlined />} onClick={handleClick}>
