@@ -1,0 +1,169 @@
+default:
+  image: node:lts
+  tags:
+    - docker
+
+stages:
+  - Install
+  - Lint and Test
+  - Build
+  - Deploy
+  - Storybook
+
+Install:
+  stage: Install
+  script:
+    - yarn install --frozen-lockfile --cache-folder .yarn
+  cache:
+    policy: push
+    paths:
+      - node_modules/
+      - .yarn
+  only:
+    - merge_requests
+    - main
+    - tags
+  when: on_success
+
+Lint:
+  stage: Lint and Test
+  dependencies:
+    - Install
+  cache:
+    policy: pull
+    paths:
+      - node_modules/
+      - .yarn
+  before_script:
+    - yarn install --frozen-lockfile --cache-folder .yarn
+  script:
+    - yarn code-check
+  only:
+    - merge_requests
+  when: on_success
+
+Test:
+  stage: Lint and Test
+  dependencies:
+    - Install
+  cache:
+    policy: pull
+    paths:
+      - node_modules/
+      - .yarn
+  before_script:
+    - yarn install --frozen-lockfile --cache-folder .yarn
+  script:
+    - yarn test
+  only:
+    - merge_requests
+  when: on_success
+
+Coverage:
+  stage: Lint and Test
+  dependencies:
+    - Install
+  cache:
+    policy: pull
+    paths:
+      - node_modules/
+      - .yarn
+  before_script:
+    - yarn install --frozen-lockfile --cache-folder .yarn
+  script:
+    - yarn coverage
+  only:
+    - merge_requests
+    - main
+  when: on_success
+
+Build:
+  stage: Build
+  dependencies:
+    - Install
+  tags:
+    - docker
+  cache:
+    policy: pull
+    paths:
+      - node_modules/
+      - .yarn
+  before_script:
+    - yarn install --frozen-lockfile --cache-folder .yarn
+  script:
+    - VITE_BASE_URL='development' yarn build
+  artifacts:
+    paths:
+      - dist
+    expire_in: 1 week
+  only:
+    - main
+  when: on_success
+
+Development:
+  stage: Deploy
+  artifacts:
+    paths:
+      - dist
+  dependencies:
+    - Build
+  script:
+    - ls
+    - echo 'Deploy dist to development'
+  only:
+    - main
+  when: on_success
+
+Integration:
+  stage: Deploy
+  dependencies:
+    - Install
+  cache:
+    policy: pull
+    paths:
+      - node_modules/
+      - .yarn
+  before_script:
+    - yarn install --frozen-lockfile --cache-folder .yarn
+  script:
+    - VITE_GIT_TAG=`echo $CI_COMMIT_TAG` VITE_BASE_URL='ds' yarn build
+    - echo 'Deploy dist to integration'
+  only:
+    - tags
+  when: on_success
+
+Production:
+  stage: Deploy
+  dependencies:
+    - Install
+  cache:
+    policy: pull
+    paths:
+      - node_modules/
+      - .yarn
+  before_script:
+    - yarn install --frozen-lockfile --cache-folder .yarn
+  script:
+    - VITE_GIT_TAG=`echo $CI_COMMIT_TAG` VITE_BASE_URL='ms' yarn build
+    - echo 'Deploy dist to production'
+  only:
+    - tags
+  when: manual
+
+Storybook:
+  stage: Storybook
+  dependencies:
+    - Install
+  cache:
+    policy: pull
+    paths:
+      - node_modules/
+      - .yarn
+  before_script:
+    - yarn install --frozen-lockfile --cache-folder .yarn
+  script:
+    - yarn build-storybook
+    - ls
+    - echo 'Deploy storybook-static to storybook'
+  only:
+    - main
